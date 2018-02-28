@@ -1,0 +1,12 @@
+{
+  "presets": ["babel-preset-expo"],
+  "plugins": [
+    "syntax-decorators",
+    "transform-decorators-legacy"
+  ],
+  "env": {
+    "development": {
+      "plugins": ["transform-react-jsx-source"]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "plugins": [
+    "react-native"
+  ],
+  "extends": ["plugin:react-native/all"],
+  "parser": "babel-eslint"
+}
