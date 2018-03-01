@@ -44,7 +44,7 @@ class LoginForm extends React.Component {
       await this.props.rootStore.UserStore.clearToast();
     } else if (responseJson.code === 201) {
       try {
-        await this.props.rootStore.storageStore.save('user', {
+        await this.props.rootStore.StorageStore.save('user', {
           username: this.state.username,
           password: this.state.password,
           token: responseJson.data.token,
@@ -53,7 +53,7 @@ class LoginForm extends React.Component {
         await this.props.rootStore.LoadingStore.loading(false, '');
         await this.props.rootStore.UserStore.toast('success', '登录成功！');
         await this.props.rootStore.UserStore.clearToast();
-        await this.props.navigation.replace('Main');
+        await this.props.navigation.navigate('Main');
       } catch (err) {
         await this.props.rootStore.LoadingStore.loading(false, '');
         await this.props.rootStore.UserStore.toast('warning', '无法保存您的登录信息');

@@ -8,7 +8,8 @@ import LoginForm from './components/form';
 @observer
 export default class Login extends React.Component {
   static navigationOptions = {
-    headerTitle: '登录'
+    headerTitle: '登录',
+    headerBackTitle: null,
   };
 
   render() {

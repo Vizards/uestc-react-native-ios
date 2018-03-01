@@ -30,7 +30,7 @@ export default TabNavigator(
 
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
-        return <Ionicons name={iconName} size={25} color={tintColor} />;
+        return <Ionicons name={iconName} size={27} color={tintColor} />;
       },
       tabBarLabel: () => {
         const { routeName } = navigation.state;
@@ -49,8 +49,11 @@ export default TabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: 'tomato',
+      activeTintColor: 'rgb(96, 145, 246)',
       inactiveTintColor: 'gray',
+      labelStyle: {
+        paddingBottom: 2,
+      }
     },
     tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',

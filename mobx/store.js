@@ -17,11 +17,11 @@ class RootStore {
   constructor() {
     this.UserStore = new UserStore(userStore, this);
     this.LoadingStore = new LoadingStore(loadingStore, this);
-    this.storageStore = new storageStore();
+    this.StorageStore = new StorageStore;
   }
 }
 
-class storageStore {
+class StorageStore {
   @observable
   allData = {};
 
@@ -33,6 +33,16 @@ class storageStore {
   @action
   async save(key, data) {
     return await storage.save({ key, data });
+  }
+
+  @action
+  static async load(key) {
+    return await storage.load({ key });
+  }
+
+  @action
+  static async remove(key) {
+    return await storage.remove({ key });
   }
 }
 
@@ -80,7 +90,32 @@ class UserStore {
       const response = await fetch(Uri, Header);
       return await response.json();
     } catch (err) {
-      await this.toast('error', '请求失败');
+      await this.toast('error', '登录失败');
+      await this.clearToast();
+    }
+  }
+
+  // 课程
+  @action
+  async course(year, semester, token) {
+    const Uri = `${config.domain}/api/user/course`;
+    const Header = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        year,
+        semester
+      })
+    };
+    try {
+      const response = await fetch(Uri, Header);
+      return await response.json();
+    } catch (err) {
+      await this.toast('error', '拉取课程信息失败');
       await this.clearToast();
     }
   }
