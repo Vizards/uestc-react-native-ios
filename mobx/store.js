@@ -17,6 +17,7 @@ class RootStore {
   constructor() {
     this.UserStore = new UserStore(userStore, this);
     this.LoadingStore = new LoadingStore(loadingStore, this);
+    this.storageStore = new storageStore();
   }
 }
 
@@ -30,8 +31,8 @@ class storageStore {
   }
 
   @action
-  save(key, data) {
-    storage.
+  async save(key, data) {
+    return await storage.save({ key, data });
   }
 }
 
@@ -79,7 +80,8 @@ class UserStore {
       const response = await fetch(Uri, Header);
       return await response.json();
     } catch (err) {
-      this.toast('error', '请求失败');
+      await this.toast('error', '请求失败');
+      await this.clearToast();
     }
   }
 }

@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import { inject, observer } from 'mobx-react/native';
 import { action } from 'mobx';
 
 @inject('rootStore')
 @observer
-export default class LoginForm extends React.Component {
+class LoginForm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -15,12 +16,10 @@ export default class LoginForm extends React.Component {
     }
   }
 
-  @action
   onChangeUsername = (username) => {
     this.setState({ username });
   };
 
-  @action
   onChangePassword = (password) => {
     this.setState({ password });
   };
@@ -44,9 +43,22 @@ export default class LoginForm extends React.Component {
       await this.props.rootStore.UserStore.toast('error', responseJson.err);
       await this.props.rootStore.UserStore.clearToast();
     } else if (responseJson.code === 201) {
-      await this.props.rootStore.LoadingStore.loading(false, '');
-      await this.props.rootStore.UserStore.toast('success', '登录成功！');
-      await this.props.rootStore.UserStore.clearToast();
+      try {
+        await this.props.rootStore.storageStore.save('user', {
+          username: this.state.username,
+          password: this.state.password,
+          token: responseJson.data.token,
+          time: responseJson.time,
+        });
+        await this.props.rootStore.LoadingStore.loading(false, '');
+        await this.props.rootStore.UserStore.toast('success', '登录成功！');
+        await this.props.rootStore.UserStore.clearToast();
+        await this.props.navigation.replace('Main');
+      } catch (err) {
+        await this.props.rootStore.LoadingStore.loading(false, '');
+        await this.props.rootStore.UserStore.toast('warning', '无法保存您的登录信息');
+        await this.props.rootStore.UserStore.clearToast();
+      }
     } else {
       await this.props.rootStore.LoadingStore.loading(false, '');
       await this.props.rootStore.UserStore.toast('error', '暂时无法登录，请稍后再试');
@@ -89,6 +101,8 @@ export default class LoginForm extends React.Component {
     )
   }
 }
+
+export default withNavigation(LoginForm);
 
 const $textInputBackgroundColor = '#fff';
 const $textInputBorderColor = 'rgba(200, 199, 204, 0.5)';
