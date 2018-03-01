@@ -1,29 +1,16 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { StackNavigator } from 'react-navigation';
-import Login from "./Login";
-import TabNavigator from "./Main";
+import AppRoot from './AppRoot';
 
-const LoginPage = StackNavigator(
-  {
-    Login: {
-      screen: Login,
-    },
-    Main: {
-      screen: TabNavigator,
-    }
-  },
-);
+import { Provider } from 'mobx-react';
+import store from './mobx/store'
 
 export default class App extends React.Component {
+
   render() {
-    return <LoginPage style={styles.screen}/>
+    return (
+      <Provider rootStore={store}>
+        <AppRoot />
+      </Provider>
+    )
   }
 }
-
-const $backgroundColor = 'rgb(239, 239, 244)';
-const styles = StyleSheet.create({
-  screen: {
-    backgroundColor: $backgroundColor
-  }
-})

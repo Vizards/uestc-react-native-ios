@@ -1,10 +1,10 @@
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
-import Course from './Course';
-import Me from './Me';
-import Exam from './Exam';
-import Card from './Card';
+import Course from './scene/Course';
+import Me from './scene/Me';
+import Exam from './scene/Exam';
+import Card from './scene/Card';
 
 export default TabNavigator(
   {
