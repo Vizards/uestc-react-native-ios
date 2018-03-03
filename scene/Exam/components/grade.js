@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   title: {
     paddingLeft: 15,
     paddingTop: 6,
-    paddingBottom: 10,
+    paddingBottom: 7,
     color: $titleColor
   },
   card: {
@@ -232,8 +232,8 @@ const styles = StyleSheet.create({
   name: {
     color: $title,
     fontSize: 17,
-    paddingBottom: 9,
-    paddingTop: 13,
+    paddingBottom: 10,
+    paddingTop: 14,
   },
   info: {
     flexDirection: 'row',
@@ -257,12 +257,11 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: $info,
     fontSize: 13,
-    paddingBottom: 14,
   },
   date: {
     color: $dateColor,
     fontSize: 17,
-    paddingBottom: 9,
+    paddingBottom: 7,
     textAlign: 'right',
   },
   flunk: {

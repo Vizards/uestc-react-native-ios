@@ -22,7 +22,7 @@ export default class Exam extends React.Component {
         style={styles.segmentedControl}
         values={['考试安排', '学期成绩', '成绩统计']}
         tintColor='rgb(96, 165, 246)'
-        selectedIndex={0}
+        selectedIndex={params.index || 0}
         onValueChange={params.switchScene}
       />
     </View>;
@@ -36,9 +36,18 @@ export default class Exam extends React.Component {
 
   async _switchScene(value) {
     console.log(value);
-    if (value === '考试安排') this.setState({ displayItem: 0 });
-    if (value === '学期成绩') this.setState({ displayItem: 1 });
-    if (value === '成绩统计') this.setState({ displayItem: 2 });
+    if (value === '考试安排') {
+      await this.setState({ displayItem: 0 });
+      await this.props.navigation.setParams({ index: 0 })
+    }
+    if (value === '学期成绩') {
+      await this.setState({ displayItem: 1 });
+      await this.props.navigation.setParams({ index: 1 })
+    }
+    if (value === '成绩统计') {
+      await this.setState({ displayItem: 2 });
+      await this.props.navigation.setParams({ index: 2 })
+    }
   }
 
   async componentWillMount() {
