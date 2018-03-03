@@ -143,6 +143,30 @@ class UserStore {
       await this.clearToast();
     }
   }
+
+  // 学期成绩
+  async grade(year, semester, token) {
+    const Uri = `${config.domain}/api/user/grade`;
+    const Header = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        year,
+        semester
+      })
+    };
+    try {
+      const response = await fetch(Uri, Header);
+      return await response.json();
+    } catch (err) {
+      await this.toast('error', '拉取成绩信息失败');
+      await this.clearToast();
+    }
+  }
 }
 
 class LoadingStore {

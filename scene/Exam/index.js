@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   titleText: {
     fontSize: 17,
@@ -72,6 +74,6 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
   segmentedControl: {
-    width: '90%',
+    width: '100%',
   }
 });
