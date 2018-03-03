@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Modal } from 'react-native';
-import { StackNavigator, withNavigation } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import Toaster from 'react-native-toaster';
 
 import Login from "./scene/Login";
@@ -36,6 +36,7 @@ export default class AppRoot extends React.Component {
   async componentWillMount() {
     // await this.props.rootStore.StorageStore.constructor.remove('user');
     // await this.props.rootStore.StorageStore.constructor.remove('course');
+    // await this.props.rootStore.StorageStore.constructor.remove('exam');
   }
 
   render() {

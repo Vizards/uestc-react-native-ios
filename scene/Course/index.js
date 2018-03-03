@@ -102,15 +102,16 @@ class Course extends React.Component {
     // 检测距上次登录时间是否超过 7 天，超过则自动更新 token
     try {
       const lastLoginData = await this.props.rootStore.StorageStore.constructor.load('user');
-      console.log(lastLoginData.time);
       if (moment().diff(lastLoginData.time) >= 604800000) {
         await this.props.rootStore.LoadingStore.loading(true, '自动登录中...');
         await this.props.rootStore.UserStore.login(lastLoginData.username, lastLoginData.password);
         await this.props.rootStore.LoadingStore.loading(false);
       }
-      this.props.navigation.setParams({ showActionSheet: this._showActionSheet.bind(this) });
+      await this.props.navigation.setParams({ showActionSheet: this._showActionSheet.bind(this) });
     } catch (err) {
-      console.log(err);
+      await this.props.rootStore.LoadingStore.loading(false);
+      await this.props.rootStore.UserStore.toast('error', '自动登录失败，请手动登录');
+      await this.props.navigation.navigate('Login');
     }
   }
 
