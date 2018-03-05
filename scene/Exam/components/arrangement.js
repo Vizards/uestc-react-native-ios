@@ -24,7 +24,7 @@ export default class Arrangement extends React.Component {
 
   _renderItem = (info) => {
     const jetLag = moment(info.item.date).diff(moment(), 'days');
-    const address = info.item.address,
+    const address = info.item.address === '[考试情况尚未发布]' ? '' : info.item.address,
       date = info.item.date,
       time = /[012][0-9]:[0-5][[0-9]-[012][0-9]:[0-5][0-9]/.exec(info.item.detail)[0],
       name = info.item.name.length < 13 ? info.item.name : `${info.item.name.substr(0, 12)}...`,
@@ -246,6 +246,7 @@ const styles = StyleSheet.create({
   finished: {
     textAlign: 'right',
     fontSize: 13,
+    lineHeight: 15,
     color: $info,
   },
   remain: {
