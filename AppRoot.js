@@ -38,6 +38,8 @@ export default class AppRoot extends React.Component {
     // await this.props.rootStore.StorageStore.constructor.remove('course');
     // await this.props.rootStore.StorageStore.constructor.remove('exam');
     // await this.props.rootStore.StorageStore.constructor.remove('grade');
+    // await this.props.rootStore.StorageStore.constructor.remove('gpa');
+    // await this.props.rootStore.StorageStore.constructor.remove('allGrade');
   }
 
   render() {

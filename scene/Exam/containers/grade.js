@@ -23,7 +23,7 @@ export default class Grade extends React.Component {
 
   _renderItem = (info) => {
     const type = info.item.type,
-      final = Number(info.item.final),
+      final = isNaN(Number(info.item.final)) ? info.item.final : Number(info.item.final),
       credit = info.item.credit,
       overall = info.item.overall,
       name = info.item.name.length < 13 ? info.item.name : `${info.item.name.substr(0, 12)}...`,
@@ -47,7 +47,7 @@ export default class Grade extends React.Component {
             </View>
           </View>
           <View style={styles.status}>
-            <Text style={[styles.date, final < 60 && styles.flunk]}>{final}</Text>
+            <Text style={[styles.date, (final < 60 || final === 'D') && styles.flunk]}>{final}</Text>
             <Text style={styles.final}>最终</Text>
           </View>
         </View>
@@ -60,7 +60,7 @@ export default class Grade extends React.Component {
   };
 
   _extraUniqueKey = (item ,index) => {
-    return "index"+index+item;
+    return "index" + index + item;
   };
 
   async loadUserData() {

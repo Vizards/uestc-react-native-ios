@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, SegmentedControlIOS, StyleSheet } from 'react-native';
 
-import Arrangement from './components/arrangement';
-import Grade from './components/grade';
-import Statistics from './components/statistics';
+import Arrangement from './containers/arrangement';
+import Grade from './containers/grade';
+import Statistics from './containers/statistics';
 
 
 export default class Exam extends React.Component {

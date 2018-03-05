@@ -167,6 +167,46 @@ class UserStore {
       await this.clearToast();
     }
   }
+
+  // 绩点统计
+  async gpa(token) {
+    const Uri = `${config.domain}/api/user/gpa`;
+    const Header = {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    };
+    try {
+      const response = await fetch(Uri, Header);
+      return await response.json();
+    } catch (err) {
+      await this.toast('error', '拉取成绩统计信息失败');
+      await this.clearToast();
+    }
+  }
+
+  // 所有成绩
+  async allGrade(token) {
+    const Uri = `${config.domain}/api/user/grade`;
+    const Header = {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    };
+    try {
+      const response = await fetch(Uri, Header);
+      return await response.json();
+    } catch (err) {
+      await this.toast('error', '拉取成绩信息失败');
+      await this.clearToast();
+    }
+  }
 }
 
 class LoadingStore {

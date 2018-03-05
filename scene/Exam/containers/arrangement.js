@@ -56,7 +56,7 @@ export default class Arrangement extends React.Component {
     if (key === 3 && info.section.data.length !== 0) return <Text style={styles.title}>缓考</Text>;
   };
 
-  _extraUniqueKey = (item ,index) => {
+  _extraUniqueKey = (item, index) => {
     return "index"+index+item;
   };
 
@@ -81,7 +81,7 @@ export default class Arrangement extends React.Component {
       await this.props.rootStore.LoadingStore.loading(false);
       const parsedExamData = await this.constructor.parseExamData(response.data);
       await this.saveExamData({ parsedExamData, year, semester });
-      this.setState({
+      await this.setState({
         examData: parsedExamData,
         year,
         semester,

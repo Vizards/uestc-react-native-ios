@@ -1,0 +1,160 @@
+import React from 'react';
+import { Text, View, SectionList, StyleSheet} from 'react-native';
+
+export default class AllGrade extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      allGradeData: [],
+    };
+  }
+
+  _renderItem = (info) => {
+    const type = info.item.type,
+      final = isNaN(Number(info.item.final)) ? info.item.final : Number(info.item.final),
+      credit = info.item.credit,
+      overall = info.item.overall,
+      name = info.item.name.length < 13 ? info.item.name : `${info.item.name.substr(0, 12)}...`,
+      resit = info.item.resit === '' ? '--' : info.item.resit;
+    return (
+      info.section.data[0].name !== '' ? <View style={styles.card}>
+        <View style={styles.inner}>
+          <View style={styles.exam}>
+            <Text style={styles.name}>{name}</Text>
+            <View style={styles.info}>
+              <View style={styles.infoLeft}>
+                <Text style={styles.infoText}>{type}</Text>
+                <Text style={styles.infoText}>学分：{credit}</Text>
+                <Text style={styles.infoText}>补考总评：{resit}</Text>
+              </View>
+              <View style={styles.infoRight}>
+                <Text style={styles.infoText}>总评成绩：{overall}</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.status}>
+            <Text style={[styles.date, (final < 60 || final === 'D') && styles.flunk]}>{final}</Text>
+            <Text style={styles.final}>最终</Text>
+          </View>
+        </View>
+      </View> : null
+    )
+  };
+
+  _sectionComp = (info) => {
+    if (info.section.data[0].name !== '') return <Text style={styles.title}>所有学科成绩</Text>;
+  };
+
+  _extraUniqueKey = (item ,index) => {
+    return "index" + index + item;
+  };
+
+  async updateAllGrade(token) {
+    await this.props.rootStore.LoadingStore.loading(true, '同步学科...');
+    const response = await this.props.rootStore.UserStore.allGrade(token);
+    if (response.code === 200) {
+      await this.props.rootStore.LoadingStore.loading(false);
+      await this.props.rootStore.StorageStore.save('allGrade', response.data);
+      await this.setState({
+        allGradeData: [{ key: 'allGrade', data: response.data }],
+      });
+    } else {
+      await this.props.rootStore.LoadingStore.loading(false);
+      await this.props.rootStore.UserStore.toast('error', '暂时无法获取成绩信息，请稍后重试');
+      await this.props.rootStore.UserStore.clearToast();
+    }
+  }
+
+  async componentWillMount() {
+    try {
+      const allGradeData = await this.props.rootStore.StorageStore.constructor.load('allGrade');
+      await this.setState({ allGradeData: [{ key: 'allGrade', data: allGradeData }] });
+    } catch (err) {
+      const userData = await this.props.rootStore.StorageStore.constructor.load('user');
+      await this.updateAllGrade(userData.token);
+    }
+  }
+
+  render() {
+    return (
+      <SectionList
+        renderSectionHeader={this._sectionComp}
+        renderItem={this._renderItem}
+        keyExtractor = {this._extraUniqueKey}
+        sections={this.state.allGradeData}
+      />
+    )
+  }
+}
+
+const $frontColor = '#fff';
+const $titleColor = 'rgb(109, 109, 114)';
+const $borderColor = 'rgb(200, 199, 204)';
+const $title = 'rgb(3,3,3)';
+const $info = 'rgba(3,3,3,0.3)';
+const $dateColor = 'rgb(74, 217, 100)';
+const $red = 'rgb(217, 74, 74)';
+const styles = StyleSheet.create({
+  exam: {
+    width: '80%',
+  },
+  title: {
+    paddingLeft: 15,
+    paddingTop: 6,
+    paddingBottom: 7,
+    color: $titleColor
+  },
+  card: {
+    backgroundColor: $frontColor,
+    paddingLeft: 15,
+  },
+  inner: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 0.5,
+    borderBottomColor: $borderColor,
+  },
+  status: {
+    paddingRight: 15,
+    paddingTop: 13,
+  },
+  name: {
+    color: $title,
+    fontSize: 17,
+    paddingBottom: 10,
+    paddingTop: 14,
+  },
+  info: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  infoLeft: {
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+  infoRight: {
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    paddingRight: '30%',
+  },
+  infoText: {
+    color: $info,
+    fontSize: 13,
+    paddingBottom: 5,
+  },
+  final: {
+    textAlign: 'right',
+    color: $info,
+    fontSize: 13,
+  },
+  date: {
+    color: $dateColor,
+    fontSize: 17,
+    paddingBottom: 7,
+    textAlign: 'right',
+  },
+  flunk: {
+    color: $red,
+  }
+});
