@@ -121,6 +121,7 @@ class UserStore {
   }
 
   // 考试
+  @action
   async exam(year, semester, token) {
     const Uri = `${config.domain}/api/user/exam`;
     const Header = {
@@ -145,6 +146,7 @@ class UserStore {
   }
 
   // 学期成绩
+  @action
   async grade(year, semester, token) {
     const Uri = `${config.domain}/api/user/grade`;
     const Header = {
@@ -169,6 +171,7 @@ class UserStore {
   }
 
   // 绩点统计
+  @action
   async gpa(token) {
     const Uri = `${config.domain}/api/user/gpa`;
     const Header = {
@@ -189,6 +192,7 @@ class UserStore {
   }
 
   // 所有成绩
+  @action
   async allGrade(token) {
     const Uri = `${config.domain}/api/user/grade`;
     const Header = {
@@ -204,6 +208,30 @@ class UserStore {
       return await response.json();
     } catch (err) {
       await this.toast('error', '拉取成绩信息失败');
+      await this.clearToast();
+    }
+  }
+
+  // 登录喜付
+  async bind(mobile, password, token) {
+    const Uri = `${config.domain}/api/xifu/bind`;
+    const Header = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        mobile,
+        password,
+      })
+    };
+    try {
+      const response = await fetch(Uri, Header);
+      return await response.json();
+    } catch (err) {
+      await this.toast('error', '绑定失败');
       await this.clearToast();
     }
   }

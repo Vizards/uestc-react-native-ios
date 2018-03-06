@@ -1,5 +1,27 @@
 import React from 'react';
-import { Text, SafeAreaView } from 'react-native';
+import { View } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import Login from "./containers/Login";
+import Main from './containers/Main';
+
+const XiFu = StackNavigator(
+  {
+    Login: {
+      screen: Login,
+    },
+    Main: {
+      screen: Main,
+    }
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        display: 'none'
+      }
+    },
+    mode: 'modal',
+  }
+);
 
 export default class Card extends React.Component {
   static navigationOptions = {
@@ -8,9 +30,9 @@ export default class Card extends React.Component {
 
   render() {
     return (
-      <SafeAreaView>
-        <Text>Card!</Text>
-      </SafeAreaView>
+      <View style={{ flex: 1 }}>
+        <XiFu/>
+      </View>
     );
   }
 }

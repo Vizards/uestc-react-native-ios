@@ -2,7 +2,6 @@ import React from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { inject, observer } from 'mobx-react/native';
-import { action } from 'mobx';
 
 @inject('rootStore')
 @observer
@@ -24,7 +23,6 @@ class LoginForm extends React.Component {
     this.setState({ password });
   };
 
-  @action
   onBlur = (type) => {
     if (type === 'username') {
       this.state.username.length !== 13 && this.state.username.length !== 0 ? this.props.rootStore.UserStore.toast('error', '学号是 13 个数字，请检查您的输入') : null;
@@ -34,7 +32,6 @@ class LoginForm extends React.Component {
     }
   };
 
-  @action
   async onLogin() {
     await this.props.rootStore.LoadingStore.loading(true, '登录中');
     const responseJson = await this.props.rootStore.UserStore.login(this.state.username, this.state.password);
