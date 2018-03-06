@@ -23,7 +23,7 @@ export default class Statistic extends React.Component {
 
   async parseGpaData(data) {
     data = data.slice(1);
-    const semester = await data.map(item => {
+    let semester = await data.map(item => {
       return `${String(item.year - 2000)}-${String(item.semester)}`;
     });
     const gpa = await data.map(item => {
@@ -33,6 +33,23 @@ export default class Statistic extends React.Component {
       return item.credit;
     });
 
+    const firstYear = data[0].year - 2000;
+
+    // 学期数未满 8 的补齐到 8
+    if(semester.length < 8) semester = [
+      `${String(firstYear)}-1`,
+      `${String(firstYear)}-2`,
+      `${String(firstYear + 1)}-1`,
+      `${String(firstYear + 1)}-2`,
+      `${String(firstYear + 2)}-1`,
+      `${String(firstYear + 2)}-2`,
+      `${String(firstYear + 3)}-1`,
+      `${String(firstYear + 3)}-2`,
+    ];
+    if(gpa.length < 8) gpa.length = 8;
+    if(credit.length < 8) credit.length = 8;
+
+    // 首尾置空
     await semester.unshift(null);
     await semester.push(null);
     await gpa.unshift(null);
