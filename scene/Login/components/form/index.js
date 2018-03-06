@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { ScrollView, TextInput, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { inject, observer } from 'mobx-react/native';
 
@@ -67,7 +67,7 @@ class LoginForm extends React.Component {
   render() {
     const buttonDisabled = this.state.username.length !== 13 || this.state.password.length < 6;
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <Image source={require('./uestc.png')} style={styles.logo} resizeMode='center'/>
         <TextInput
           style={styles.Input}
@@ -94,7 +94,7 @@ class LoginForm extends React.Component {
         >
           <Text style={styles.buttonText}>登录</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     )
   }
 }

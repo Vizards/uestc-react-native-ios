@@ -85,8 +85,7 @@ class Course extends React.Component {
       const courseData = await this.getCourseData(year, semester, userData.token);
       await this.handleRenderData(courseData);
     } catch (err) {
-      await this.props.navigation.navigate('Login');
-
+      await this.handleRedirectLogin();
     }
   }
 
@@ -98,6 +97,13 @@ class Course extends React.Component {
     });
   }
 
+  async handleRedirectLogin() {
+    await this.props.rootStore.LoadingStore.loading(false);
+    await this.props.rootStore.UserStore.toast('warning', '请先登录');
+    await this.props.navigation.navigate('Login');
+    await this.props.rootStore.UserStore.clearToast();
+  }
+
   async componentWillMount() {
     // 检测距上次登录时间是否超过 7 天，超过则自动更新 token
     try {
@@ -107,19 +113,14 @@ class Course extends React.Component {
         await this.props.rootStore.UserStore.login(lastLoginData.username, lastLoginData.password);
         await this.props.rootStore.LoadingStore.loading(false);
       }
+      try {
+        await this.handleRenderData();
+      } catch (err) {
+        await this.updateCourseData(current.year, current.semester);
+      }
       await this.props.navigation.setParams({ showActionSheet: this._showActionSheet.bind(this) });
     } catch (err) {
-      await this.props.rootStore.LoadingStore.loading(false);
-      await this.props.rootStore.UserStore.toast('error', '自动登录失败，请手动登录');
-      await this.props.navigation.navigate('Login');
-    }
-  }
-
-  async componentDidMount() {
-    try {
-      await this.handleRenderData();
-    } catch (err) {
-      await this.updateCourseData(current.year, current.semester);
+      await this.handleRedirectLogin();
     }
   }
 
