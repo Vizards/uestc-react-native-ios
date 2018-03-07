@@ -1,17 +1,17 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Login from "./containers/Login";
 import Main from './containers/Main';
 
 const XiFu = StackNavigator(
   {
-    Login: {
-      screen: Login,
-    },
     Main: {
       screen: Main,
-    }
+    },
+    XiFuLogin: {
+      screen: Login,
+    },
   },
   {
     navigationOptions: {
@@ -30,9 +30,15 @@ export default class Card extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         <XiFu/>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});

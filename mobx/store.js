@@ -235,6 +235,69 @@ class UserStore {
       await this.clearToast();
     }
   }
+
+  // 一卡通
+  async ecard(token) {
+    const Uri = `${config.domain}/api/xifu/ecard`;
+    const Header = {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    };
+    try {
+      const response = await fetch(Uri, Header);
+      return await response.json();
+    } catch (err) {
+      await this.toast('error', '获取一卡通余额信息失败');
+      await this.clearToast();
+    }
+  }
+
+  // 电费
+  async electricity(token) {
+    const Uri = `${config.domain}/api/xifu/electricity`;
+    const Header = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        room: "",
+      })
+    };
+    try {
+      const response = await fetch(Uri, Header);
+      return await response.json();
+    } catch (err) {
+      await this.toast('error', '获取电费信息失败');
+      await this.clearToast();
+    }
+  }
+
+  // 账单
+  async bill(token) {
+    const Uri = `${config.domain}/api/xifu/bill`;
+    const Header = {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    };
+    try {
+      const response = await fetch(Uri, Header);
+      return await response.json();
+    } catch (err) {
+      await this.toast('error', '获取账单信息失败');
+      await this.clearToast();
+    }
+  }
 }
 
 class LoadingStore {

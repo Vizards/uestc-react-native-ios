@@ -35,7 +35,7 @@ class LoginForm extends React.Component {
   async onLogin() {
     await this.props.rootStore.LoadingStore.loading(true, '登录中');
     const responseJson = await this.props.rootStore.UserStore.login(this.state.username, this.state.password);
-    if (responseJson.status_code === 403) {
+    if (responseJson.code === 403) {
       await this.props.rootStore.LoadingStore.loading(false, '');
       await this.props.rootStore.UserStore.toast('error', responseJson.err);
       await this.props.rootStore.UserStore.clearToast();
@@ -94,6 +94,7 @@ class LoginForm extends React.Component {
         >
           <Text style={styles.buttonText}>登录</Text>
         </TouchableOpacity>
+        <Text style={styles.note}>我们不收集或共享您的个人数据</Text>
       </ScrollView>
     )
   }
@@ -103,6 +104,7 @@ export default withNavigation(LoginForm);
 
 const $textInputBackgroundColor = '#fff';
 const $textInputBorderColor = 'rgba(200, 199, 204, 0.5)';
+const $noteTextColor = 'rgb(200, 199, 204)';
 const $buttonBackgroundColor = 'rgb(96, 165, 246)';
 const $buttonDisabledBackgroundColor = 'rgba(96, 165, 246, 0.5)';
 const styles = StyleSheet.create({
@@ -145,5 +147,11 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: {
     backgroundColor: $buttonDisabledBackgroundColor,
-  }
+  },
+  note: {
+    position: 'absolute',
+    bottom: 20,
+    fontSize: 12,
+    color: $noteTextColor,
+  },
 });

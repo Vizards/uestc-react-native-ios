@@ -33,10 +33,10 @@ class Login extends React.Component {
   };
 
   async onLogin() {
-    await this.props.rootStore.LoadingStore.loading(true, '登录中');
+    await this.props.rootStore.LoadingStore.loading(true, '登录中...');
     const userData = await this.props.rootStore.StorageStore.constructor.load('user');
     const responseJson = await this.props.rootStore.UserStore.bind(this.state.username, this.state.password, userData.token);
-    if (responseJson.status_code === 403) {
+    if (responseJson.code === 403) {
       await this.props.rootStore.LoadingStore.loading(false, '');
       await this.props.rootStore.UserStore.toast('error', responseJson.err);
       await this.props.rootStore.UserStore.clearToast();
@@ -100,6 +100,7 @@ class Login extends React.Component {
         >
           <Text style={styles.buttonText}>绑定喜付账户</Text>
         </TouchableOpacity>
+        <Text style={styles.note}>我们不收集或共享您的个人数据</Text>
       </ScrollView>
     )
   }
@@ -109,6 +110,7 @@ export default withNavigation(Login);
 
 const $textInputBackgroundColor = '#fff';
 const $textInputBorderColor = 'rgba(200, 199, 204, 0.5)';
+const $noteTextColor = 'rgb(200, 199, 204)';
 const $buttonBackgroundColor = 'rgb(96, 165, 246)';
 const $buttonDisabledBackgroundColor = 'rgba(96, 165, 246, 0.5)';
 const styles = StyleSheet.create({
@@ -151,5 +153,11 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: {
     backgroundColor: $buttonDisabledBackgroundColor,
-  }
+  },
+  note: {
+    position: 'absolute',
+    bottom: 20,
+    fontSize: 12,
+    color: $noteTextColor,
+  },
 });

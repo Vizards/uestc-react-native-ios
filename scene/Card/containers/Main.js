@@ -1,12 +1,15 @@
 import React from 'react';
-import { Text, SafeAreaView } from 'react-native';
+import { Text, View } from 'react-native';
+import Graph from './components/Graph';
+import Bill from './components/Bill';
 
 export default class Main extends React.Component {
   render() {
     return (
-      <SafeAreaView>
-        <Text>Main!</Text>
-      </SafeAreaView>
+      <View>
+        <Graph/>
+        <Bill/>
+      </View>
     );
   }
 }
