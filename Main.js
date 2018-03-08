@@ -42,7 +42,7 @@ export default TabNavigator(
         } else if (routeName === 'Card') {
           labelName = '一卡通';
         } else if (routeName === 'Me') {
-          labelName = '我';
+          labelName = '我的';
         }
 
         return labelName;

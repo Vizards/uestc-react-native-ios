@@ -23,12 +23,14 @@ class Login extends React.Component {
     this.setState({ password });
   };
 
-  onBlur = (type) => {
+  async onBlur(type) {
     if (type === 'username') {
-      this.state.username.length !== 11 && this.state.username.length !== 0 ? this.props.rootStore.UserStore.toast('error', '手机号格式错误') : null;
+      this.state.username.length !== 11 && this.state.username.length !== 0 ? await this.props.rootStore.UserStore.toast('error', '手机号格式错误') : null;
+      await this.props.rootStore.UserStore.clearToast();
     }
     if (type === 'password') {
-      this.state.password.length < 6 && this.state.password.length !== 0 ? this.props.rootStore.UserStore.toast('error', '密码为 6 到 16 位字母或数字') : null;
+      this.state.password.length < 6 && this.state.password.length !== 0 ? await this.props.rootStore.UserStore.toast('error', '密码为 6 到 16 位字母或数字') : null;
+      await this.props.rootStore.UserStore.clearToast();
     }
   };
 
@@ -50,6 +52,7 @@ class Login extends React.Component {
         await this.props.rootStore.LoadingStore.loading(false);
         await this.props.rootStore.UserStore.toast('success', '登录成功！');
         await this.props.rootStore.UserStore.clearToast();
+        await this.props.rootStore.xiFuStore.setBind(true, this.state.username);
         // 使用正常导航方式会导致软键盘收起后再次弹出，mmp
         await this.props.navigation.replace('Main');
       } catch (err) {

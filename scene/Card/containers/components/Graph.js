@@ -47,9 +47,11 @@ export default class Graph extends React.Component {
   }
 
   async componentWillMount() {
-    const userData = await this.props.rootStore.StorageStore.constructor.load('user');
-    await this.getEcard(userData.token);
-    await this.getElectricity(userData.token);
+    if (this.props.canLoad === true) {
+      const userData = await this.props.rootStore.StorageStore.constructor.load('user');
+      await this.getEcard(userData.token);
+      await this.getElectricity(userData.token);
+    }
   }
 
   render() {

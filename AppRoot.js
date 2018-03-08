@@ -3,11 +3,11 @@ import { StyleSheet, View, Modal } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Toaster from 'react-native-toaster';
 
-import Login from "./scene/Login";
-import TabNavigator from "./Main";
-
 import Loading from './common/components/Loading';
-
+import Login from "./scene/Login";
+import WebView from "./scene/Webview";
+import Confirm from "./scene/Confirm";
+import TabNavigator from "./Main";
 
 import { inject, observer } from 'mobx-react/native';
 
@@ -15,17 +15,27 @@ const App = StackNavigator(
   {
     Main: {
       screen: TabNavigator,
+      navigationOptions: {
+        headerLeft: null,
+        gesturesEnabled: false,
+      },
     },
     Login: {
       screen: Login,
+      navigationOptions: {
+        headerLeft: null,
+        gesturesEnabled: false,
+      },
     },
+    WebView: {
+      screen: WebView,
+    },
+    Confirm: {
+      screen: Confirm,
+    }
   },
   {
-    navigationOptions: {
-      headerLeft: null,
-      gesturesEnabled: false,
-    },
-    mode: 'modal',
+    mode: 'card',
   }
 );
 
@@ -34,13 +44,13 @@ const App = StackNavigator(
 export default class AppRoot extends React.Component {
 
   async componentWillMount() {
-    await this.props.rootStore.StorageStore.constructor.remove('user');
-    await this.props.rootStore.StorageStore.constructor.remove('course');
-    await this.props.rootStore.StorageStore.constructor.remove('exam');
-    await this.props.rootStore.StorageStore.constructor.remove('grade');
-    await this.props.rootStore.StorageStore.constructor.remove('gpa');
-    await this.props.rootStore.StorageStore.constructor.remove('allGrade');
-    await this.props.rootStore.StorageStore.constructor.remove('xifu');
+    // await this.props.rootStore.StorageStore.constructor.remove('user');
+    // await this.props.rootStore.StorageStore.constructor.remove('course');
+    // await this.props.rootStore.StorageStore.constructor.remove('exam');
+    // await this.props.rootStore.StorageStore.constructor.remove('grade');
+    // await this.props.rootStore.StorageStore.constructor.remove('gpa');
+    // await this.props.rootStore.StorageStore.constructor.remove('allGrade');
+    // await this.props.rootStore.StorageStore.constructor.remove('xifu');
   }
 
   render() {

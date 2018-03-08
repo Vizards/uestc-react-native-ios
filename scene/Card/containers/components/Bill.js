@@ -76,8 +76,10 @@ class Bill extends React.Component {
   }
 
   async componentWillMount() {
-    const userData = await this.props.rootStore.StorageStore.constructor.load('user');
-    await this.getBill(userData.token);
+    if (this.props.canLoad === true) {
+      const userData = await this.props.rootStore.StorageStore.constructor.load('user');
+      await this.getBill(userData.token);
+    }
   }
 
   render() {
@@ -101,11 +103,15 @@ class Bill extends React.Component {
           <TouchableOpacity
             style={styles.Button}
             onPress={() => Alert.alert(
-              '退出确认',
-              '确定要退出当前喜付账户？',
+              '确认退出吗？',
+              '\n退出后，您需要重新登录喜付才能查看一卡通和电费信息',
               [
                 {text: '取消', style: 'cancel'},
-                {text: '确定', onPress: () => this.props.navigation.push('XiFuLogin')},
+                {text: '确定', onPress: async () => {
+                  await this.props.rootStore.StorageStore.constructor.remove('xifu');
+                  await this.props.rootStore.xiFuStore.setBind(false, '');
+                  await this.props.navigation.push('XiFuLogin');
+                }},
               ]
             )}
           >

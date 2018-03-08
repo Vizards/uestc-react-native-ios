@@ -1,11 +1,11 @@
 import React from 'react';
-import { ScrollView, TextInput, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { ScrollView, TextInput, TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { inject, observer } from 'mobx-react/native';
 
 @inject('rootStore')
 @observer
-class LoginForm extends React.Component {
+class Confirm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -14,6 +14,10 @@ class LoginForm extends React.Component {
       password: '',
     }
   }
+
+  static navigationOptions = {
+    headerTitle: '删除账户',
+  };
 
   onChangeUsername = (username) => {
     this.setState({ username });
@@ -35,31 +39,24 @@ class LoginForm extends React.Component {
   };
 
   async onLogin() {
-    await this.props.rootStore.LoadingStore.loading(true, '登录中');
-    const responseJson = await this.props.rootStore.UserStore.login(this.state.username, this.state.password);
-    if (responseJson.code === 403) {
+    await this.props.rootStore.LoadingStore.loading(true, '注销中');
+    const responseJson = await this.props.rootStore.UserStore.delete(this.state.username, this.state.password);
+    if (responseJson.code === 201) {
+      await this.props.rootStore.StorageStore.constructor.remove('user');
+      await this.props.rootStore.StorageStore.constructor.remove('course');
+      await this.props.rootStore.StorageStore.constructor.remove('exam');
+      await this.props.rootStore.StorageStore.constructor.remove('grade');
+      await this.props.rootStore.StorageStore.constructor.remove('gpa');
+      await this.props.rootStore.StorageStore.constructor.remove('allGrade');
+      await this.props.rootStore.StorageStore.constructor.remove('xifu');
+      await this.props.rootStore.xiFuStore.setBind(false, '');
       await this.props.rootStore.LoadingStore.loading(false);
-      await this.props.rootStore.UserStore.toast('error', responseJson.err);
+      await this.props.rootStore.UserStore.toast('success', '注销成功！');
       await this.props.rootStore.UserStore.clearToast();
-    } else if (responseJson.code === 201) {
-      try {
-        await this.props.rootStore.StorageStore.save('user', {
-          username: this.state.username,
-          password: this.state.password,
-          token: responseJson.data.token,
-          time: responseJson.time,
-        });
-        await this.props.rootStore.UserStore.toast('success', '登录成功！');
-        await this.props.rootStore.UserStore.clearToast();
-        await this.props.navigation.replace('Main');
-      } catch (err) {
-        await this.props.rootStore.LoadingStore.loading(false);
-        await this.props.rootStore.UserStore.toast('warning', '无法保存您的登录信息');
-        await this.props.rootStore.UserStore.clearToast();
-      }
+      await this.props.navigation.push('Login');
     } else {
       await this.props.rootStore.LoadingStore.loading(false);
-      await this.props.rootStore.UserStore.toast('error', '暂时无法登录，请稍后再试');
+      await this.props.rootStore.UserStore.toast('error', '暂时无法注销您的账户，请稍后再试或联系我们');
       await this.props.rootStore.UserStore.clearToast();
     }
 
@@ -69,13 +66,11 @@ class LoginForm extends React.Component {
     const buttonDisabled = this.state.username.length !== 13 || this.state.password.length < 6;
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <Image source={require('./uestc.png')} style={styles.logo} resizeMode='center'/>
         <TextInput
           style={styles.Input}
           blurOnSubmit
           keyboardType='numeric'
           maxLength={13}
-          autoFocus
           placeholder='13 位学号'
           onChangeText={this.onChangeUsername}
           onBlur={() => this.onBlur('username')}
@@ -93,21 +88,26 @@ class LoginForm extends React.Component {
           onPress={this.onLogin.bind(this)}
           disabled={buttonDisabled}
         >
-          <Text style={styles.buttonText}>登录</Text>
+          <Text style={styles.buttonText}>删除账户</Text>
         </TouchableOpacity>
-        <Text style={styles.note}>我们不收集或共享您的个人数据</Text>
+        <View style={styles.note}>
+          <Text style={styles.text}>· 此操作将删除您的所有个人数据，并退出登录</Text>
+          <Text style={styles.text}>· 不会影响您的教务系统账户和喜付账户，您稍后仍可以重新登录和绑定</Text>
+          <Text style={styles.text}>· 为确保此操作是您本人所为，需要确认您的统一身份认证系统账号和密码</Text>
+          <Text style={styles.text}>· 删除账户后，云端将不再保存有关您的任何信息</Text>
+        </View>
       </ScrollView>
     )
   }
 }
 
-export default withNavigation(LoginForm);
+export default withNavigation(Confirm);
 
 const $textInputBackgroundColor = '#fff';
 const $textInputBorderColor = 'rgba(200, 199, 204, 0.5)';
-const $noteTextColor = 'rgb(200, 199, 204)';
-const $buttonBackgroundColor = 'rgb(96, 165, 246)';
-const $buttonDisabledBackgroundColor = 'rgba(96, 165, 246, 0.5)';
+const $buttonBackgroundColor = 'rgb(217, 74, 74)';
+const $buttonDisabledBackgroundColor = 'rgba(217, 74, 74, 0.5)';
+const $noteTextColor = 'rgb(143, 142, 148)';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -115,13 +115,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 21,
     paddingRight: 21,
-  },
-  logo: {
-    width: 130,
-    height: 130,
-    marginTop: 30,
-    marginBottom: 30,
-    alignItems: 'center',
+    paddingTop: 15,
   },
   Input: {
     height: 50,
@@ -150,9 +144,11 @@ const styles = StyleSheet.create({
     backgroundColor: $buttonDisabledBackgroundColor,
   },
   note: {
-    position: 'absolute',
-    bottom: 20,
-    fontSize: 12,
-    color: $noteTextColor,
+    width: '100%',
+    paddingTop: 30,
   },
+  text: {
+    color: $noteTextColor,
+    paddingTop: 10,
+  }
 });

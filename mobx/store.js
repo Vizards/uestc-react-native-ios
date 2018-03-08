@@ -1,6 +1,7 @@
-import { observable, computed, action } from 'mobx';
+import { observable, action } from 'mobx';
 import userStore from './userStore';
 import loadingStore from './loadingStore';
+import xiFuStore from './xiFuStore';
 import { ToastStyles } from 'react-native-toaster'
 import { AsyncStorage } from 'react-native';
 import config from '../config';
@@ -18,6 +19,7 @@ class RootStore {
     this.UserStore = new UserStore(userStore, this);
     this.LoadingStore = new LoadingStore(loadingStore, this);
     this.StorageStore = new StorageStore;
+    this.xiFuStore = new XiFuStore(xiFuStore, this);
   }
 }
 
@@ -298,6 +300,30 @@ class UserStore {
       await this.clearToast();
     }
   }
+
+  // 删除账户
+  @action
+  async delete(username, password) {
+    const Uri = `${config.domain}/api/user/delete`;
+    const Header = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      })
+    };
+    try {
+      const response = await fetch(Uri, Header);
+      return await response.json();
+    } catch (err) {
+      await this.toast('error', '删除失败');
+      await this.clearToast();
+    }
+  }
 }
 
 class LoadingStore {
@@ -313,6 +339,22 @@ class LoadingStore {
   loading(loadingVisible, loadingText) {
     this.allData.loadingVisible = loadingVisible;
     this.allData.loadingText = loadingText;
+  }
+}
+
+class XiFuStore {
+  @observable
+  allData = {};
+
+  constructor(data, rootStore) {
+    this.allData = data;
+    this.rootStore = rootStore;
+  }
+
+  @action
+  setBind(bool, username) {
+    this.allData.xiFuBind = bool;
+    this.allData.xiFuUser = username;
   }
 }
 

@@ -1,16 +1,26 @@
 import React from 'react';
-import { Text, SafeAreaView } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
-export default class Me extends React.Component {
+import Profile from './containers/components/Profile';
+import Main from './containers/components/Main';
+
+export default class Page extends React.Component {
   static navigationOptions = {
-    headerTitle: '我'
+    headerTitle: '我的',
   };
 
   render() {
     return (
-      <SafeAreaView>
-        <Text>Me!</Text>
-      </SafeAreaView>
+      <View style={styles.container}>
+        <Profile/>
+        <Main/>
+      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  }
+});
