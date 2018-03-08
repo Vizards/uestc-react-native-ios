@@ -34,12 +34,13 @@ const App = StackNavigator(
 export default class AppRoot extends React.Component {
 
   async componentWillMount() {
-    // await this.props.rootStore.StorageStore.constructor.remove('user');
-    // await this.props.rootStore.StorageStore.constructor.remove('course');
-    // await this.props.rootStore.StorageStore.constructor.remove('exam');
-    // await this.props.rootStore.StorageStore.constructor.remove('grade');
-    // await this.props.rootStore.StorageStore.constructor.remove('gpa');
-    // await this.props.rootStore.StorageStore.constructor.remove('allGrade');
+    await this.props.rootStore.StorageStore.constructor.remove('user');
+    await this.props.rootStore.StorageStore.constructor.remove('course');
+    await this.props.rootStore.StorageStore.constructor.remove('exam');
+    await this.props.rootStore.StorageStore.constructor.remove('grade');
+    await this.props.rootStore.StorageStore.constructor.remove('gpa');
+    await this.props.rootStore.StorageStore.constructor.remove('allGrade');
+    await this.props.rootStore.StorageStore.constructor.remove('xifu');
   }
 
   render() {
