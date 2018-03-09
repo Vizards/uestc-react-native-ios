@@ -181,7 +181,7 @@ export default class Statistic extends React.Component {
           },
           axisLabel: {
             inside: true,
-            margin: 25,
+            margin: 20,
             showMinLabel: false,
             showMaxLabel: false,
             color: 'rgb(74, 217, 100)',
