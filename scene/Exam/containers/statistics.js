@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, RefreshControl, Dimensions } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Echarts from 'react-native-web-echarts';
 import { inject, observer } from "mobx-react/native";
@@ -7,6 +7,9 @@ import { action } from 'mobx';
 
 import List from './components/List';
 import AllGrade from './components/AllGrade';
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+
 
 @inject('rootStore')
 @observer
@@ -119,6 +122,7 @@ export default class Statistic extends React.Component {
         bottom: 10,
         left: -20,
         right: -20,
+        width: SCREEN_WIDTH + 16,
       },
       xAxis : [
         {
@@ -266,14 +270,16 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 18,
-    height: 238
+    height: 238,
+    width: '100%',
   },
   chartsInner: {
     backgroundColor: $innerBackgroundColor,
     height: 180,
     borderColor: $innerBorderColor,
     borderWidth: 1,
-    borderRadius: 4
+    borderRadius: 4,
+    width: '100%',
   },
   legend: {
     flexDirection: 'row',
