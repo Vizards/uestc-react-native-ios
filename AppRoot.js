@@ -51,6 +51,15 @@ export default class AppRoot extends React.Component {
     // await this.props.rootStore.StorageStore.constructor.remove('gpa');
     // await this.props.rootStore.StorageStore.constructor.remove('allGrade');
     // await this.props.rootStore.StorageStore.constructor.remove('xifu');
+
+    try {
+      const lastLoginData = await this.props.rootStore.StorageStore.constructor.load('xifu');
+      if (lastLoginData.username.length === 11) {
+        await this.props.rootStore.xiFuStore.setBind(true, lastLoginData.username);
+      }
+    } catch (err) {
+      return false;
+    }
   }
 
   render() {
