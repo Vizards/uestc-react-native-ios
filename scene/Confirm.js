@@ -56,7 +56,7 @@ class Confirm extends React.Component {
       await this.props.navigation.push('Login');
     } else {
       await this.props.rootStore.LoadingStore.loading(false);
-      await this.props.rootStore.UserStore.toast('error', '暂时无法注销您的账户，请稍后再试或联系我们');
+      await this.props.rootStore.UserStore.toast('error', '无法注销您的账户，请确认您的学号密码是否正确');
       await this.props.rootStore.UserStore.clearToast();
     }
 

@@ -76,7 +76,7 @@ class Bill extends React.Component {
   }
 
   async componentWillMount() {
-    if (this.props.canLoad === true) {
+    if (this.props.rootStore.xiFuStore.allData.xiFuBind === true) {
       const userData = await this.props.rootStore.StorageStore.constructor.load('user');
       await this.getBill(userData.token);
     }
