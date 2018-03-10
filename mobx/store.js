@@ -2,6 +2,7 @@ import { observable, action } from 'mobx';
 import userStore from './userStore';
 import loadingStore from './loadingStore';
 import xiFuStore from './xiFuStore';
+import webViewStore from './webViewStore';
 import { ToastStyles } from 'react-native-toaster'
 import { AsyncStorage } from 'react-native';
 import config from '../config';
@@ -20,6 +21,7 @@ class RootStore {
     this.LoadingStore = new LoadingStore(loadingStore, this);
     this.StorageStore = new StorageStore;
     this.xiFuStore = new XiFuStore(xiFuStore, this);
+    this.webViewStore = new WebViewStore(webViewStore, this);
   }
 }
 
@@ -358,5 +360,19 @@ class XiFuStore {
   }
 }
 
+class WebViewStore {
+  @observable
+  allData = {};
+
+  constructor(data, rootStore) {
+    this.allData = data;
+    this.rootStore = rootStore;
+  }
+
+  @action
+  setUrl(url) {
+    this.allData.url = url
+  }
+}
 
 export default new RootStore();

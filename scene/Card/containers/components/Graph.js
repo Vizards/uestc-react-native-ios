@@ -56,8 +56,10 @@ export default class Graph extends React.Component {
   async componentWillMount() {
     if (this.props.rootStore.xiFuStore.allData.xiFuBind === true) {
       const userData = await this.props.rootStore.StorageStore.constructor.load('user');
-      await this.getEcard(userData.token);
-      await this.getElectricity(userData.token);
+      await Promise.all([
+        this.getEcard(userData.token),
+        this.getElectricity(userData.token),
+      ]);
     }
   }
 

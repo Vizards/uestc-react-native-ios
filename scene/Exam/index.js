@@ -35,7 +35,6 @@ export default class Exam extends React.Component {
   };
 
   async _switchScene(value) {
-    console.log(value);
     if (value === '考试安排') {
       await this.setState({ displayItem: 0 });
       await this.props.navigation.setParams({ index: 0 })

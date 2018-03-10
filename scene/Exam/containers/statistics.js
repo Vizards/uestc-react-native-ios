@@ -99,8 +99,10 @@ export default class Statistic extends React.Component {
   async refresh() {
     await this.setState({ refreshing: true });
     const userData = await this.props.rootStore.StorageStore.constructor.load('user');
-    await this.updateGpa(userData.token);
-    await this.myCpt.updateAllGrade(userData.token);
+    await Promise.all([
+      this.updateGpa(userData.token),
+      this.myCpt.updateAllGrade(userData.token),
+    ]);
     await this.setState({ refreshing: false });
   }
 

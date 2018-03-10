@@ -41,7 +41,7 @@ export default class Arrangement extends React.Component {
           </View>
           <View style={styles.status}>
             <Text style={[styles.date, jetLag < 0 && styles.outdated]}>{date}</Text>
-            {jetLag < 0 ? <Text style={styles.finished}>已结束</Text> : <Text style={styles.remain}>还有 {jetLag} 天</Text>}
+            {jetLag < 0 ? <Text style={styles.finished}>已结束</Text> : jetLag === 0 ? <Text style={styles.remain}>还有 {moment(`${date} ${time.substr(0, 5)}`).diff(moment(), 'hours')} 小时</Text> : <Text style={styles.remain}>还有 {jetLag} 天</Text>}
           </View>
         </View>
       </View>

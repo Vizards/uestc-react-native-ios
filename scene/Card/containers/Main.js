@@ -36,10 +36,12 @@ class Main extends React.Component {
   async refresh() {
     await this.setState({ refreshing: true });
     const userData = await this.props.rootStore.StorageStore.constructor.load('user');
-    await this.myGraph.getEcard(userData.token);
-    await this.myGraph.getElectricity(userData.token);
-    await this.myBill.getBill(userData.token);
-    await this.setState({ refreshing: false });
+    await Promise.all([
+      this.myGraph.getEcard(userData.token),
+      this.myGraph.getElectricity(userData.token),
+      this.myBill.getBill(userData.token),
+    ]);
+    await this.setState({ refreshing: false })
   }
 
   render() {
