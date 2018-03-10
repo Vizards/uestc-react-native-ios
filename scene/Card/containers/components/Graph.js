@@ -1,11 +1,8 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Echarts from 'react-native-web-echarts';
-import { inject, observer } from "mobx-react/native";
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 
-@inject('rootStore')
-@observer
 export default class Graph extends React.Component {
 
   constructor(props) {
@@ -15,16 +12,22 @@ export default class Graph extends React.Component {
       eCardBalance: 0,
       electricity: {},
       electricityBalance: 0,
-      isReady: false,
+      isEcardReady: false,
+      isElectricityReady: false
     }
   }
 
   async getEcard(token) {
+    await this.setState({
+      isEcardReady: false,
+      eCardBalance: 0,
+    });
     const response = await this.props.rootStore.UserStore.ecard(token);
     if (response.code === 200) {
       await this.setState({
         eCard: response.data,
-        eCardBalance: Number(response.data.balance)
+        eCardBalance: Number(response.data.balance),
+        isEcardReady: true,
       })
     } else {
       await this.props.rootStore.UserStore.toast('error', '暂时无法获取一卡通信息，请稍后重试');
@@ -33,12 +36,16 @@ export default class Graph extends React.Component {
   }
 
   async getElectricity(token) {
+    await this.setState({
+      isElectricityReady: false,
+      electricityBalance: 0,
+    });
     const response = await this.props.rootStore.UserStore.electricity(token);
     if (response.code === 201) {
       await this.setState({
         electricity: response.data,
         electricityBalance: Number(response.data.amount),
-        isReady: true,
+        isElectricityReady: true,
       })
     } else {
       await this.props.rootStore.UserStore.toast('error', '暂时无法获取电费信息，请稍后重试');
@@ -138,23 +145,23 @@ export default class Graph extends React.Component {
         <View style={styles.col}>
           <View style={styles.row}>
             <View style={styles.inner}>
-              <ShimmerPlaceHolder style={styles.shimmer} width={'90%'} autoRun={true} visible={this.state.isReady}>
+              <ShimmerPlaceHolder style={styles.shimmer} width={'90%'} autoRun={true} visible={this.state.isEcardReady}>
                 <Text style={[styles.eCardBalance, this.state.eCardBalance > 40 ? styles.blue : this.state.eCardBalance > 200 ? styles.green : styles.red]}>￥{this.state.eCardBalance}</Text>
               </ShimmerPlaceHolder>
-              <ShimmerPlaceHolder style={styles.shimmer} width={'30%'} autoRun={true} visible={this.state.isReady}>
+              <ShimmerPlaceHolder style={styles.shimmer} width={'30%'} autoRun={true} visible={this.state.isEcardReady}>
                 <Text style={styles.text}>卡状态：{this.state.eCard.card_status === '正常' ? '正常使用' : '卡已挂失'}</Text>
               </ShimmerPlaceHolder>
             </View>
           </View>
           <View style={styles.row}>
             <View style={styles.inner}>
-              <ShimmerPlaceHolder style={styles.shimmer} width={'90%'} autoRun={true} visible={this.state.isReady}>
+              <ShimmerPlaceHolder style={styles.shimmer} width={'90%'} autoRun={true} visible={this.state.isElectricityReady}>
                 <Text style={[styles.eCardBalance, this.state.electricityBalance > 40 ? styles.blue : this.state.eCardBalance > 200 ? styles.green : styles.red]}>￥{this.state.electricityBalance}</Text>
               </ShimmerPlaceHolder>
-              <ShimmerPlaceHolder style={styles.shimmer} width={'70%'} autoRun={true} visible={this.state.isReady}>
+              <ShimmerPlaceHolder style={styles.shimmer} width={'70%'} autoRun={true} visible={this.state.isElectricityReady}>
                 <Text style={styles.text}>电量剩余：{this.state.electricity.balance} 度</Text>
               </ShimmerPlaceHolder>
-              <ShimmerPlaceHolder style={styles.shimmer} width={'90%'} autoRun={true} visible={this.state.isReady}>
+              <ShimmerPlaceHolder style={styles.shimmer} width={'90%'} autoRun={true} visible={this.state.isElectricityReady}>
                 <Text style={styles.text}>绑定房间号：{this.state.electricity.room}</Text>
               </ShimmerPlaceHolder>
             </View>

@@ -1,17 +1,19 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, RefreshControl } from 'react-native';
 import Graph from './components/Graph';
 import Bill from './components/Bill';
 import { inject, observer } from "mobx-react/native";
+import { withNavigation } from 'react-navigation'
+
 
 @inject('rootStore')
 @observer
-export default class Main extends React.Component {
+class Main extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      canLoad: false,
+      refreshing: false,
     }
   };
 
@@ -31,15 +33,30 @@ export default class Main extends React.Component {
     }
   }
 
+  async refresh() {
+    await this.setState({ refreshing: true });
+    const userData = await this.props.rootStore.StorageStore.constructor.load('user');
+    await this.myGraph.getEcard(userData.token);
+    await this.myGraph.getElectricity(userData.token);
+    await this.myBill.getBill(userData.token);
+    await this.setState({ refreshing: false });
+  }
+
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Graph/>
-        <Bill/>
+        <RefreshControl
+          refreshing={this.state.refreshing}
+          onRefresh={this.refresh.bind(this)}
+        />
+        <Graph rootStore={this.props.rootStore} ref={(c) => {this.myGraph = c;}}/>
+        <Bill rootStore={this.props.rootStore} ref={(c) => {this.myBill = c;}} navigation={this.props.navigation}/>
       </ScrollView>
     );
   }
 }
+
+export default withNavigation(Main);
 
 const styles = StyleSheet.create({
   container: {

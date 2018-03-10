@@ -1,14 +1,10 @@
 import React from 'react';
-import {Text, ScrollView, View, TouchableOpacity, StyleSheet, SectionList, Alert, Dimensions, ActivityIndicator, Keyboard} from 'react-native';
-import { withNavigation } from 'react-navigation'
-import { inject, observer } from "mobx-react/native";
+import {Text, ScrollView, View, TouchableOpacity, StyleSheet, SectionList, Alert, Dimensions, ActivityIndicator } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-@inject('rootStore')
-@observer
-class Bill extends React.Component {
+export default class Bill extends React.Component {
 
   constructor(props) {
     super(props);
@@ -61,6 +57,9 @@ class Bill extends React.Component {
   }
 
   async getBill(token) {
+    await this.setState({
+      disappear: false,
+    });
     const response = await this.props.rootStore.UserStore.bill(token);
     const parsedData = await this.constructor.parseData(response.data.consumes);
     if (response.code === 200) {
@@ -123,8 +122,6 @@ class Bill extends React.Component {
     );
   }
 }
-
-export default withNavigation(Bill);
 
 const $frontColor = '#fff';
 const $textInputBackgroundColor = '#fff';
