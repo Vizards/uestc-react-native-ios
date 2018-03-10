@@ -45,6 +45,7 @@ class Bill extends React.Component {
   };
 
   _sectionComp = (info) => {
+    if (info.section.data.length === 0) return null;
     if (info.section.data[0].name !== '') return <View style={styles.title}>
       <Text style={styles.titleText}>本月消费￥{this.state.totalConsume}</Text>
       <Text style={styles.titleText}>本月充值￥{this.state.totalRecharge}</Text>
@@ -145,9 +146,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: $buttonBackgroundColor,
+    borderRadius: 8,
   },
   buttonWrapper: {
     paddingTop: 25,
+    paddingLeft: 17,
+    paddingRight: 17,
+    paddingBottom: 25,
   },
   buttonText: {
     color: $textInputBackgroundColor,
