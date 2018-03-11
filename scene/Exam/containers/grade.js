@@ -35,13 +35,13 @@ export default class Grade extends React.Component {
           <View style={styles.exam}>
             <Text style={styles.name}>{name}</Text>
             <View style={styles.info}>
-              <View style={styles.infoLeft}>
-                <Text style={styles.infoText}>{type}</Text>
+              <Text style={styles.infoTop}>{type}</Text>
+              <View style={styles.infoMiddle}>
                 <Text style={styles.infoText}>学分：{credit}</Text>
-                <Text style={styles.infoText}>补考总评：{resit}</Text>
+                <Text style={styles.infoLast}>总评成绩：{overall}</Text>
               </View>
-              <View style={styles.infoRight}>
-                <Text style={styles.infoText}>总评成绩：{overall}</Text>
+              <View style={styles.infoBottom}>
+                <Text style={styles.infoText}>补考总评：{resit}</Text>
                 <Text style={styles.infoText}>绩点：{gpa}</Text>
               </View>
             </View>
@@ -236,19 +236,29 @@ const styles = StyleSheet.create({
     paddingTop: 14,
   },
   info: {
+    flexDirection: 'column',
+  },
+  infoTop: {
+    color: $info,
+    fontSize: 13,
+    paddingBottom: 5,
+  },
+  infoMiddle: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
   },
-  infoLeft: {
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-  },
-  infoRight: {
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    paddingRight: '30%',
+  infoBottom: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    paddingBottom: 5,
   },
   infoText: {
+    width: 125,
+    color: $info,
+    fontSize: 13,
+    paddingBottom: 5,
+  },
+  infoLast: {
     color: $info,
     fontSize: 13,
     paddingBottom: 5,

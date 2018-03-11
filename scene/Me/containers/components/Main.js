@@ -132,11 +132,12 @@ const styles = StyleSheet.create({
   },
   icon: {
     paddingTop: 4,
+    width: 24,
   },
   text: {
     fontSize: 17,
     color: $title,
-    paddingLeft: 15,
+    paddingLeft: 10,
   },
   rightIcon: {
     paddingRight: 16,

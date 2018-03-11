@@ -3,9 +3,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { Text, View, SectionList, RefreshControl, ScrollView, TouchableOpacity, StyleSheet, ActionSheetIOS } from 'react-native';
 import { inject, observer } from "mobx-react/native";
 import moment from 'moment';
+import 'moment/locale/zh-cn';
 
 const semester = require('../../../common/helpers/semester');
 const current = require('../../../common/helpers/current');
+
+moment.locale('zh-cn');
 
 @inject('rootStore')
 @observer
@@ -23,25 +26,29 @@ export default class Arrangement extends React.Component {
   }
 
   _renderItem = (info) => {
-    const jetLag = moment(info.item.date).diff(moment(), 'days');
     const address = info.item.address === '[考试情况尚未发布]' ? '' : info.item.address,
       date = info.item.date,
       time = /[012][0-9]:[0-5][[0-9]-[012][0-9]:[0-5][0-9]/.exec(info.item.detail)[0],
       name = info.item.name.length < 13 ? info.item.name : `${info.item.name.substr(0, 12)}...`,
       seat = info.item.seat,
       status = info.item.status;
+    const examStartTime = moment(`${date} ${time.substr(0, 5)}`);
+    const examEndTime = moment(`${date} ${time.substr(6, 11)}`);
+    const isEnded = examEndTime.isBefore(moment());
+    const isStarted = examStartTime.isBefore(moment());
+    const jetLag = examStartTime.fromNow();
     return (
       <View style={styles.card}>
         <View style={styles.inner}>
           <View style={styles.exam}>
-            <Text style={[styles.name, jetLag < 0 && styles.outdated]}>{name}</Text>
+            <Text style={[styles.name, isEnded && styles.outdated]}>{name}</Text>
             <View>
-              <Text style={styles.info}>{time} {address} {seat} {status}</Text>
+              <Text style={[styles.date, isEnded && styles.outdated]}>{date}</Text>
             </View>
           </View>
           <View style={styles.status}>
-            <Text style={[styles.date, jetLag < 0 && styles.outdated]}>{date}</Text>
-            {jetLag < 0 ? <Text style={styles.finished}>已结束</Text> : jetLag === 0 ? <Text style={styles.remain}>还有 {moment(`${date} ${time.substr(0, 5)}`).diff(moment(), 'hours')} 小时</Text> : <Text style={styles.remain}>还有 {jetLag} 天</Text>}
+            <Text style={styles.info}>{time} {address} {seat} {status}</Text>
+            {isEnded ? <Text style={styles.finished}>已结束</Text> : isEnded === false && isStarted === true ? <Text style={styles.remain}>正在进行</Text> : <Text style={styles.remain}>{`还有 ${jetLag.substr(0, jetLag.length - 1)}`}</Text>}
           </View>
         </View>
       </View>
@@ -215,30 +222,37 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
   },
   inner: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     borderBottomWidth: 0.5,
     borderBottomColor: $borderColor,
+    paddingTop: 13,
+    paddingBottom: 14,
+  },
+  exam: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 15,
+    paddingBottom: 9,
   },
   status: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingRight: 15,
-    paddingTop: 13,
   },
   name: {
     color: $title,
     fontSize: 17,
-    paddingBottom: 9,
-    paddingTop: 13,
   },
   info: {
     color: $info,
     fontSize: 13,
-    paddingBottom: 14,
   },
   date: {
     color: $dateColor,
     fontSize: 17,
-    paddingBottom: 9,
   },
   outdated: {
     color: $info,
@@ -246,7 +260,6 @@ const styles = StyleSheet.create({
   finished: {
     textAlign: 'right',
     fontSize: 13,
-    lineHeight: 15,
     color: $info,
   },
   remain: {

@@ -76,7 +76,7 @@ class Login extends React.Component {
         <Image
           source={require('./xf_logo.png')}
           style={styles.logo}
-          resizeMode='center'
+          resizeMode='contain'
         />
         <TextInput
           style={styles.Input}

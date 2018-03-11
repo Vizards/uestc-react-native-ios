@@ -36,7 +36,7 @@ export default class Profile extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.profile}>
-          <Image source={require('./uestc.png')} style={styles.logo} resizeMode='center'/>
+          <Image source={require('./uestc.png')} style={styles.logo} resizeMode='contain'/>
           <View style={styles.info}>
             <Text style={styles.user}>{this.state.userData.username}</Text>
             <Text style={styles.xiFu}>{this.props.rootStore.xiFuStore.allData.xiFuBind === false && this.props.rootStore.xiFuStore.allData.xiFuUser === '' ? '未绑定喜付账户' : `已绑定喜付账户 ${this.state.xiFuUser}`}</Text>

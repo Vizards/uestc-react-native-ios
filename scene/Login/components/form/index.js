@@ -69,7 +69,7 @@ class LoginForm extends React.Component {
     const buttonDisabled = this.state.username.length !== 13 || this.state.password.length < 6;
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <Image source={require('./uestc.png')} style={styles.logo} resizeMode='center'/>
+        <Image source={require('./uestc.png')} style={styles.logo} resizeMode='contain'/>
         <TextInput
           style={styles.Input}
           blurOnSubmit
