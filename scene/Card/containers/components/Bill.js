@@ -186,8 +186,8 @@ const styles = StyleSheet.create({
   infoText: {
     color: $info,
     fontSize: 13,
-    paddingRight: 15,
-    width: 120,
+    marginRight: 15,
+    width: 110,
   },
   final: {
     textAlign: 'right',
