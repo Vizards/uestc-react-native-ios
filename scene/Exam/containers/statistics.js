@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, ScrollView, RefreshControl, Dimensions } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Echarts from 'react-native-web-echarts';
 import { inject, observer } from "mobx-react/native";
 import { action } from 'mobx';
@@ -245,9 +245,9 @@ export default class Statistic extends React.Component {
             <Echarts option={option} height={180} width={'100%'}/>
           </View>
           <View style={styles.legend}>
-            <MaterialCommunityIcons name='circle' color='rgb(96, 145, 246)' size={10}/>
+            <Icon name='circle' color='rgb(96, 145, 246)' size={10}/>
             <Text style={styles.legendText}>学期平均 GPA</Text>
-            <MaterialCommunityIcons name='circle' color='rgb(74, 217, 100)' size={10} style={styles.legendIcon}/>
+            <Icon name='circle' color='rgb(74, 217, 100)' size={10} style={styles.legendIcon}/>
             <Text style={styles.legendText}>学期总学分</Text>
           </View>
         </View>

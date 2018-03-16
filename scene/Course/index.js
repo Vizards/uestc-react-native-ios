@@ -2,7 +2,7 @@ import React from 'react';
 /* eslint-disable */
 import { Text, View, StyleSheet, ScrollView, TouchableOpacity, ActionSheetIOS } from 'react-native';
 /* eslint-enable */
-import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { withNavigation } from 'react-navigation';
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { inject, observer } from "mobx-react/native";
@@ -32,7 +32,7 @@ class Course extends React.Component {
       headerRight: <TouchableOpacity
         onPress={params.showActionSheet}
       >
-        <Ionicons name='ios-sync-outline' size={25}/>
+        <Icon name='ios-sync-outline' size={25}/>
       </TouchableOpacity>,
       headerStyle: {
         paddingRight: 15,

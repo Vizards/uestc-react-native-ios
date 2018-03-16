@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, ScrollView, View, SectionList, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { inject, observer } from "mobx-react/native";
 import config from "../../../../config";
 
@@ -20,10 +20,10 @@ class Main extends React.Component {
       >
         <View style={styles.inner}>
           <View style={styles.left}>
-            <Ionicons name={info.item.icon} size={24} color={info.item.color} style={styles.icon}/>
+            <Icon name={info.item.icon} size={24} color={info.item.color} style={styles.icon}/>
             <Text style={styles.text}>{info.item.name}</Text>
           </View>
-          <Ionicons style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
+          <Icon style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
         </View>
       </TouchableOpacity>
     );
@@ -58,10 +58,10 @@ class Main extends React.Component {
       >
         <View style={styles.inner}>
           <View style={styles.left}>
-            <Ionicons name={info.item.icon} size={24} color={info.item.color} style={styles.icon}/>
+            <Icon name={info.item.icon} size={24} color={info.item.color} style={styles.icon}/>
             <Text style={styles.text}>{info.item.name}</Text>
           </View>
-          <Ionicons style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
+          <Icon style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
         </View>
       </TouchableOpacity>
     )

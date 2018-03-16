@@ -1,5 +1,5 @@
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 import Course from './scene/Course';
 import Me from './scene/Me';
@@ -30,7 +30,7 @@ export default TabNavigator(
 
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
-        return <Ionicons name={iconName} size={27} color={tintColor} />;
+        return <Icon name={iconName} size={27} color={tintColor} />;
       },
       tabBarLabel: () => {
         const { routeName } = navigation.state;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, WebView, TouchableOpacity, ActionSheetIOS } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { inject, observer } from "mobx-react/native";
 
 @inject('rootStore')
@@ -14,7 +14,7 @@ export default class Web extends React.Component {
         style={styles.menu}
         onPress={params.showActionSheet}
       >
-        <MaterialCommunityIcons name={'dots-horizontal'} size={28}/>
+        <Icon name={'dots-horizontal'} size={28}/>
       </TouchableOpacity>,
     }
   };

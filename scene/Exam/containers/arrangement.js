@@ -1,5 +1,5 @@
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { Text, View, SectionList, RefreshControl, ScrollView, TouchableOpacity, StyleSheet, ActionSheetIOS } from 'react-native';
 import { inject, observer } from "mobx-react/native";
 import moment from 'moment';
@@ -160,7 +160,7 @@ export default class Arrangement extends React.Component {
           <Text style={styles.left}>学年学期</Text>
           <View style={styles.right}>
             <Text style={styles.rightText}>{this.state.selectedText}</Text>
-            <Ionicons style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
+            <Icon style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
           </View>
         </TouchableOpacity>
         <SectionList
