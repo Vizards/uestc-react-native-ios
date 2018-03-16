@@ -8,6 +8,7 @@
 
 # IDE
 .idea/
+ios/
 
 # misc
 .env.local
