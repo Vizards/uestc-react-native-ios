@@ -3,9 +3,13 @@
     "name": "UESTC",
     "slug": "uestc",
     "description": "iOS Expo APP for uestcer",
-    "platforms": ["ios"],
+    "platforms": [
+      "ios"
+    ],
     "githubUrl": "https://github.com/Vizards/uestc-react-native-ios",
     "orientation": "portrait",
     "sdkVersion": "25.0.0"
-  }
+  },
+  "name": "uestc_react_native_ios",
+  "displayName": "UESTC"
 }
