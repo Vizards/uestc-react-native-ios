@@ -57,7 +57,7 @@ export default class AllGrade extends React.Component {
       await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.StorageStore.save('allGrade', response.data);
       await this.setState({
-        allGradeData: [{ key: 'allGrade', data: response.data }],
+        allGradeData: [{ key: 'allGrade', data: response.data.sort((x, y) => { return x.type > y.type }) }],
       });
     } else {
       await this.props.rootStore.LoadingStore.loading(false);
