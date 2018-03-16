@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, ScrollView, View, SectionList, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
+import SafariView from 'react-native-safari-view';
 import { inject, observer } from "mobx-react/native";
 import config from "../../../../config";
 
@@ -13,8 +14,7 @@ class Main extends React.Component {
     if (info.section.key === 'tool') return (
       <TouchableOpacity
         style={styles.card}
-        onPress={() => this.props.navigation.navigate('WebView', {
-          title: info.item.name,
+        onPress={() => SafariView.show({
           url: info.item.url,
         })}
       >

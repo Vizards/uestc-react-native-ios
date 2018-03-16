@@ -29,6 +29,7 @@
     "react": "16.2.0",
     "react-native": "0.52.0",
     "react-native-linear-gradient": "^2.4.0",
+    "react-native-safari-view": "^2.1.0",
     "react-native-shimmer-placeholder": "^1.0.25",
     "react-native-storage": "^0.2.2",
     "react-native-table-component": "^1.1.3",

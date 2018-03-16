@@ -5,7 +5,6 @@ import Toaster from 'react-native-toaster';
 
 import Loading from './common/components/Loading';
 import Login from "./scene/Login";
-import WebView from "./scene/Webview";
 import Confirm from "./scene/Confirm";
 import TabNavigator from "./Main";
 
@@ -26,9 +25,6 @@ const App = StackNavigator(
         headerLeft: null,
         gesturesEnabled: false,
       },
-    },
-    WebView: {
-      screen: WebView,
     },
     Confirm: {
       screen: Confirm,
