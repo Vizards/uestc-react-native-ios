@@ -49,7 +49,9 @@
 		C4612953EE8F45CC895A4796 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD7B8911445148EAADABCD0E /* libBVLinearGradient.a */; };
 		CE2048FF90954FA6B92B11F1 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D658D44A82DD4756B559FAB2 /* Zocial.ttf */; };
 		DABCA0E809F14A4DB226EC6D /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 134E742BFBAD428FBF9A162A /* MaterialCommunityIcons.ttf */; };
-		E3F9FC4E205BE471004F5082 /* bundle in Resources */ = {isa = PBXBuildFile; fileRef = E3F9FC4D205BE470004F5082 /* bundle */; };
+		E3DB0139205D62310090A9B7 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = E3DB0136205D62310090A9B7 /* assets */; };
+		E3DB013A205D62310090A9B7 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = E3DB0137205D62310090A9B7 /* main.jsbundle */; };
+		E3DB013B205D62310090A9B7 /* main.jsbundle.meta in Resources */ = {isa = PBXBuildFile; fileRef = E3DB0138205D62310090A9B7 /* main.jsbundle.meta */; };
 		F32DB663E40D45AD8E7C76CB /* libSafariViewManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E2E90503364E62B0E8AAF0 /* libSafariViewManager.a */; };
 /* End PBXBuildFile section */
 
@@ -396,7 +398,9 @@
 		C5E2E90503364E62B0E8AAF0 /* libSafariViewManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSafariViewManager.a; sourceTree = "<group>"; };
 		D658D44A82DD4756B559FAB2 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		DD78C38081684CB381DA79BB /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		E3F9FC4D205BE470004F5082 /* bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bundle; sourceTree = "<group>"; };
+		E3DB0136205D62310090A9B7 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		E3DB0137205D62310090A9B7 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		E3DB0138205D62310090A9B7 /* main.jsbundle.meta */ = {isa = PBXFileReference; lastKnownFileType = file; path = main.jsbundle.meta; sourceTree = "<group>"; };
 		E8A794129D35495D9AA79592 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		EA023580F9C542D9B169740E /* SafariViewManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SafariViewManager.xcodeproj; path = "../node_modules/react-native-safari-view/SafariViewManager.xcodeproj"; sourceTree = "<group>"; };
 		FD7B8911445148EAADABCD0E /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
@@ -541,7 +545,9 @@
 		13B07FAE1A68108700A75B9A /* uestc_react_native_ios */ = {
 			isa = PBXGroup;
 			children = (
-				E3F9FC4D205BE470004F5082 /* bundle */,
+				E3DB0136205D62310090A9B7 /* assets */,
+				E3DB0137205D62310090A9B7 /* main.jsbundle */,
+				E3DB0138205D62310090A9B7 /* main.jsbundle.meta */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -1209,14 +1215,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3DB013B205D62310090A9B7 /* main.jsbundle.meta in Resources */,
+				E3DB0139205D62310090A9B7 /* assets in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				10C626FF592F41539472060B /* Entypo.ttf in Resources */,
 				846DCA22275F417EB8123350 /* EvilIcons.ttf in Resources */,
 				B255E9C662D0479FA5BEC82B /* Feather.ttf in Resources */,
+				E3DB013A205D62310090A9B7 /* main.jsbundle in Resources */,
 				2C8E162B09DB435EAC6DDFE3 /* FontAwesome.ttf in Resources */,
 				017D31D2C51342E3913924D6 /* Foundation.ttf in Resources */,
 				1B8CE8C719564201B677CA64 /* Ionicons.ttf in Resources */,
-				E3F9FC4E205BE471004F5082 /* bundle in Resources */,
 				DABCA0E809F14A4DB226EC6D /* MaterialCommunityIcons.ttf in Resources */,
 				934B368E7BF243209FBCC6D4 /* MaterialIcons.ttf in Resources */,
 				BA2F1A67EF40498DBA557B7B /* Octicons.ttf in Resources */,
@@ -1245,7 +1253,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (

@@ -64,7 +64,22 @@ class Main extends React.Component {
           <Icon style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
         </View>
       </TouchableOpacity>
-    )
+    );
+
+    if (info.section.key === 'extra') return (
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => this.props.navigation.navigate('About')}
+      >
+        <View style={styles.inner}>
+          <View style={styles.left}>
+            <Icon name={info.item.icon} size={24} color={info.item.color} style={styles.icon}/>
+            <Text style={styles.text}>{info.item.name}</Text>
+          </View>
+          <Icon style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
+        </View>
+      </TouchableOpacity>
+    );
   };
 
   _sectionComp = () => {
@@ -96,6 +111,11 @@ class Main extends React.Component {
               data: [
                 {name: '退出登录', data: { title: '确认退出吗？', detail: '\n退出后将清除您的缓存数据，并要求您重新登录', type: 'exit', }, icon: 'ios-exit', color: '#fdc600'},
                 {name: '删除账户', data: { title: '确认删除吗？', detail: '\n为保证为本人操作，此操作需要确认您的教务系统账户密码', type: 'delete' }, icon: 'ios-close-circle', color: 'rgb(217, 74, 74)'},
+              ]
+            }, {
+              key: 'extra',
+              data: [
+                {name: '关于', page: `About`, icon: 'ios-paper-plane', color: '#239ff4'}
               ]
             }]
           }

@@ -6,6 +6,7 @@ import Toaster from 'react-native-toaster';
 import Loading from './common/components/Loading';
 import Login from "./scene/Login";
 import Confirm from "./scene/Confirm";
+import About from './scene/About';
 import TabNavigator from "./Main";
 
 import { inject, observer } from 'mobx-react/native';
@@ -28,6 +29,9 @@ const App = StackNavigator(
     },
     Confirm: {
       screen: Confirm,
+    },
+    About: {
+      screen: About,
     }
   },
   {
