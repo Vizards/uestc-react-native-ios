@@ -6,6 +6,7 @@
     "platforms": ["ios"],
     "githubUrl": "https://github.com/Vizards/uestc-react-native-ios",
     "orientation": "portrait",
+    "icon": "https://o9sapbwjn.qnssl.com/2018-03-18-icon-1024.png",
     "sdkVersion": "25.0.0"
   }
 }
