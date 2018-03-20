@@ -49,6 +49,8 @@
     
 3. 受 Expo 平台网络所限，部分图片资源的加载可能会有些问题
 
+4. 项目 ejected 分支可供自行编译使用，要求安装 Xcode 和配置 react-native 环境
+
 ## 开发
 
 - 项目基于 [CRNA](https://github.com/react-community/create-react-native-app) ，详见 [User Guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md)
