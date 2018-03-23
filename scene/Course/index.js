@@ -110,7 +110,14 @@ class Course extends React.Component {
       const lastLoginData = await this.props.rootStore.StorageStore.constructor.load('user');
       if (moment().diff(lastLoginData.time) >= 604800000) {
         await this.props.rootStore.LoadingStore.loading(true, '自动登录中...');
-        await this.props.rootStore.UserStore.login(lastLoginData.username, lastLoginData.password);
+        const responseJson = await this.props.rootStore.UserStore.login(lastLoginData.username, lastLoginData.password);
+        console.log(responseJson);
+        await this.props.rootStore.StorageStore.save('user', {
+          username: lastLoginData.username,
+          password: lastLoginData.password,
+          token: responseJson.data.token,
+          time: responseJson.time,
+        });
         await this.props.rootStore.LoadingStore.loading(false);
       }
       try {
