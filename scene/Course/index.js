@@ -55,8 +55,8 @@ class Course extends React.Component {
       },
       async (buttonIndex) => {
         if (buttonIndex !== CANCEL_INDEX) {
-          await this.props.navigation.setParams({ title: BUTTONS[buttonIndex] });
-          await this.updateCourseData(BUTTONS[buttonIndex].substr(0, 4), BUTTONS[buttonIndex].substr(9, 1))
+          const response = await this.updateCourseData(BUTTONS[buttonIndex].substr(0, 4), BUTTONS[buttonIndex].substr(9, 1));
+          if (response) await this.props.navigation.setParams({ title: BUTTONS[buttonIndex] });
         }
       });
   };
@@ -86,6 +86,7 @@ class Course extends React.Component {
       await this.handleRenderData(courseData);
     } catch (err) {
       await this.handleRedirectLogin();
+      return false;
     }
   }
 

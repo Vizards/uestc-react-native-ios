@@ -99,6 +99,7 @@ export default class Arrangement extends React.Component {
       await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.UserStore.toast('error', '暂时无法获取考试安排信息，请稍后重试');
       await this.props.rootStore.UserStore.clearToast();
+      return false;
     }
   }
 
@@ -115,11 +116,11 @@ export default class Arrangement extends React.Component {
       },
       async (buttonIndex) => {
         if (buttonIndex !== CANCEL_INDEX) {
-          await this.setState({
+          const userData = await this.loadUserData();
+          const response = await this.updateExamData(BUTTONS[buttonIndex].substr(0, 4), BUTTONS[buttonIndex].substr(9, 1), userData.token);
+          if (response) await this.setState({
             selectedText: BUTTONS[buttonIndex],
           });
-          const userData = await this.loadUserData();
-          await this.updateExamData(BUTTONS[buttonIndex].substr(0, 4), BUTTONS[buttonIndex].substr(9, 1), userData.token);
         }
       });
   };
