@@ -1,10 +1,11 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Text, View, SectionList, RefreshControl, ScrollView, TouchableOpacity, StyleSheet, ActionSheetIOS } from 'react-native';
+import { Text, View, SectionList, RefreshControl, ScrollView, TouchableOpacity, StyleSheet, ActionSheetIOS, Dimensions } from 'react-native';
 import { inject, observer } from "mobx-react/native";
 
 const semester = require('../../../common/helpers/semester');
 const current = require('../../../common/helpers/current');
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 @inject('rootStore')
 @observer
@@ -14,6 +15,7 @@ export default class Grade extends React.Component {
     super(props);
     this.state = {
       gradeData: [],
+      isNull: false,
       year: '',
       semester: '',
       selectedText: '',
@@ -84,6 +86,7 @@ export default class Grade extends React.Component {
       await this.saveGradeData({ parsedGradeData, year, semester });
       this.setState({
         gradeData: parsedGradeData,
+        isNull: parsedGradeData[0].data[0].name === '',
         year,
         semester,
         selectedText: `${year} 学年第 ${semester} 学期`,
@@ -93,6 +96,7 @@ export default class Grade extends React.Component {
       await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.UserStore.toast('error', '暂时无法获取成绩信息，请稍后重试');
       await this.props.rootStore.UserStore.clearToast();
+      return false;
     }
   }
 
@@ -109,11 +113,11 @@ export default class Grade extends React.Component {
       },
       async (buttonIndex) => {
         if (buttonIndex !== CANCEL_INDEX) {
-          await this.setState({
+          const userData = await this.loadUserData();
+          const response = await this.updateGradeData(BUTTONS[buttonIndex].substr(0, 4), BUTTONS[buttonIndex].substr(9, 1), userData.token);
+          if (response) await this.setState({
             selectedText: BUTTONS[buttonIndex],
           });
-          const userData = await this.loadUserData();
-          await this.updateGradeData(BUTTONS[buttonIndex].substr(0, 4), BUTTONS[buttonIndex].substr(9, 1), userData.token);
         }
       });
   };
@@ -123,6 +127,7 @@ export default class Grade extends React.Component {
       const gradeData = await this.props.rootStore.StorageStore.constructor.load('grade');
       this.setState({
         gradeData: gradeData.parsedGradeData,
+        isNull: gradeData.parsedGradeData[0].data[0].name === '',
         year: gradeData.year,
         semester: gradeData.semester,
         selectedText: `${gradeData.year} 学年第 ${gradeData.semester} 学期`
@@ -157,12 +162,14 @@ export default class Grade extends React.Component {
             <Icon style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
           </View>
         </TouchableOpacity>
-        <SectionList
+        {this.state.isNull ? <View style={styles.noData}>
+          <Text style={styles.noText}>本学期还没有课程发布了成绩&nbsp;🙈</Text>
+        </View> : <SectionList
           renderSectionHeader={this._sectionComp}
           renderItem={this._renderItem}
           keyExtractor = {this._extraUniqueKey}
           sections={this.state.gradeData}
-        />
+        />}
       </ScrollView>
     );
   }
@@ -177,6 +184,16 @@ const $info = 'rgba(3,3,3,0.3)';
 const $dateColor = 'rgb(74, 217, 100)';
 const $red = 'rgb(217, 74, 74)';
 const styles = StyleSheet.create({
+  noData: {
+    width: '100%',
+    marginTop: (SCREEN_HEIGHT - 84.5 - 44 - 48.5) / 2 - 43.0,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  noText: {
+    color: $gray,
+    fontSize: 15,
+  },
   scrollView: {
     height: '100%'
   },

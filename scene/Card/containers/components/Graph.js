@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
   },
   col: {
     width: '50%',
+    height: 360,
   },
   row: {
     width: '100%',

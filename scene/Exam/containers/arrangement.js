@@ -1,12 +1,23 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Text, View, SectionList, RefreshControl, ScrollView, TouchableOpacity, StyleSheet, ActionSheetIOS } from 'react-native';
+import {
+  Text,
+  View,
+  SectionList,
+  RefreshControl,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  ActionSheetIOS,
+  Dimensions
+} from 'react-native';
 import { inject, observer } from "mobx-react/native";
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 
 const semester = require('../../../common/helpers/semester');
 const current = require('../../../common/helpers/current');
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 moment.locale('zh-cn');
 
@@ -19,6 +30,7 @@ export default class Arrangement extends React.Component {
     this.state = {
       examData: [],
       year: '',
+      isNull: false,
       semester: '',
       selectedText: '',
       refreshing: false,
@@ -90,6 +102,7 @@ export default class Arrangement extends React.Component {
       await this.saveExamData({ parsedExamData, year, semester });
       await this.setState({
         examData: parsedExamData,
+        isNull: parsedExamData[0].data.length === 0 && parsedExamData[1].data.length === 0 && parsedExamData[2].data.length === 0 && parsedExamData[3].data.length === 0,
         year,
         semester,
         selectedText: `${year} 学年第 ${semester} 学期`,
@@ -99,6 +112,7 @@ export default class Arrangement extends React.Component {
       await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.UserStore.toast('error', '暂时无法获取考试安排信息，请稍后重试');
       await this.props.rootStore.UserStore.clearToast();
+      return false;
     }
   }
 
@@ -115,11 +129,11 @@ export default class Arrangement extends React.Component {
       },
       async (buttonIndex) => {
         if (buttonIndex !== CANCEL_INDEX) {
-          await this.setState({
+          const userData = await this.loadUserData();
+          const response = await this.updateExamData(BUTTONS[buttonIndex].substr(0, 4), BUTTONS[buttonIndex].substr(9, 1), userData.token);
+          if (response) await this.setState({
             selectedText: BUTTONS[buttonIndex],
           });
-          const userData = await this.loadUserData();
-          await this.updateExamData(BUTTONS[buttonIndex].substr(0, 4), BUTTONS[buttonIndex].substr(9, 1), userData.token);
         }
       });
   };
@@ -129,6 +143,7 @@ export default class Arrangement extends React.Component {
       const examData = await this.props.rootStore.StorageStore.constructor.load('exam');
       this.setState({
         examData: examData.parsedExamData,
+        isNull: examData.parsedExamData[0].data.length === 0 && examData.parsedExamData[1].data.length === 0 && examData.parsedExamData[2].data.length === 0 && examData.parsedExamData[3].data.length === 0,
         year: examData.year,
         semester: examData.semester,
         selectedText: `${examData.year} 学年第 ${examData.semester} 学期`
@@ -163,12 +178,14 @@ export default class Arrangement extends React.Component {
             <Icon style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
           </View>
         </TouchableOpacity>
-        <SectionList
+        {this.state.isNull ? <View style={styles.noData}>
+          <Text style={styles.noText}>本学期还没有发布考试&nbsp;🐶</Text>
+        </View> : <SectionList
           renderSectionHeader={this._sectionComp}
           renderItem={this._renderItem}
           keyExtractor = {this._extraUniqueKey}
           sections={this.state.examData}
-        />
+        />}
       </ScrollView>
     );
   }
@@ -182,6 +199,16 @@ const $title = 'rgb(3,3,3)';
 const $info = 'rgba(3,3,3,0.3)';
 const $dateColor = 'rgb(74, 217, 100)';
 const styles = StyleSheet.create({
+  noData: {
+    width: '100%',
+    marginTop: (SCREEN_HEIGHT - 84.5 - 44 - 48.5) / 2 - 43.0,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  noText: {
+    color: $gray,
+    fontSize: 15,
+  },
   scrollView: {
     height: '100%'
   },

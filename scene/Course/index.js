@@ -1,6 +1,6 @@
 import React from 'react';
 /* eslint-disable */
-import { Text, View, StyleSheet, ScrollView, TouchableOpacity, ActionSheetIOS } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, TouchableOpacity, ActionSheetIOS, Dimensions } from 'react-native';
 /* eslint-enable */
 import Icon from 'react-native-vector-icons/Ionicons';
 import { withNavigation } from 'react-navigation';
@@ -11,6 +11,8 @@ import moment from "moment";
 
 const current = require('../../common/helpers/current');
 const semester = require('../../common/helpers/semester');
+const SCREEN_WIDTH = Dimensions.get('window').width - 48;
+
 
 @inject('rootStore')
 @observer
@@ -55,8 +57,8 @@ class Course extends React.Component {
       },
       async (buttonIndex) => {
         if (buttonIndex !== CANCEL_INDEX) {
-          await this.props.navigation.setParams({ title: BUTTONS[buttonIndex] });
-          await this.updateCourseData(BUTTONS[buttonIndex].substr(0, 4), BUTTONS[buttonIndex].substr(9, 1))
+          const response = await this.updateCourseData(BUTTONS[buttonIndex].substr(0, 4), BUTTONS[buttonIndex].substr(9, 1));
+          if (response) await this.props.navigation.setParams({ title: BUTTONS[buttonIndex] });
         }
       });
   };
@@ -73,9 +75,15 @@ class Course extends React.Component {
       await this.props.rootStore.LoadingStore.loading(false);
       return response.data;
     } else {
-      await this.props.rootStore.LoadingStore.loading(false);
-      await this.props.rootStore.UserStore.toast('error', '暂时无法从教务系统同步课表，请稍后重试');
-      await this.props.rootStore.UserStore.clearToast();
+      try {
+        const lastLoginData = await this.props.rootStore.StorageStore.constructor.load('user');
+        const token = await this.refreshToken(lastLoginData);
+        await this.getCourseData(year, semester, token);
+      } catch (err) {
+        await this.props.rootStore.LoadingStore.loading(false);
+        await this.props.rootStore.UserStore.toast('error', '暂时无法从教务系统同步课表，请稍后重试');
+        await this.props.rootStore.UserStore.clearToast();
+      }
     }
   }
 
@@ -84,8 +92,10 @@ class Course extends React.Component {
       const userData = await this.loadUserData();
       const courseData = await this.getCourseData(year, semester, userData.token);
       await this.handleRenderData(courseData);
+      return courseData !== undefined;
     } catch (err) {
       await this.handleRedirectLogin();
+      return false;
     }
   }
 
@@ -104,14 +114,25 @@ class Course extends React.Component {
     await this.props.rootStore.UserStore.clearToast();
   }
 
+  async refreshToken(lastLoginData) {
+    await this.props.rootStore.LoadingStore.loading(true, '自动登录中');
+    const responseJson = await this.props.rootStore.UserStore.login(lastLoginData.username, lastLoginData.password);
+    await this.props.rootStore.StorageStore.save('user', {
+      username: lastLoginData.username,
+      password: lastLoginData.password,
+      token: responseJson.data.token,
+      time: responseJson.time,
+    });
+    await this.props.rootStore.LoadingStore.loading(false);
+    return responseJson.data.token;
+  }
+
   async componentWillMount() {
     // 检测距上次登录时间是否超过 7 天，超过则自动更新 token
     try {
       const lastLoginData = await this.props.rootStore.StorageStore.constructor.load('user');
       if (moment().diff(lastLoginData.time) >= 604800000) {
-        await this.props.rootStore.LoadingStore.loading(true, '自动登录中...');
-        await this.props.rootStore.UserStore.login(lastLoginData.username, lastLoginData.password);
-        await this.props.rootStore.LoadingStore.loading(false);
+        await this.refreshToken(lastLoginData);
       }
       try {
         await this.handleRenderData();
@@ -149,7 +170,7 @@ class Course extends React.Component {
         </View>
       )
     });
-    const widthArr = [82, 82, 82, 82, 82, 82, 82];
+    const widthArr = SCREEN_WIDTH < 574 ? [82, 82, 82, 82, 82, 82, 82] : [SCREEN_WIDTH/7, SCREEN_WIDTH/7, SCREEN_WIDTH/7, SCREEN_WIDTH/7, SCREEN_WIDTH/7, SCREEN_WIDTH/7, SCREEN_WIDTH/7];
     return (
       <ScrollView>
         {/*eslint-disable*/}

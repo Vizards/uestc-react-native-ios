@@ -10,6 +10,7 @@ export default class Bill extends React.Component {
     super(props);
     this.state = {
       bill: [],
+      isNull: false,
       totalConsume: '',
       totalRecharge: '',
       disappear: false,
@@ -65,6 +66,7 @@ export default class Bill extends React.Component {
     if (response.code === 200) {
       await this.setState({
         bill: parsedData,
+        isNull: parsedData[0].data.length === 0,
         totalConsume: response.data.total_consume,
         totalRecharge: response.data.total_recharge,
         disappear: true,
@@ -93,12 +95,14 @@ export default class Bill extends React.Component {
             style={styles.load_progress} />
           <Text style={styles.load_text}>获取最近账单</Text>
         </View>
-        <SectionList
+        {this.state.isNull ? <View style={styles.noData}>
+          <Text style={styles.noText}>近一个月内没有一卡通消费记录&nbsp;🍭</Text>
+        </View> : <SectionList
           renderSectionHeader={this._sectionComp}
           renderItem={this._renderItem}
           keyExtractor = {this._extraUniqueKey}
           sections={this.state.bill}
-        />
+        />}
         <View style={styles.buttonWrapper}>
           <TouchableOpacity
             style={styles.Button}
@@ -124,6 +128,7 @@ export default class Bill extends React.Component {
 }
 
 const $frontColor = '#fff';
+const $gray = 'rgb(143, 142, 148)';
 const $textInputBackgroundColor = '#fff';
 const $title = 'rgb(3,3,3)';
 const $info = 'rgba(3,3,3,0.3)';
@@ -213,6 +218,17 @@ const styles = StyleSheet.create({
   },
   red: {
     color: $red,
+  },
+  noText: {
+    color: $gray,
+    fontSize: 15,
+  },
+  noData: {
+    width: '100%',
+    alignItems: 'center',
+    paddingTop: 50,
+    paddingBottom: 25,
+    backgroundColor: $loadBoxBackgroundColor,
   },
   load_box: {
     width: 100,

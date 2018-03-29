@@ -78,7 +78,7 @@ export default class About extends React.Component {
         </View>
         <View style={styles.version}>
           <Text style={styles.versionText}>版本</Text>
-          <Text style={styles.versionNumber}>1.0.0 (Beta)</Text>
+          <Text style={styles.versionNumber}>1.0.0 (100)</Text>
         </View>
         <SectionList
           renderSectionHeader={this._sectionComp}

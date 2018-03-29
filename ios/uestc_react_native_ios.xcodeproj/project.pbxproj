@@ -26,7 +26,6 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1B8CE8C719564201B677CA64 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD78C38081684CB381DA79BB /* Ionicons.ttf */; };
 		2C8E162B09DB435EAC6DDFE3 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 311221664E2F4C1AA81840ED /* FontAwesome.ttf */; };
-		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D02E4C21E0B4AEC006451C7 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157351DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
@@ -49,9 +48,9 @@
 		C4612953EE8F45CC895A4796 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD7B8911445148EAADABCD0E /* libBVLinearGradient.a */; };
 		CE2048FF90954FA6B92B11F1 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D658D44A82DD4756B559FAB2 /* Zocial.ttf */; };
 		DABCA0E809F14A4DB226EC6D /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 134E742BFBAD428FBF9A162A /* MaterialCommunityIcons.ttf */; };
-		E3DB0139205D62310090A9B7 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = E3DB0136205D62310090A9B7 /* assets */; };
-		E3DB013A205D62310090A9B7 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = E3DB0137205D62310090A9B7 /* main.jsbundle */; };
-		E3DB013B205D62310090A9B7 /* main.jsbundle.meta in Resources */ = {isa = PBXBuildFile; fileRef = E3DB0138205D62310090A9B7 /* main.jsbundle.meta */; };
+		E3A7B903206D200E00BD4146 /* index.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = E3A7B900206D200E00BD4146 /* index.jsbundle */; };
+		E3A7B904206D200E00BD4146 /* index.jsbundle.meta in Resources */ = {isa = PBXBuildFile; fileRef = E3A7B901206D200E00BD4146 /* index.jsbundle.meta */; };
+		E3A7B905206D200E00BD4146 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = E3A7B902206D200E00BD4146 /* assets */; };
 		F32DB663E40D45AD8E7C76CB /* libSafariViewManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E2E90503364E62B0E8AAF0 /* libSafariViewManager.a */; };
 /* End PBXBuildFile section */
 
@@ -398,9 +397,9 @@
 		C5E2E90503364E62B0E8AAF0 /* libSafariViewManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSafariViewManager.a; sourceTree = "<group>"; };
 		D658D44A82DD4756B559FAB2 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		DD78C38081684CB381DA79BB /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		E3DB0136205D62310090A9B7 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
-		E3DB0137205D62310090A9B7 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		E3DB0138205D62310090A9B7 /* main.jsbundle.meta */ = {isa = PBXFileReference; lastKnownFileType = file; path = main.jsbundle.meta; sourceTree = "<group>"; };
+		E3A7B900206D200E00BD4146 /* index.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = index.jsbundle; path = bundle/index.jsbundle; sourceTree = "<group>"; };
+		E3A7B901206D200E00BD4146 /* index.jsbundle.meta */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = index.jsbundle.meta; path = bundle/index.jsbundle.meta; sourceTree = "<group>"; };
+		E3A7B902206D200E00BD4146 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = bundle/assets; sourceTree = "<group>"; };
 		E8A794129D35495D9AA79592 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		EA023580F9C542D9B169740E /* SafariViewManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SafariViewManager.xcodeproj; path = "../node_modules/react-native-safari-view/SafariViewManager.xcodeproj"; sourceTree = "<group>"; };
 		FD7B8911445148EAADABCD0E /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
@@ -545,9 +544,9 @@
 		13B07FAE1A68108700A75B9A /* uestc_react_native_ios */ = {
 			isa = PBXGroup;
 			children = (
-				E3DB0136205D62310090A9B7 /* assets */,
-				E3DB0137205D62310090A9B7 /* main.jsbundle */,
-				E3DB0138205D62310090A9B7 /* main.jsbundle.meta */,
+				E3A7B902206D200E00BD4146 /* assets */,
+				E3A7B900206D200E00BD4146 /* index.jsbundle */,
+				E3A7B901206D200E00BD4146 /* index.jsbundle.meta */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -1216,19 +1215,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3DB013B205D62310090A9B7 /* main.jsbundle.meta in Resources */,
-				E3DB0139205D62310090A9B7 /* assets in Resources */,
+				E3A7B905206D200E00BD4146 /* assets in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				10C626FF592F41539472060B /* Entypo.ttf in Resources */,
 				846DCA22275F417EB8123350 /* EvilIcons.ttf in Resources */,
 				B255E9C662D0479FA5BEC82B /* Feather.ttf in Resources */,
-				E3DB013A205D62310090A9B7 /* main.jsbundle in Resources */,
 				2C8E162B09DB435EAC6DDFE3 /* FontAwesome.ttf in Resources */,
+				E3A7B903206D200E00BD4146 /* index.jsbundle in Resources */,
 				017D31D2C51342E3913924D6 /* Foundation.ttf in Resources */,
 				1B8CE8C719564201B677CA64 /* Ionicons.ttf in Resources */,
 				DABCA0E809F14A4DB226EC6D /* MaterialCommunityIcons.ttf in Resources */,
 				934B368E7BF243209FBCC6D4 /* MaterialIcons.ttf in Resources */,
 				BA2F1A67EF40498DBA557B7B /* Octicons.ttf in Resources */,
+				E3A7B904206D200E00BD4146 /* index.jsbundle.meta in Resources */,
 				1402953B73F141F3B4E222C9 /* SimpleLineIcons.ttf in Resources */,
 				CE2048FF90954FA6B92B11F1 /* Zocial.ttf in Resources */,
 			);
@@ -1305,7 +1304,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */,
-				2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1406,7 +1404,7 @@
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
 				);
 				INFOPLIST_FILE = uestc_react_native_ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1415,6 +1413,7 @@
 				);
 				PRODUCT_NAME = uestc_react_native_ios;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1434,7 +1433,7 @@
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
 				);
 				INFOPLIST_FILE = uestc_react_native_ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1443,6 +1442,7 @@
 				);
 				PRODUCT_NAME = uestc_react_native_ios;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1592,7 +1592,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
@@ -1628,7 +1628,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
