@@ -77,7 +77,7 @@ export default class Graph extends React.Component {
           type: 'gauge',
           center: ['50%', '25%'],
           data: [{value: Number(this.state.eCardBalance)}],
-          radius: '80%',
+          radius: 77,
           min: 0,
           max: this.state.eCardBalance > 240 ? this.state.eCardBalance : 240,
           splitNumber: 6,
@@ -110,7 +110,7 @@ export default class Graph extends React.Component {
           type: 'gauge',
           center: ['50%', '75%'],
           data: [{value: Number(this.state.electricityBalance)}],
-          radius: '80%',
+          radius: 77,
           splitNumber: 5,
           splitLine: {
             show: false,

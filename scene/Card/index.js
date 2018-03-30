@@ -18,7 +18,8 @@ const XiFu = StackNavigator(
     navigationOptions: {
       headerStyle: {
         display: 'none'
-      }
+      },
+      gesturesEnabled: false,
     },
     mode: 'modal',
   }
