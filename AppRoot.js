@@ -7,6 +7,7 @@ import Loading from './common/components/Loading';
 import Login from "./scene/Login";
 import Confirm from "./scene/Confirm";
 import About from './scene/About';
+import OpenSource from "./scene/OpenSource";
 import TabNavigator from "./Main";
 
 import { inject, observer } from 'mobx-react/native';
@@ -32,6 +33,9 @@ const App = StackNavigator(
     },
     About: {
       screen: About,
+    },
+    OpenSource: {
+      screen: OpenSource,
     }
   },
   {

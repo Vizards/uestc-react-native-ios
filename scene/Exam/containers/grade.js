@@ -163,7 +163,8 @@ export default class Grade extends React.Component {
           </View>
         </TouchableOpacity>
         {this.state.isNull ? <View style={styles.noData}>
-          <Text style={styles.noText}>本学期还没有课程发布了成绩&nbsp;🙈</Text>
+          <Text style={styles.noText}>本学期还没有发布成绩&nbsp;🙈</Text>
+          <Text style={styles.noText}>试试下拉刷新 or 戳上面切换学期&nbsp;👆</Text>
         </View> : <SectionList
           renderSectionHeader={this._sectionComp}
           renderItem={this._renderItem}
@@ -186,13 +187,15 @@ const $red = 'rgb(217, 74, 74)';
 const styles = StyleSheet.create({
   noData: {
     width: '100%',
-    marginTop: (SCREEN_HEIGHT - 84.5 - 44 - 48.5) / 2 - 43.0,
+    marginTop: (SCREEN_HEIGHT - 84.5 - 44 - 48.5) / 2 - 56,
     flexDirection: 'column',
     alignItems: 'center'
   },
   noText: {
     color: $gray,
     fontSize: 15,
+    paddingBottom: 5,
+    paddingTop: 5,
   },
   scrollView: {
     height: '100%'

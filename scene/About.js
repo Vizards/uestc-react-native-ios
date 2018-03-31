@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image, SectionList, Linking, Alert } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Image, SectionList, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {inject, observer} from "mobx-react/native";
+import { inject, observer } from "mobx-react/native";
 
 @inject('rootStore')
 @observer
@@ -42,17 +42,23 @@ export default class About extends React.Component {
     if (info.section.key === 'thanks') return (
       <TouchableOpacity
         style={styles.card}
-        onPress={() => Linking.canOpenURL(info.item.url).then(supported => {
-          if (supported) Linking.openURL(info.item.url);
-          if (!supported) {
-            this.props.rootStore.UserStore.toast('warning', `请先安装浏览器`);
-            this.props.rootStore.UserStore.clearToast();
+        onPress={() => {
+          if (info.item.type === 'website') {
+            Linking.canOpenURL(info.item.url).then(supported => {
+              if (supported) Linking.openURL(info.item.url);
+              if (!supported) {
+                this.props.rootStore.UserStore.toast('warning', `请先安装浏览器`);
+                this.props.rootStore.UserStore.clearToast();
+              }
+            })
+          } else {
+            this.props.navigation.navigate(info.item.url);
           }
-        })}
+        }}
       >
         <View style={styles.inner}>
           <View style={styles.left}>
-            <Icon name='logo-github' size={24} color='#000' style={styles.icon}/>
+            <Icon name={info.item.icon} size={24} color={info.item.color} style={styles.icon}/>
             <Text style={styles.text}>{info.item.name}</Text>
           </View>
           <Icon style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
@@ -63,7 +69,7 @@ export default class About extends React.Component {
 
   _sectionComp = (info) => {
     const key = info.section.key;
-    return <Text style={styles.title}>{key === 'about' ? '关于' : '致谢'}</Text>;
+    return <Text style={styles.title}>{key === 'about' ? '支持我们' : '致谢'}</Text>;
   };
 
   _extraUniqueKey = (item, index) => {
@@ -97,19 +103,9 @@ export default class About extends React.Component {
             }, {
               key: 'thanks',
               data: [
-                {name: 'create-react-native-app', url: 'https://github.com/react-community/create-react-native-app'},
-                {name: 'react-native-linear-gradient', url: 'https://github.com/react-native-community/react-native-linear-gradient'},
-                {name: 'react-native-safari-view', url: 'https://github.com/naoufal/react-native-safari-view'},
-                {name: 'react-native-shimmer-placeholder', url: 'https://github.com/tomzaku/react-native-shimmer-placeholder'},
-                {name: 'react-native-storage', url: 'https://github.com/sunnylqm/react-native-storage'},
-                {name: 'react-native-table-component', url: 'https://github.com/Gil2015/react-native-table-component'},
-                {name: 'react-native-toaster', url: 'https://github.com/tableflip/react-native-toaster'},
-                {name: 'react-native-vector-icons', url: 'https://github.com/oblador/react-native-vector-icons'},
-                {name: 'react-native-web-echarts', url: 'https://github.com/womkim/react-native-web-echarts'},
-                {name: 'react-navigation', url: 'https://github.com/react-navigation/react-navigation'},
-                {name: 'underscore', url: 'https://github.com/jashkenas/underscore'},
-                {name: 'moment', url: 'https://github.com/moment/moment'},
-                {name: 'mobx', url: 'https://github.com/mobxjs/mobx'},
+                {name: 'GitHub 开源软件', url: 'OpenSource', type: 'page', icon: 'logo-github', color: '#000000'},
+                {name: '设计师 @轩轩', url: 'https://www.behance.net/XuanXuan1996', type: 'website', icon: 'ios-images', color: '#fdc600'},
+                {name: '运营指导 @蛋总', url: 'http://www.dange.lol/', type: 'website', icon: 'ios-build', color: '#1f8af8'}
               ]
             }]
           }
