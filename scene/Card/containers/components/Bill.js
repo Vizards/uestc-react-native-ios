@@ -44,8 +44,8 @@ export default class Bill extends React.Component {
   _sectionComp = (info) => {
     if (info.section.data.length === 0) return null;
     if (info.section.data[0].name !== '') return <View style={styles.title}>
-      <Text style={styles.titleText}>本月消费￥{this.state.totalConsume}</Text>
-      <Text style={styles.titleText}>本月充值￥{this.state.totalRecharge}</Text>
+      <Text style={styles.titleText}>30 天消费￥{this.state.totalConsume}</Text>
+      <Text style={styles.titleText}>30 天充值￥{this.state.totalRecharge}</Text>
     </View>;
   };
 
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   exam: {
-    width: '80%',
+    width: '70%',
   },
   card: {
     backgroundColor: $frontColor,

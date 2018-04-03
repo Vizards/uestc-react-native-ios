@@ -8,6 +8,7 @@ import Login from "./scene/Login";
 import Confirm from "./scene/Confirm";
 import About from './scene/About';
 import OpenSource from "./scene/OpenSource";
+import Office from "./scene/Office";
 import TabNavigator from "./Main";
 
 import { inject, observer } from 'mobx-react/native';
@@ -36,6 +37,9 @@ const App = StackNavigator(
     },
     OpenSource: {
       screen: OpenSource,
+    },
+    Office: {
+      screen: Office
     }
   },
   {

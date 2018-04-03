@@ -14,9 +14,13 @@ class Main extends React.Component {
     if (info.section.key === 'tool') return (
       <TouchableOpacity
         style={styles.card}
-        onPress={() => SafariView.show({
+        onPress={() => {if (info.item.page === 'announcement') {
+          this.props.navigation.navigate('Office', {type: 'announcement'})
+        } else if(info.item.page === 'query') {
+          this.props.navigation.navigate('Office', {type: 'query'})
+        } else SafariView.show({
           url: info.item.url,
-        })}
+        })}}
       >
         <View style={styles.inner}>
           <View style={styles.left}>
@@ -102,9 +106,9 @@ class Main extends React.Component {
               key: 'tool',
               data: [
                 {name: '班车信息', url: `${config.domain}/api/extra/traffic`, icon: 'ios-bus', color: '#51c733'},
-                {name: '教务处学生公告', url: `${config.domain}/api/extra/notification`, icon: 'ios-notifications', color: '#fdc600'},
-                {name: '学院教务科信息', url: `${config.domain}/api/extra/contact`, icon: 'ios-contact', color: '#c5cfd4'},
-                {name: '学校部门信息', url: `${config.domain}/api/extra/dept`, icon: 'ios-information-circle', color: '#239ff4'},
+                {name: '教务信息公告', page: 'announcement', icon: 'ios-notifications', color: '#fdc600'},
+                {name: '教务服务指南', url: `${config.domain}/api/extra/info`, icon: 'ios-compass', color: '#c5cfd4'},
+                {name: '快捷查询', page: 'query', icon: 'ios-information-circle', color: '#239ff4'},
               ]
             }, {
               key: 'account',
