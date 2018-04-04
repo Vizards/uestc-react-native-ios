@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Modal } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Toaster from 'react-native-toaster';
+import * as launchImage from 'react-native-launch-image';
 
 import Loading from './common/components/Loading';
 import Login from "./scene/Login";
@@ -52,6 +53,7 @@ const App = StackNavigator(
 export default class AppRoot extends React.Component {
 
   async componentWillMount() {
+    launchImage.hide();
     // await this.props.rootStore.StorageStore.constructor.remove('user');
     // await this.props.rootStore.StorageStore.constructor.remove('course');
     // await this.props.rootStore.StorageStore.constructor.remove('exam');
@@ -59,7 +61,6 @@ export default class AppRoot extends React.Component {
     // await this.props.rootStore.StorageStore.constructor.remove('gpa');
     // await this.props.rootStore.StorageStore.constructor.remove('allGrade');
     // await this.props.rootStore.StorageStore.constructor.remove('xifu');
-
     try {
       const lastLoginData = await this.props.rootStore.StorageStore.constructor.load('xifu');
       if (lastLoginData.username.length === 11) {

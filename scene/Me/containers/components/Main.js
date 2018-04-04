@@ -69,21 +69,6 @@ class Main extends React.Component {
         </View>
       </TouchableOpacity>
     );
-
-    if (info.section.key === 'extra') return (
-      <TouchableOpacity
-        style={styles.card}
-        onPress={() => this.props.navigation.navigate('About')}
-      >
-        <View style={styles.inner}>
-          <View style={styles.left}>
-            <Icon name={info.item.icon} size={24} color={info.item.color} style={styles.icon}/>
-            <Text style={styles.text}>{info.item.name}</Text>
-          </View>
-          <Icon style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
-        </View>
-      </TouchableOpacity>
-    );
   };
 
   _sectionComp = () => {
@@ -101,6 +86,7 @@ class Main extends React.Component {
           renderSectionHeader={this._sectionComp}
           renderItem={this._renderItem}
           keyExtractor = {this._extraUniqueKey}
+          style={styles.sectionList}
           sections={
             [{
               key: 'tool',
@@ -116,14 +102,21 @@ class Main extends React.Component {
                 {name: '退出登录', data: { title: '确认退出吗？', detail: '\n退出后将清除您的缓存数据，并要求您重新登录', type: 'exit', }, icon: 'ios-exit', color: '#fdc600'},
                 {name: '删除账户', data: { title: '确认删除吗？', detail: '\n为保证为本人操作，此操作需要确认您的教务系统账户密码', type: 'delete' }, icon: 'ios-close-circle', color: 'rgb(217, 74, 74)'},
               ]
-            }, {
-              key: 'extra',
-              data: [
-                {name: '关于', page: `About`, icon: 'ios-paper-plane', color: '#239ff4'}
-              ]
             }]
           }
         />
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => this.props.navigation.navigate('About')}
+        >
+          <View style={styles.inner}>
+            <View style={styles.left}>
+              <Icon name={'ios-paper-plane'} size={24} color='#239ff4' style={styles.icon}/>
+              <Text style={styles.text}>关于</Text>
+            </View>
+            <Icon style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
+          </View>
+        </TouchableOpacity>
       </ScrollView>
     );
   }
@@ -136,6 +129,9 @@ const $borderColor = 'rgb(200, 199, 204)';
 const $title = 'rgb(3,3,3)';
 const $gray = 'rgb(143, 142, 148)';
 const styles = StyleSheet.create({
+  sectionList: {
+    marginBottom: 14,
+  },
   card: {
     backgroundColor: $frontColor,
     paddingLeft: 15,

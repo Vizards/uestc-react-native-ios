@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import SafariView from 'react-native-safari-view';
 
 import config from '../config';
@@ -20,7 +18,9 @@ export default class Office extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.logo}>
-          {params.type === 'announcement' ? <MaterialIcon name={'announcement'} size={48} color={'#fdc600'}/> : <MaterialCommunityIcon name={'search-web'} color={'#239ff4'} size={48}/>}
+          <View style={[styles.yellow, params.type === 'query' && styles.blue]}>
+            {params.type === 'announcement' ? <Icon name={'ios-notifications'} size={32} color={'#fff'}/> : <Icon name={'ios-information-circle'} color={'#fff'} size={32}/>}
+          </View>
         </View>
         <View style={styles.list}>
           <TouchableOpacity style={styles.item} onPress={() => SafariView.show({
@@ -55,6 +55,8 @@ export default class Office extends React.Component {
 
 const $gray = 'rgb(143, 142, 148)';
 const $back = 'rgb(239, 239, 244)';
+const $yellow = '#fdc600';
+const $blue = '#239ff4';
 const $white = '#fff';
 const $borderColor = 'rgb(200, 199, 204)';
 const styles = StyleSheet.create({
@@ -64,6 +66,17 @@ const styles = StyleSheet.create({
   logo: {
     alignItems: 'center',
     paddingVertical: 30,
+  },
+  yellow: {
+    width: 50,
+    height: 50,
+    backgroundColor: $yellow,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  blue: {
+    backgroundColor: $blue,
   },
   list: {
     backgroundColor: $white,
