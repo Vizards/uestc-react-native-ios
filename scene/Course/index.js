@@ -81,7 +81,7 @@ class Course extends React.Component {
         await this.getCourseData(year, semester, token);
       } catch (err) {
         await this.props.rootStore.LoadingStore.loading(false);
-        await this.props.rootStore.UserStore.toast('error', '暂时无法从教务系统同步课表，请稍后重试');
+        await this.props.rootStore.UserStore.toast('error', '💊 暂时无法从教务系统同步课表，请稍后重试');
         await this.props.rootStore.UserStore.clearToast();
       }
     }
@@ -109,7 +109,7 @@ class Course extends React.Component {
 
   async handleRedirectLogin() {
     await this.props.rootStore.LoadingStore.loading(false);
-    await this.props.rootStore.UserStore.toast('info', '请先登录');
+    await this.props.rootStore.UserStore.toast('info', '🍭 请先登录');
     await this.props.navigation.navigate('Login');
     await this.props.rootStore.UserStore.clearToast();
   }

@@ -52,7 +52,7 @@ class Main extends React.Component {
                 await this.props.rootStore.StorageStore.constructor.remove('allGrade');
                 await this.props.rootStore.StorageStore.constructor.remove('xifu');
                 await this.props.rootStore.xiFuStore.setBind(false, '');
-                await this.props.rootStore.UserStore.toast('success', '已成功退出当前账号，请重新登录');
+                await this.props.rootStore.UserStore.toast('success', '🎉 已成功退出当前账号，请重新登录');
                 await this.props.rootStore.UserStore.clearToast();
                 await this.props.navigation.push('Login')
               }

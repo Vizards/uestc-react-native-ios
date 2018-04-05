@@ -25,11 +25,11 @@ class LoginForm extends React.Component {
 
   async onBlur(type) {
     if (type === 'username') {
-      this.state.username.length !== 13 && this.state.username.length !== 0 ? await this.props.rootStore.UserStore.toast('error', '学号是 13 个数字，请检查您的输入') : null;
+      this.state.username.length !== 13 && this.state.username.length !== 0 ? await this.props.rootStore.UserStore.toast('error', '⚠️ 学号是 13 个数字，请检查您的输入') : null;
       await this.props.rootStore.UserStore.clearToast();
     }
     if (type === 'password') {
-      this.state.password.length < 6 && this.state.password.length !== 0 ? await this.props.rootStore.UserStore.toast('error', '密码不得少于 6 位') : null;
+      this.state.password.length < 6 && this.state.password.length !== 0 ? await this.props.rootStore.UserStore.toast('error', '⚠️ 密码不得少于 6 位') : null;
       await this.props.rootStore.UserStore.clearToast();
     }
   };
@@ -49,17 +49,17 @@ class LoginForm extends React.Component {
           token: responseJson.data.token,
           time: responseJson.time,
         });
-        await this.props.rootStore.UserStore.toast('success', '登录成功！');
+        await this.props.rootStore.UserStore.toast('success', '🎉 登录成功！');
         await this.props.rootStore.UserStore.clearToast();
         await this.props.navigation.replace('Main');
       } catch (err) {
         await this.props.rootStore.LoadingStore.loading(false);
-        await this.props.rootStore.UserStore.toast('warning', '无法保存您的登录信息');
+        await this.props.rootStore.UserStore.toast('warning', '⚠️ 无法保存您的登录信息');
         await this.props.rootStore.UserStore.clearToast();
       }
     } else {
       await this.props.rootStore.LoadingStore.loading(false);
-      await this.props.rootStore.UserStore.toast('error', '暂时无法登录，请稍后再试');
+      await this.props.rootStore.UserStore.toast('error', '💊 暂时无法登录，请稍后再试');
       await this.props.rootStore.UserStore.clearToast();
     }
 

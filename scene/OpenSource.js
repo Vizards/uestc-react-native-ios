@@ -14,7 +14,7 @@ export default class OpenSource extends React.Component {
         onPress={() => Linking.canOpenURL(info.item.url).then(supported => {
           if (supported) Linking.openURL(info.item.url);
           if (!supported) {
-            this.props.rootStore.UserStore.toast('warning', `请先安装浏览器`);
+            this.props.rootStore.UserStore.toast('warning', `⚠️ 请先安装浏览器`);
             this.props.rootStore.UserStore.clearToast();
           }
         })}
@@ -57,6 +57,7 @@ export default class OpenSource extends React.Component {
                 {name: 'react-native-table-component', url: 'https://github.com/Gil2015/react-native-table-component'},
                 {name: 'react-native-toaster', url: 'https://github.com/tableflip/react-native-toaster'},
                 {name: 'react-native-vector-icons', url: 'https://github.com/oblador/react-native-vector-icons'},
+                {name: 'react-native-launch-image', url: 'https://github.com/reactnativecn/react-native-launch-image'},
                 {name: 'react-native-web-echarts', url: 'https://github.com/womkim/react-native-web-echarts'},
                 {name: 'react-navigation', url: 'https://github.com/react-navigation/react-navigation'},
                 {name: 'underscore', url: 'https://github.com/jashkenas/underscore'},

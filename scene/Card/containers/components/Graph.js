@@ -30,7 +30,7 @@ export default class Graph extends React.Component {
         isEcardReady: true,
       })
     } else {
-      await this.props.rootStore.UserStore.toast('error', '暂时无法获取一卡通信息，请稍后重试');
+      await this.props.rootStore.UserStore.toast('error', '💊 暂时无法获取一卡通信息，请稍后重试');
       await this.props.rootStore.UserStore.clearToast();
     }
   }
@@ -48,7 +48,7 @@ export default class Graph extends React.Component {
         isElectricityReady: true,
       })
     } else {
-      await this.props.rootStore.UserStore.toast('error', '暂时无法获取电费信息，请稍后重试');
+      await this.props.rootStore.UserStore.toast('error', '💊 暂时无法获取电费信息，请稍后重试');
       await this.props.rootStore.UserStore.clearToast();
     }
   }

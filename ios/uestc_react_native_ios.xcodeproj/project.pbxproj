@@ -1453,6 +1453,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = ga.uestc.ios;
 				PRODUCT_NAME = uestc_react_native_ios;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1484,6 +1485,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = ga.uestc.ios;
 				PRODUCT_NAME = uestc_react_native_ios;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

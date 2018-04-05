@@ -72,7 +72,7 @@ export default class Bill extends React.Component {
         disappear: true,
       });
     } else {
-      await this.props.rootStore.UserStore.toast('error', '暂时无法获取消费账单，请稍后重试');
+      await this.props.rootStore.UserStore.toast('error', '💊 暂时无法获取消费账单，请稍后重试');
       await this.props.rootStore.UserStore.clearToast();
     }
   }

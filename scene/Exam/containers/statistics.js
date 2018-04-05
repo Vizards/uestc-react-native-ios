@@ -76,7 +76,7 @@ export default class Statistic extends React.Component {
       })
     } else {
       await this.props.rootStore.LoadingStore.loading(false);
-      await this.props.rootStore.UserStore.toast('error', '暂时无法获取成绩信息，请稍后重试');
+      await this.props.rootStore.UserStore.toast('error', '💊 暂时无法获取成绩信息，请稍后重试');
       await this.props.rootStore.UserStore.clearToast();
     }
   }

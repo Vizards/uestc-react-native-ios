@@ -16,13 +16,13 @@ export default class About extends React.Component {
         style={styles.card}
         onPress={ async () => {
           if (info.item.type === 'app-store') {
-            await this.props.rootStore.UserStore.toast('info', '暂未上架 App Store, 敬请期待');
+            await this.props.rootStore.UserStore.toast('info', '🍭 暂未上架 App Store, 敬请期待');
             await this.props.rootStore.UserStore.clearToast();
           } else {
             Linking.canOpenURL(info.item.url).then(supported => {
               if (supported) Linking.openURL(info.item.url);
               if (!supported) {
-                this.props.rootStore.UserStore.toast('warning', `请先安装${info.item.type}`);
+                this.props.rootStore.UserStore.toast('warning', `⚠️ 请先安装${info.item.type}`);
                 this.props.rootStore.UserStore.clearToast();
               }
             });
@@ -47,7 +47,7 @@ export default class About extends React.Component {
             Linking.canOpenURL(info.item.url).then(supported => {
               if (supported) Linking.openURL(info.item.url);
               if (!supported) {
-                this.props.rootStore.UserStore.toast('warning', `请先安装浏览器`);
+                this.props.rootStore.UserStore.toast('warning', `⚠️ 请先安装浏览器`);
                 this.props.rootStore.UserStore.clearToast();
               }
             })
