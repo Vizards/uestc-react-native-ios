@@ -95,7 +95,7 @@ export default class About extends React.Component {
             [{
               key: 'about',
               data: [
-                {name: '在 App Store 评分', url: '', icon: 'ios-appstore', color: '#1f8af8', type: 'app-store'},
+                // {name: '在 App Store 评分', url: '', icon: 'ios-appstore', color: '#1f8af8', type: 'app-store'},
                 {name: '关注本项目开源库', url: 'https://github.com/Vizards/uestc-react-native-ios', icon: 'ios-star', color: '#fdc600', type: '浏览器'},
                 {name: '加入群聊讨论', url: 'mqqapi://card/show_pslcard?src_type=internal&version=1&uin=305337919&key=13fb709749e154e81ef0335ba145146cbc9b772f456853470075703f7d0dfb08&card_type=group&source=external', icon: 'ios-contacts', color: '#c5cfd4', type: 'QQ'},
                 {name: '提出 BUG 或改进', url: 'mailto://vizards@front.dog', icon: 'ios-mail', color: '#51c733', type: '邮件'}
@@ -105,7 +105,7 @@ export default class About extends React.Component {
               data: [
                 {name: 'GitHub 开源软件', url: 'OpenSource', type: 'page', icon: 'logo-github', color: '#000000'},
                 {name: '设计师 @轩轩', url: 'https://www.behance.net/XuanXuan1996', type: 'website', icon: 'ios-images', color: '#fdc600'},
-                {name: '运营指导 @蛋总', url: 'http://www.dange.lol/', type: 'website', icon: 'ios-build', color: '#1f8af8'}
+                {name: '运营指导 @蛋总', url: 'https://www.ahulib.com/', type: 'website', icon: 'ios-build', color: '#1f8af8'}
               ]
             }]
           }
