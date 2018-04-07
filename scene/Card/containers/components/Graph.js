@@ -17,6 +17,39 @@ export default class Graph extends React.Component {
     }
   }
 
+  // 自动登录，更新远程数据库存储的 token
+  async autoLogin() {
+    await this.props.rootStore.LoadingStore.loading(true, '自动登录中');
+    const userData = await this.props.rootStore.StorageStore.constructor.load('user');
+    const xiFuData = await this.props.rootStore.StorageStore.constructor.load('xifu');
+    const responseJson = await this.props.rootStore.UserStore.bind(xiFuData.username, xiFuData.password, userData.token);
+    if (responseJson.code === 403) {
+      await this.props.rootStore.LoadingStore.loading(false);
+      await this.props.rootStore.UserStore.toast('error', `💊 ${responseJson.err}`);
+      await this.props.rootStore.UserStore.clearToast();
+    } else if (responseJson.code === 201) {
+      try {
+        await this.props.rootStore.StorageStore.save('xifu', {
+          username: this.state.username,
+          password: this.state.password,
+          time: responseJson.time,
+        });
+        await this.props.rootStore.LoadingStore.loading(false);
+        await this.props.rootStore.UserStore.toast('success', '🎉 登录成功！');
+        await this.props.rootStore.UserStore.clearToast();
+        await this.props.rootStore.xiFuStore.setBind(true, this.state.username);
+      } catch (err) {
+        await this.props.rootStore.LoadingStore.loading(false);
+        await this.props.rootStore.UserStore.toast('warning', '⚠️ 无法保存您的登录信息');
+        await this.props.rootStore.UserStore.clearToast();
+      }
+    } else {
+      await this.props.rootStore.LoadingStore.loading(false);
+      await this.props.rootStore.UserStore.toast('error', '💊 暂时无法登录，请稍后再试');
+      await this.props.rootStore.UserStore.clearToast();
+    }
+  }
+
   async getEcard(token) {
     await this.setState({
       isEcardReady: false,
@@ -56,10 +89,18 @@ export default class Graph extends React.Component {
   async componentWillMount() {
     if (this.props.rootStore.xiFuStore.allData.xiFuBind === true) {
       const userData = await this.props.rootStore.StorageStore.constructor.load('user');
-      await Promise.all([
-        this.getEcard(userData.token),
-        this.getElectricity(userData.token),
-      ]);
+      try {
+        await Promise.all([
+          this.getEcard(userData.token),
+          this.getElectricity(userData.token),
+        ]);
+      } catch (e) {
+        await this.autoLogin();
+        await Promise.all([
+          this.getEcard(userData.token),
+          this.getElectricity(userData.token),
+        ]);
+      }
     }
   }
 
