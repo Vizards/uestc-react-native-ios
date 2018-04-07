@@ -64,7 +64,11 @@ class Course extends React.Component {
   };
 
   async loadUserData() {
-    return await this.props.rootStore.StorageStore.constructor.load('user');
+    try {
+      return await this.props.rootStore.StorageStore.constructor.load('user');
+    } catch (e) {
+      await this.handleRedirectLogin();
+    }
   };
 
   async getCourseData(year, semester, token) {
@@ -100,11 +104,15 @@ class Course extends React.Component {
   }
 
   async handleRenderData(data) {
-    const courseData = data !== undefined ? data : await this.props.rootStore.StorageStore.constructor.load('course');
-    const parsedCourseData = await handleParseData(courseData);
-    this.setState({
-      parsedCourseData,
-    });
+    try {
+      const courseData = data !== undefined ? data : await this.props.rootStore.StorageStore.constructor.load('course');
+      const parsedCourseData = await handleParseData(courseData);
+      this.setState({
+        parsedCourseData,
+      });
+    } catch (e) {
+      await this.updateCourseData(current.year, current.semester);
+    }
   }
 
   async handleRedirectLogin() {
@@ -115,16 +123,20 @@ class Course extends React.Component {
   }
 
   async refreshToken(lastLoginData) {
-    await this.props.rootStore.LoadingStore.loading(true, '自动登录中');
-    const responseJson = await this.props.rootStore.UserStore.login(lastLoginData.username, lastLoginData.password);
-    await this.props.rootStore.StorageStore.save('user', {
-      username: lastLoginData.username,
-      password: lastLoginData.password,
-      token: responseJson.data.token,
-      time: responseJson.time,
-    });
-    await this.props.rootStore.LoadingStore.loading(false);
-    return responseJson.data.token;
+    try {
+      await this.props.rootStore.LoadingStore.loading(true, '自动登录中');
+      const responseJson = await this.props.rootStore.UserStore.login(lastLoginData.username, lastLoginData.password);
+      await this.props.rootStore.StorageStore.save('user', {
+        username: lastLoginData.username,
+        password: lastLoginData.password,
+        token: responseJson.data.token,
+        time: responseJson.time,
+      });
+      await this.props.rootStore.LoadingStore.loading(false);
+      return responseJson.data.token;
+    } catch (e) {
+      await this.handleRedirectLogin();
+    }
   }
 
   async componentWillMount() {
@@ -134,11 +146,7 @@ class Course extends React.Component {
       if (moment().diff(lastLoginData.time) >= 604800000) {
         await this.refreshToken(lastLoginData);
       }
-      try {
-        await this.handleRenderData();
-      } catch (err) {
-        await this.updateCourseData(current.year, current.semester);
-      }
+      await this.handleRenderData();
       await this.props.navigation.setParams({ showActionSheet: this._showActionSheet.bind(this) });
     } catch (err) {
       await this.handleRedirectLogin();
