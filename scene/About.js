@@ -15,18 +15,13 @@ export default class About extends React.Component {
       <TouchableOpacity
         style={styles.card}
         onPress={ async () => {
-          if (info.item.type === 'app-store') {
-            await this.props.rootStore.UserStore.toast('info', '🍭 暂未上架 App Store, 敬请期待');
-            await this.props.rootStore.UserStore.clearToast();
-          } else {
-            Linking.canOpenURL(info.item.url).then(supported => {
-              if (supported) Linking.openURL(info.item.url);
-              if (!supported) {
-                this.props.rootStore.UserStore.toast('warning', `⚠️ 请先安装${info.item.type}`);
-                this.props.rootStore.UserStore.clearToast();
-              }
-            });
-          }
+          Linking.canOpenURL(info.item.url).then(supported => {
+            if (supported) Linking.openURL(info.item.url);
+            if (!supported) {
+              this.props.rootStore.UserStore.toast('warning', `⚠️ 请先安装${info.item.type}`);
+              this.props.rootStore.UserStore.clearToast();
+            }
+          });
         }}
       >
         <View style={styles.inner}>
@@ -95,7 +90,7 @@ export default class About extends React.Component {
             [{
               key: 'about',
               data: [
-                // {name: '在 App Store 评分', url: '', icon: 'ios-appstore', color: '#1f8af8', type: 'app-store'},
+                {name: '在 App Store 评分', url: 'https://itunes.apple.com/app/id1368462316', icon: 'ios-appstore', color: '#1f8af8', type: 'app-store'},
                 {name: '关注本项目开源库', url: 'https://github.com/Vizards/uestc-react-native-ios', icon: 'ios-star', color: '#fdc600', type: '浏览器'},
                 {name: '加入群聊讨论', url: 'mqqapi://card/show_pslcard?src_type=internal&version=1&uin=305337919&key=13fb709749e154e81ef0335ba145146cbc9b772f456853470075703f7d0dfb08&card_type=group&source=external', icon: 'ios-contacts', color: '#c5cfd4', type: 'QQ'},
                 {name: '提出 BUG 或改进', url: 'mailto://vizards@front.dog', icon: 'ios-mail', color: '#51c733', type: '邮件'}
