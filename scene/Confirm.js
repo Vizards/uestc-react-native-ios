@@ -41,6 +41,7 @@ class Confirm extends React.Component {
   async onLogin() {
     await this.props.rootStore.LoadingStore.loading(true, '注销中');
     const responseJson = await this.props.rootStore.UserStore.delete(this.state.username, this.state.password);
+    await this.props.rootStore.LoadingStore.loading(false);
     if (responseJson.code === 201) {
       await this.props.rootStore.StorageStore.constructor.remove('user');
       await this.props.rootStore.StorageStore.constructor.remove('course');
@@ -50,16 +51,13 @@ class Confirm extends React.Component {
       await this.props.rootStore.StorageStore.constructor.remove('allGrade');
       await this.props.rootStore.StorageStore.constructor.remove('xifu');
       await this.props.rootStore.xiFuStore.setBind(false, '');
-      await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.UserStore.toast('success', '🎉 注销成功！');
       await this.props.rootStore.UserStore.clearToast();
       await this.props.navigation.push('Login');
     } else {
-      await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.UserStore.toast('error', '💊 无法注销您的账户，请确认您的学号密码是否正确');
       await this.props.rootStore.UserStore.clearToast();
     }
-
   };
 
   render() {

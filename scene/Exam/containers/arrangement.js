@@ -96,8 +96,8 @@ export default class Arrangement extends React.Component {
   async updateExamData(year, semester, token) {
     await this.props.rootStore.LoadingStore.loading(true, '同步中...');
     const response = await this.props.rootStore.UserStore.exam(String(year), String(semester), token);
+    await this.props.rootStore.LoadingStore.loading(false);
     if (response.code === 201) {
-      await this.props.rootStore.LoadingStore.loading(false);
       const parsedExamData = await this.constructor.parseExamData(response.data);
       await this.saveExamData({ parsedExamData, year, semester });
       await this.setState({
@@ -109,7 +109,6 @@ export default class Arrangement extends React.Component {
       });
       return { year, semester, parsedExamData };
     } else {
-      await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.UserStore.toast('error', '💊 暂时无法获取考试安排信息，请稍后重试');
       await this.props.rootStore.UserStore.clearToast();
       return false;

@@ -66,8 +66,8 @@ export default class Statistic extends React.Component {
   async updateGpa(token) {
     await this.props.rootStore.LoadingStore.loading(true, '同步成绩...');
     const response = await this.props.rootStore.UserStore.gpa(token);
+    await this.props.rootStore.LoadingStore.loading(false);
     if (response.code === 200) {
-      await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.StorageStore.save('gpa', response.data);
       const parsedGpaData = await this.parseGpaData(response.data);
       await this.setState({
@@ -75,7 +75,6 @@ export default class Statistic extends React.Component {
         graphData: parsedGpaData,
       })
     } else {
-      await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.UserStore.toast('error', '💊 暂时无法获取成绩信息，请稍后重试');
       await this.props.rootStore.UserStore.clearToast();
     }

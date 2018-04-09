@@ -53,14 +53,13 @@ export default class AllGrade extends React.Component {
   async updateAllGrade(token) {
     await this.props.rootStore.LoadingStore.loading(true, '同步学科...');
     const response = await this.props.rootStore.UserStore.allGrade(token);
+    await this.props.rootStore.LoadingStore.loading(false);
     if (response.code === 200) {
-      await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.StorageStore.save('allGrade', response.data.sort((x, y) => { return x.type > y.type }));
       await this.setState({
         allGradeData: [{ key: 'allGrade', data: response.data.sort((x, y) => { return x.type > y.type }) }],
       });
     } else {
-      await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.UserStore.toast('error', '💊 暂时无法获取成绩信息，请稍后重试');
       await this.props.rootStore.UserStore.clearToast();
     }

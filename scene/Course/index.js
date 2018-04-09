@@ -74,6 +74,7 @@ class Course extends React.Component {
   async getCourseData(year, semester, token) {
     await this.props.rootStore.LoadingStore.loading(true, '同步课表...');
     const response = await this.props.rootStore.UserStore.course(String(year), String(semester), token);
+    await this.props.rootStore.LoadingStore.loading(false);
     if (response.code === 201) {
       await this.props.rootStore.StorageStore.save('course', response.data);
       await this.props.rootStore.LoadingStore.loading(false);
@@ -84,7 +85,6 @@ class Course extends React.Component {
         const token = await this.refreshToken(lastLoginData);
         await this.getCourseData(year, semester, token);
       } catch (err) {
-        await this.props.rootStore.LoadingStore.loading(false);
         await this.props.rootStore.UserStore.toast('error', '💊 暂时无法从教务系统同步课表，请稍后重试');
         await this.props.rootStore.UserStore.clearToast();
       }
@@ -126,13 +126,13 @@ class Course extends React.Component {
     try {
       await this.props.rootStore.LoadingStore.loading(true, '自动登录中');
       const responseJson = await this.props.rootStore.UserStore.login(lastLoginData.username, lastLoginData.password);
+      await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.StorageStore.save('user', {
         username: lastLoginData.username,
         password: lastLoginData.password,
         token: responseJson.data.token,
         time: responseJson.time,
       });
-      await this.props.rootStore.LoadingStore.loading(false);
       return responseJson.data.token;
     } catch (e) {
       await this.handleRedirectLogin();

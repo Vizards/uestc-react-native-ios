@@ -80,8 +80,8 @@ export default class Grade extends React.Component {
   async updateGradeData(year, semester, token) {
     await this.props.rootStore.LoadingStore.loading(true, '同步中...');
     const response = await this.props.rootStore.UserStore.grade(String(year), String(semester), token);
+    await this.props.rootStore.LoadingStore.loading(false);
     if (response.code === 201) {
-      await this.props.rootStore.LoadingStore.loading(false);
       const parsedGradeData = await this.constructor.parseGradeData(response.data);
       await this.saveGradeData({ parsedGradeData, year, semester });
       this.setState({
@@ -93,7 +93,6 @@ export default class Grade extends React.Component {
       });
       return { year, semester, parsedGradeData };
     } else {
-      await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.UserStore.toast('error', '💊 暂时无法获取成绩信息，请稍后重试');
       await this.props.rootStore.UserStore.clearToast();
       return false;

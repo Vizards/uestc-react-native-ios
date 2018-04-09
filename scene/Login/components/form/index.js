@@ -37,8 +37,8 @@ class LoginForm extends React.Component {
   async onLogin() {
     await this.props.rootStore.LoadingStore.loading(true, '登录中');
     const responseJson = await this.props.rootStore.UserStore.login(this.state.username, this.state.password);
+    await this.props.rootStore.LoadingStore.loading(false);
     if (responseJson.code === 403) {
-      await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.UserStore.toast('error', responseJson.err);
       await this.props.rootStore.UserStore.clearToast();
     } else if (responseJson.code === 201) {
@@ -53,16 +53,13 @@ class LoginForm extends React.Component {
         await this.props.rootStore.UserStore.clearToast();
         await this.props.navigation.replace('Main');
       } catch (err) {
-        await this.props.rootStore.LoadingStore.loading(false);
         await this.props.rootStore.UserStore.toast('warning', '⚠️ 无法保存您的登录信息');
         await this.props.rootStore.UserStore.clearToast();
       }
     } else {
-      await this.props.rootStore.LoadingStore.loading(false);
       await this.props.rootStore.UserStore.toast('error', '💊 暂时无法登录，请稍后再试');
       await this.props.rootStore.UserStore.clearToast();
     }
-
   };
 
   render() {
