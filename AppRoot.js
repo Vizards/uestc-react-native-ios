@@ -10,6 +10,7 @@ import Confirm from "./scene/Confirm";
 import About from './scene/About';
 import OpenSource from "./scene/OpenSource";
 import Office from "./scene/Office";
+import WebView from "./scene/WebView";
 import TabNavigator from "./Main";
 
 import { inject, observer } from 'mobx-react/native';
@@ -41,6 +42,9 @@ const App = StackNavigator(
     },
     Office: {
       screen: Office
+    },
+    WebView: {
+      screen: WebView,
     }
   },
   {

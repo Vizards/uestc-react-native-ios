@@ -2,7 +2,6 @@ import React from 'react';
 import { Text, ScrollView, View, SectionList, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
-import SafariView from 'react-native-safari-view';
 import { inject, observer } from "mobx-react/native";
 import config from "../../../../config";
 
@@ -18,8 +17,9 @@ class Main extends React.Component {
           this.props.navigation.navigate('Office', {type: 'announcement'})
         } else if(info.item.page === 'query') {
           this.props.navigation.navigate('Office', {type: 'query'})
-        } else SafariView.show({
+        } else this.props.navigation.navigate('WebView', {
           url: info.item.url,
+          title: info.item.name,
         })}}
       >
         <View style={styles.inner}>

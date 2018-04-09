@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import SafariView from 'react-native-safari-view';
 
 import config from '../config';
 
@@ -23,26 +22,30 @@ export default class Office extends React.Component {
           </View>
         </View>
         <View style={styles.list}>
-          <TouchableOpacity style={styles.item} onPress={() => SafariView.show({
-            url: params.type === 'announcement' ? `${config.domain}/api/extra/stu` : `${config.domain}/api/extra/room`
+          <TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate('WebView', {
+            url: params.type === 'announcement' ? `${config.domain}/api/extra/stu` : `${config.domain}/api/extra/room`,
+            title: params.type === 'announcement' ? '教学管理公告' : '空闲教室查询'
           })}>
             <Text style={styles.text}>{params.type === 'announcement' ? '教学管理公告' : '空闲教室查询'}</Text>
             <Icon style={styles.icon} name="ios-arrow-forward" size={21}/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.item} onPress={() => SafariView.show({
-            url: params.type === 'announcement' ? `${config.domain}/api/extra/edu` : `${config.domain}/api/extra/today-course`
+          <TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate('WebView', {
+            url: params.type === 'announcement' ? `${config.domain}/api/extra/edu` : `${config.domain}/api/extra/today-course`,
+            title: params.type === 'announcement' ? '教研教改公告' : '当日课程查询',
           })}>
             <Text style={styles.text}>{params.type === 'announcement' ? '教研教改公告' : '当日课程查询'}</Text>
             <Icon style={styles.icon} name="ios-arrow-forward" size={21}/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.item} onPress={() => SafariView.show({
-            url: params.type === 'announcement' ? `${config.domain}/api/extra/communication` : `${config.domain}/api/extra/search-course`
+          <TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate('WebView', {
+            url: params.type === 'announcement' ? `${config.domain}/api/extra/communication` : `${config.domain}/api/extra/search-course`,
+            title: params.type === 'announcement' ? '实践交流公告' : '全校课程查询',
           })}>
             <Text style={styles.text}>{params.type === 'announcement' ? '实践交流公告' : '全校课程查询' }</Text>
             <Icon style={styles.icon} name="ios-arrow-forward" size={21}/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.item} onPress={() => SafariView.show({
-            url: params.type === 'announcement' ? `${config.domain}/api/extra/news` : `${config.domain}/api/extra/search-teacher`
+          <TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate('WebView', {
+            url: params.type === 'announcement' ? `${config.domain}/api/extra/news` : `${config.domain}/api/extra/search-teacher`,
+            title: params.type === 'announcement' ? '教学新闻' : '教师信息查询',
           })}>
             <Text style={styles.text}>{params.type === 'announcement' ? '教学新闻' : '教师信息查询'}</Text>
             <Icon style={styles.icon} name="ios-arrow-forward" size={21}/>
