@@ -69,6 +69,28 @@ class Main extends React.Component {
         </View>
       </TouchableOpacity>
     );
+
+    if (info.section.key === 'about') return (
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => {if (info.item.name === '关于') {
+          this.props.navigation.navigate('About')
+        } else if (info.item.name === '公告') {
+          this.props.navigation.navigate('WebView', {
+            title: '公告',
+            url: info.item.url,
+          })
+        }}}
+      >
+        <View style={styles.inner}>
+          <View style={styles.left}>
+            <Icon name={info.item.icon} size={24} color={info.item.color} style={styles.icon}/>
+            <Text style={styles.text}>{info.item.name}</Text>
+          </View>
+          <Icon style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
+        </View>
+      </TouchableOpacity>
+    )
   };
 
   _sectionComp = () => {
@@ -102,21 +124,15 @@ class Main extends React.Component {
                 {name: '退出登录', data: { title: '确认退出吗？', detail: '\n退出后将清除您的缓存数据，并要求您重新登录', type: 'exit', }, icon: 'ios-exit', color: '#fdc600'},
                 {name: '删除账户', data: { title: '确认删除吗？', detail: '\n为保证为本人操作，此操作需要确认您的教务系统账户密码', type: 'delete' }, icon: 'ios-close-circle', color: 'rgb(217, 74, 74)'},
               ]
+            }, {
+              key: 'about',
+              data: [
+                {name: '公告', url: 'https://uestc-announcement.surge.sh/', icon: 'ios-chatbubbles', color: '#51c733'},
+                {name: '关于', page: 'About', icon: 'ios-paper-plane', color: '#239ff4'},
+              ]
             }]
           }
         />
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => this.props.navigation.navigate('About')}
-        >
-          <View style={styles.inner}>
-            <View style={styles.left}>
-              <Icon name={'ios-paper-plane'} size={24} color='#239ff4' style={styles.icon}/>
-              <Text style={styles.text}>关于</Text>
-            </View>
-            <Icon style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
-          </View>
-        </TouchableOpacity>
       </ScrollView>
     );
   }

@@ -51,7 +51,7 @@ export default class OpenSource extends React.Component {
               data: [
                 {name: 'create-react-native-app', url: 'https://github.com/react-community/create-react-native-app'},
                 {name: 'react-native-linear-gradient', url: 'https://github.com/react-native-community/react-native-linear-gradient'},
-                {name: 'react-native-safari-view', url: 'https://github.com/naoufal/react-native-safari-view'},
+                {name: 'react-native-wkwebview', url: 'https://github.com/CRAlpha/react-native-wkwebview'},
                 {name: 'react-native-shimmer-placeholder', url: 'https://github.com/tomzaku/react-native-shimmer-placeholder'},
                 {name: 'react-native-storage', url: 'https://github.com/sunnylqm/react-native-storage'},
                 {name: 'react-native-table-component', url: 'https://github.com/Gil2015/react-native-table-component'},
