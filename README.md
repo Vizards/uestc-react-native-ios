@@ -1,4 +1,4 @@
-<p align="center"><img src="https://o9sapbwjn.qnssl.com/2018-03-18-icon-1024.png" alt="UESTC" width="100px" style="border: 1px solid #eee; border-radius: 20%"/></p>
+<p align="center"><img src="https://o9sapbwjn.qnssl.com/2018-04-14-171713.png" alt="UESTC" width="125px"/></p>
 <h1 align="center">UESTC</h1>
 
 > App Store 搜索「UESTC」即刻安装
