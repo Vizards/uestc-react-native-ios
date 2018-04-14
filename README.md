@@ -4,10 +4,9 @@
 > App Store 搜索「UESTC」即刻安装
 
 [![iTunes App Store](https://img.shields.io/itunes/v/1368462316.svg?style=flat-square)](https://itunes.apple.com/app/id1368462316)  [![React Native](https://img.shields.io/badge/react--native-0.52.0-brightgreen.svg?style=flat-square)](https://facebook.github.io/react-native/) [![Made for](https://img.shields.io/badge/made%20for-iPhone%20iPad%20iPod%20Touch-orange.svg?style=flat-square)](https://uestc.ga)  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Vizards/uestc-react-native-ios/pulls) [![%e2%9d%a4](https://img.shields.io/badge/made%20with-%e2%9d%a4-ff69b4.svg?style=flat-square)](https://github.com/Vizards/uestc-react-native-ios)
-
-
-<p align="center"><a href="https://itunes.apple.com/app/id1368462316"><img width="200" src="https://o9sapbwjn.qnssl.com/2018-04-10-app-store.png"/></a></p>
-<p align="center"><img width="200" src="https://o9sapbwjn.qnssl.com/2018-04-11-2018_04_11_1711359759.png"/></p>
+<br/>
+[<img width="200" src="https://o9sapbwjn.qnssl.com/2018-04-10-app-store.png"/>](https://itunes.apple.com/app/id1368462316)
+<img width="200" src="https://o9sapbwjn.qnssl.com/2018-04-11-2018_04_11_1711359759.png"/>
 
 ## 界面截图
 
