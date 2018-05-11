@@ -3,23 +3,109 @@ import { Text, ScrollView, View, SectionList, StyleSheet, TouchableOpacity, Aler
 import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { inject, observer } from "mobx-react/native";
+import CookieManager from 'react-native-cookies';
 import config from "../../../../config";
 
 @inject('rootStore')
 @observer
 class Main extends React.Component {
 
+  // 登录超新电子图书馆
+  async getSiteCookies() {
+    const Uri = config.libraryIndex;
+    const Header = {
+      method: 'GET',
+      headers: {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'DNT': '1',
+        'Host': 'm.5read.com',
+        'Pragma': 'no-cache',
+        'Referer': 'http://222.197.165.97:8080/sms/opac/search/showSearch.action?xc=5',
+        'Upgrade-Insecure-Requests': '1',
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1'
+      }
+    };
+
+    try {
+      const response = await fetch(Uri, Header);
+      return response.headers.get('Set-Cookie');
+    } catch (err) {
+      await this.props.rootStore.UserStore.toast('error', '💊 无法访问图书馆页面，请检查网络连接');
+      await this.props.rootStore.UserStore.clearToast();
+    }
+  }
+
+  async libraryLogin(cookie) {
+    const userData = await this.props.rootStore.StorageStore.constructor.load('user');
+    const params = {
+      'schoolid': '627',
+      'backurl': '/user/uc/showOpacinfo.jspx',
+      'userType': '0',
+      'username': userData.username,
+      'password': userData.password
+    };
+    const Uri = config.libraryLogin;
+    const Header = {
+      method: 'POST',
+      headers: {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        'Cookie': cookie,
+        'Host': 'mc.m.5read.com',
+        'Origin': 'http://mc.m.5read.com',
+        'Pragma': 'no-cache',
+        'Referer': 'http://mc.m.5read.com/user/login/showLogin.jspx?backurl=%2Fuser%2Fuc%2FshowOpacinfo.jspx',
+        'Upgrade-Insecure-Requests': '1',
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1'
+      },
+      body: Object.keys(params).map((key) => {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+      }).join('&'),
+    };
+
+    try {
+      await fetch(Uri, Header);
+    } catch (err) {
+      await this.props.rootStore.UserStore.toast('error', '💊 无法登录到图书馆，请确认您处于学校内网');
+      await this.props.rootStore.UserStore.clearToast();
+    }
+  }
+
+  async navigateToLibrary() {
+    await this.props.rootStore.LoadingStore.loading(true, '自动登录中');
+    const initCookie = await this.getSiteCookies();
+    await this.libraryLogin(initCookie);
+    await CookieManager.getAll();
+    await this.props.navigation.navigate('WebView', {
+      url: 'http://222.197.165.97:8080/sms/opac/search/showSearch.action?xc=5',
+      title: '电子科技大学图书馆',
+      sendCookies: true
+    });
+    await this.props.rootStore.LoadingStore.loading(false, '');
+  };
+
   _renderItem = (info) => {
     if (info.section.key === 'tool') return (
       <TouchableOpacity
         style={styles.card}
-        onPress={() => {if (info.item.page === 'announcement') {
+        onPress={async () => {if (info.item.page === 'announcement') {
           this.props.navigation.navigate('Office', {type: 'announcement'})
-        } else if(info.item.page === 'query') {
+        } else if (info.item.page === 'query') {
           this.props.navigation.navigate('Office', {type: 'query'})
+        } else if (info.item.page === 'library') {
+          await this.navigateToLibrary();
         } else this.props.navigation.navigate('WebView', {
           url: info.item.url,
           title: info.item.name,
+          sendCookies: false
         })}}
       >
         <View style={styles.inner}>
@@ -79,6 +165,7 @@ class Main extends React.Component {
           this.props.navigation.navigate('WebView', {
             title: '公告',
             url: info.item.url,
+            sendCookies: false
           })
         }}}
       >
@@ -117,6 +204,7 @@ class Main extends React.Component {
                 {name: '教务信息公告', page: 'announcement', icon: 'ios-notifications', color: '#fdc600'},
                 {name: '教务服务指南', url: `${config.domain}/api/extra/info`, icon: 'ios-compass', color: '#c5cfd4'},
                 {name: '快捷查询', page: 'query', icon: 'ios-information-circle', color: '#239ff4'},
+                {name: '图书馆', page: 'library', icon: 'ios-book', color: '#ff7a78'}
               ]
             }, {
               key: 'account',
