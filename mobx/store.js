@@ -371,7 +371,7 @@ class WebViewStore {
 
   @action
   setUrl(url) {
-    this.allData.url = url
+    this.allData.url = url;
   }
 }
 
