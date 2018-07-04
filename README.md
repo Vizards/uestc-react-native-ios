@@ -3,13 +3,16 @@
 
 > App Store 搜索「UESTC」即刻安装
 
-[![iTunes App Store](https://img.shields.io/itunes/v/1368462316.svg?style=flat-square)](https://itunes.apple.com/app/id1368462316)  [![React Native](https://img.shields.io/badge/react--native-0.52.0-brightgreen.svg?style=flat-square)](https://facebook.github.io/react-native/) [![Made for](https://img.shields.io/badge/made%20for-iPhone%20iPad%20iPod%20Touch-orange.svg?style=flat-square)](https://uestc.ga)  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Vizards/uestc-react-native-ios/pulls) [![%e2%9d%a4](https://img.shields.io/badge/made%20with-%e2%9d%a4-ff69b4.svg?style=flat-square)](https://github.com/Vizards/uestc-react-native-ios)
+[![iTunes App Store](https://img.shields.io/itunes/v/1368462316.svg?style=flat-square)](https://itunes.apple.com/cn/app/uestc/id1368462316)  [![React Native](https://img.shields.io/badge/react--native-0.52.0-brightgreen.svg?style=flat-square)](https://facebook.github.io/react-native/) [![Made for](https://img.shields.io/badge/made%20for-iPhone%20iPad%20iPod%20Touch-orange.svg?style=flat-square)](https://uestc.ga)  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Vizards/uestc-react-native-ios/pulls) [![%e2%9d%a4](https://img.shields.io/badge/made%20with-%e2%9d%a4-ff69b4.svg?style=flat-square)](https://github.com/Vizards/uestc-react-native-ios)
 
 
 
-[<img width="200" src="https://o9sapbwjn.qnssl.com/2018-04-10-app-store.png"/>](https://itunes.apple.com/app/id1368462316)
+[<img width="200" src="https://o9sapbwjn.qnssl.com/2018-04-10-app-store.png"/>](https://itunes.apple.com/cn/app/uestc/id1368462316)
 
 <img width="200" src="https://o9sapbwjn.qnssl.com/2018-04-11-2018_04_11_1711359759.png"/>
+
+- Android 客户端：[i成电 By Febers](http://app.febers.tech) 
+- Android 开源地址：[Febers/iUESTC - GitHub](https://github.com/Febers/iUESTC)
 
 ## 界面截图
 
@@ -33,14 +36,15 @@
 - [x] 查询空闲教室信息
 - [x] 查询当日全校课程、全校所有开设课程信息
 - [x] 查询教师信息
+- [x] 图书借阅信息
 
 #### 预期功能
 
 - [ ] 考试、成绩信息推送
 - [ ] 一卡通、电费余额告警
-- [ ] 失物招领信息
+- [ ] 课程表导入系统日历
 - [ ] iOS Today Widget
-- [x] 图书借阅信息
+- [ ] 自主添加课程
 
 ## 开发
 
@@ -115,8 +119,6 @@ $ git clone && npm install
 - [New issues](https://github.com/Vizards/uestc-react-native-ios/issues)
 
 - APP 内反馈
-
-- 前往 [uestc.ga](https://uestc.ga) 反馈
 
 ## 致谢
 
