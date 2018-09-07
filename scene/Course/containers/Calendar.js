@@ -333,8 +333,8 @@ class Calendar extends React.Component {
         {text: '取消', style: 'cancel'},
         {text: '继续', style: 'warning', onPress: async () => {
             // 时间跨度超过 10 年，就不能获取到了...
-            const startDate = moment().subtract(5, 'years').toISOString();
-            const endDate = moment().add(2, 'years').toISOString();
+            const startDate = moment().subtract(4, 'years').toISOString();
+            const endDate = moment().add(1, 'years').toISOString();
             const allEvents = await RNCalendarEvents.fetchAllEvents(startDate, endDate);
             await allEvents.forEach(async item => {
               console.log(item);
