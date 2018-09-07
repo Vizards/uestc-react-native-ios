@@ -10,7 +10,7 @@ import handleParseData from '../../../common/helpers/parser';
 import moment from 'moment';
 
 const current = require('../../../common/helpers/current');
-const semester = require('../../../common/helpers/semester');
+import semester from '../../../common/helpers/semester';
 const SCREEN_WIDTH = Dimensions.get('window').width - 48;
 
 
@@ -35,7 +35,7 @@ class Main extends React.Component {
       headerRight: <TouchableOpacity
         onPress={params.showMenuActionSheet}
       >
-        <Icon name='ios-more' size={25}/>
+        <Icon name='ios-more' size={32}/>
       </TouchableOpacity>,
       headerStyle: {
         paddingRight: 15,
@@ -59,7 +59,8 @@ class Main extends React.Component {
   }
 
   async _showActionSheet() {
-    const BUTTONS = await semester.map(item => {
+    const lastLoginData = await this.props.rootStore.StorageStore.constructor.load('user');
+    const BUTTONS = await semester(lastLoginData.username).map(item => {
       return `${item.year} 学年第 ${item.semester} 学期`
     });
     await BUTTONS.push('取消');

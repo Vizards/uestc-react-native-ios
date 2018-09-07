@@ -2,26 +2,38 @@ import moment from 'moment';
 
 const currentYear = moment().year();
 const currentMonth = moment().month();
-if (currentMonth < 6) {
-  module.exports = [
-    { year: currentYear - 1, semester: 2 },
-    { year: currentYear - 1, semester: 1 },
-    { year: currentYear - 2, semester: 2 },
-    { year: currentYear - 2, semester: 1 },
-    { year: currentYear - 3, semester: 2 },
-    { year: currentYear - 3, semester: 1 },
-    { year: currentYear - 4, semester: 2 },
-    { year: currentYear - 4, semester: 1 },
 
-  ]
-} else {
-  module.exports = [
-    { year: currentYear, semester: 1 },
-    { year: currentYear - 1, semester: 2 },
-    { year: currentYear - 1, semester: 1 },
-    { year: currentYear - 2, semester: 2 },
-    { year: currentYear - 2, semester: 1 },
-    { year: currentYear - 3, semester: 2 },
-    { year: currentYear - 3, semester: 1 },
-  ]
+export default function semester(username) {
+  const eduStartYear = Number(username.substr(0, 4));
+  if (currentMonth < 6) {
+    let initArray = [];
+    for (let i = 2008; i < currentYear; i++) {
+      initArray.unshift({
+        year: i,
+        semester: 1,
+      });
+      initArray.unshift({
+        year: i,
+        semester: 2,
+      })
+    }
+    return initArray.slice(0, (currentYear - eduStartYear) * 2);
+  } else {
+    let initArray = [];
+    for (let i = 2008; i < currentYear; i++) {
+      initArray.unshift({
+        year: i,
+        semester: 1,
+      });
+      initArray.unshift({
+        year: i,
+        semester: 2,
+      })
+    }
+    initArray.unshift({
+      year: currentYear,
+      semester: 1,
+    });
+    return initArray.slice(0, (currentYear - eduStartYear) * 2 + 1);
+  }
 }
