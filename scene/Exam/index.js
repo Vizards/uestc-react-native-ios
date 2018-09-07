@@ -28,6 +28,7 @@ export default class Exam extends React.Component {
     </View>;
     return {
       headerTitle: headerComponent,
+      headerLeft: null,
       headerStyle: {
         height: 85,
       },
