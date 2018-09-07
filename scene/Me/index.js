@@ -7,6 +7,7 @@ import Main from './containers/components/Main';
 export default class Page extends React.Component {
   static navigationOptions = {
     headerTitle: '我的',
+    headerLeft: null,
   };
 
   render() {

@@ -128,7 +128,7 @@ class Main extends React.Component {
             {text: '取消', style: 'cancel'},
             {text: '确定', onPress: async () => {
               if (info.item.data.type === 'delete') {
-                await this.props.navigation.push('Confirm');
+                await this.props.navigation.navigate('Confirm');
               } else {
                 await this.props.rootStore.StorageStore.constructor.remove('user');
                 await this.props.rootStore.StorageStore.constructor.remove('course');
@@ -140,7 +140,7 @@ class Main extends React.Component {
                 await this.props.rootStore.xiFuStore.setBind(false, '');
                 await this.props.rootStore.UserStore.toast('success', '🎉 已成功退出当前账号，请重新登录');
                 await this.props.rootStore.UserStore.clearToast();
-                await this.props.navigation.push('Login')
+                await this.props.navigation.navigate('Login')
               }
             }},
           ]
