@@ -27,7 +27,8 @@ const XiFu = StackNavigator(
 
 class Card extends React.Component {
   static navigationOptions = {
-    headerTitle: '一卡通 & 电费'
+    headerTitle: '一卡通 & 电费',
+    headerLeft: null,
   };
 
   render() {

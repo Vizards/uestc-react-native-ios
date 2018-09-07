@@ -38,7 +38,9 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* uestc_react_native_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* uestc_react_native_iosTests.m */; };
+		3AB9011C6D514F2986C3FB07 /* libRNCalendarEvents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A092D453CB51421889FFC33F /* libRNCalendarEvents.a */; };
 		49D4A7808A3C4B0EB220307B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EF552AEBBE740E2BB138FBA /* libz.tbd */; };
+		589140524B4F4EE182B96814 /* libRNBEMCheckBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F4F55D58E644239C17F749 /* libRNBEMCheckBox.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		846DCA22275F417EB8123350 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3DAF62B0D616426AA40CD684 /* EvilIcons.ttf */; };
@@ -51,11 +53,12 @@
 		C4612953EE8F45CC895A4796 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD7B8911445148EAADABCD0E /* libBVLinearGradient.a */; };
 		CE2048FF90954FA6B92B11F1 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D658D44A82DD4756B559FAB2 /* Zocial.ttf */; };
 		DABCA0E809F14A4DB226EC6D /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 134E742BFBAD428FBF9A162A /* MaterialCommunityIcons.ttf */; };
+		E36FD7CF213EEAA100EB0F9E /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E36FD7CE213EEAA100EB0F9E /* CoreFoundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E36FD98821419AC000EB0F9E /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E36FD98721419AC000EB0F9E /* EventKit.framework */; };
 		E3A7B903206D200E00BD4146 /* index.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = E3A7B900206D200E00BD4146 /* index.jsbundle */; };
 		E3A7B904206D200E00BD4146 /* index.jsbundle.meta in Resources */ = {isa = PBXBuildFile; fileRef = E3A7B901206D200E00BD4146 /* index.jsbundle.meta */; };
 		E3A7B905206D200E00BD4146 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = E3A7B902206D200E00BD4146 /* assets */; };
 		E60BEC6E4C4145828BF9FC4F /* libRCTWKWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A56269996EDE4FA8AF5865F6 /* libRCTWKWebView.a */; };
-		F32DB663E40D45AD8E7C76CB /* libSafariViewManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E2E90503364E62B0E8AAF0 /* libSafariViewManager.a */; };
 		FBE3A6EF0C4A46258783DB2A /* libBugsnagReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC738594B5CE4B528D9D91E0 /* libBugsnagReactNative.a */; };
 /* End PBXBuildFile section */
 
@@ -291,6 +294,20 @@
 			remoteGlobalIDString = 0974579A1D2A440A000D9368;
 			remoteInfo = RCTWKWebView;
 		};
+		E36FD7CC213EEA0B00EB0F9E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F500043317B94B809757A7C3 /* RNCalendarEvents.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BEC43C6A1C723089001221C6;
+			remoteInfo = RNCalendarEvents;
+		};
+		E36FD8FD213F003E00EB0F9E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ABFC70DE38C747D7AC60FD4B /* RNBEMCheckBox.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNBEMCheckBox;
+		};
 		E39F6253205BD21A00065109 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -382,13 +399,6 @@
 			remoteGlobalIDString = 1BD725DA1CF77A8B005DBD79;
 			remoteInfo = RNCookieManagerIOS;
 		};
-		E3F9FC49205BDC65004F5082 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EA023580F9C542D9B169740E /* SafariViewManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = SafariViewManager;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -427,8 +437,11 @@
 		7D069A826B9E49E092F23F7F /* RNLaunchImage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNLaunchImage.xcodeproj; path = "../node_modules/react-native-launch-image/ios/RNLaunchImage.xcodeproj"; sourceTree = "<group>"; };
 		80B1F361AC3F43E192861A62 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		83F4F55D58E644239C17F749 /* libRNBEMCheckBox.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNBEMCheckBox.a; sourceTree = "<group>"; };
 		9D4158BBFC914167844BCAC2 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
+		A092D453CB51421889FFC33F /* libRNCalendarEvents.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCalendarEvents.a; sourceTree = "<group>"; };
 		A56269996EDE4FA8AF5865F6 /* libRCTWKWebView.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTWKWebView.a; sourceTree = "<group>"; };
+		ABFC70DE38C747D7AC60FD4B /* RNBEMCheckBox.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBEMCheckBox.xcodeproj; path = "../node_modules/react-native-bem-check-box/RNBEMCheckBox.xcodeproj"; sourceTree = "<group>"; };
 		AC738594B5CE4B528D9D91E0 /* libBugsnagReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBugsnagReactNative.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		AF11B393E2454C30A24AC790 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
@@ -438,12 +451,14 @@
 		C9A5CD573DCF43129D3C5621 /* libRNCookieManagerIOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCookieManagerIOS.a; sourceTree = "<group>"; };
 		D658D44A82DD4756B559FAB2 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		DD78C38081684CB381DA79BB /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		E36FD7CE213EEAA100EB0F9E /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		E36FD98721419AC000EB0F9E /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		E3A7B900206D200E00BD4146 /* index.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = index.jsbundle; path = bundle/index.jsbundle; sourceTree = "<group>"; };
 		E3A7B901206D200E00BD4146 /* index.jsbundle.meta */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = index.jsbundle.meta; path = bundle/index.jsbundle.meta; sourceTree = "<group>"; };
 		E3A7B902206D200E00BD4146 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = bundle/assets; sourceTree = "<group>"; };
 		E8A794129D35495D9AA79592 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		EA023580F9C542D9B169740E /* SafariViewManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SafariViewManager.xcodeproj; path = "../node_modules/react-native-safari-view/SafariViewManager.xcodeproj"; sourceTree = "<group>"; };
 		EBFFF7CA5D9E4BEF8095DDD0 /* BugsnagReactNative.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BugsnagReactNative.xcodeproj; path = "../node_modules/bugsnag-react-native/cocoa/BugsnagReactNative.xcodeproj"; sourceTree = "<group>"; };
+		F500043317B94B809757A7C3 /* RNCalendarEvents.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCalendarEvents.xcodeproj; path = "../node_modules/react-native-calendar-events/RNCalendarEvents.xcodeproj"; sourceTree = "<group>"; };
 		FD7B8911445148EAADABCD0E /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -460,6 +475,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E36FD7CF213EEAA100EB0F9E /* CoreFoundation.framework in Frameworks */,
+				E36FD98821419AC000EB0F9E /* EventKit.framework in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -475,12 +492,13 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				B14CD43E0AE54C4683E40223 /* libRNVectorIcons.a in Frameworks */,
 				C4612953EE8F45CC895A4796 /* libBVLinearGradient.a in Frameworks */,
-				F32DB663E40D45AD8E7C76CB /* libSafariViewManager.a in Frameworks */,
 				9BFFE2FE81D04D30AFF9DF33 /* libRNLaunchImage.a in Frameworks */,
 				FBE3A6EF0C4A46258783DB2A /* libBugsnagReactNative.a in Frameworks */,
 				49D4A7808A3C4B0EB220307B /* libz.tbd in Frameworks */,
 				E60BEC6E4C4145828BF9FC4F /* libRCTWKWebView.a in Frameworks */,
 				1EFBE212327A490FA0BAF4B2 /* libRNCookieManagerIOS.a in Frameworks */,
+				3AB9011C6D514F2986C3FB07 /* libRNCalendarEvents.a in Frameworks */,
+				589140524B4F4EE182B96814 /* libRNBEMCheckBox.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +647,8 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E36FD98721419AC000EB0F9E /* EventKit.framework */,
+				E36FD7CE213EEAA100EB0F9E /* CoreFoundation.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				4EF552AEBBE740E2BB138FBA /* libz.tbd */,
 			);
@@ -670,11 +690,12 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				095A9DBE08D443F38DDCC46B /* RNVectorIcons.xcodeproj */,
 				9D4158BBFC914167844BCAC2 /* BVLinearGradient.xcodeproj */,
-				EA023580F9C542D9B169740E /* SafariViewManager.xcodeproj */,
 				7D069A826B9E49E092F23F7F /* RNLaunchImage.xcodeproj */,
 				EBFFF7CA5D9E4BEF8095DDD0 /* BugsnagReactNative.xcodeproj */,
 				2C2687FBB7FC4FD78C8BEFAD /* RCTWKWebView.xcodeproj */,
 				C29D7BBE9C494A9F89B35101 /* RNCookieManagerIOS.xcodeproj */,
+				F500043317B94B809757A7C3 /* RNCalendarEvents.xcodeproj */,
+				ABFC70DE38C747D7AC60FD4B /* RNBEMCheckBox.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -758,6 +779,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		E36FD7C9213EEA0B00EB0F9E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E36FD7CD213EEA0B00EB0F9E /* libRNCalendarEvents.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E36FD8FA213F003E00EB0F9E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E36FD8FE213F003E00EB0F9E /* libRNBEMCheckBox.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		E39F622D205BD21900065109 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -768,6 +805,8 @@
 				AC738594B5CE4B528D9D91E0 /* libBugsnagReactNative.a */,
 				A56269996EDE4FA8AF5865F6 /* libRCTWKWebView.a */,
 				C9A5CD573DCF43129D3C5621 /* libRNCookieManagerIOS.a */,
+				A092D453CB51421889FFC33F /* libRNCalendarEvents.a */,
+				83F4F55D58E644239C17F749 /* libRNBEMCheckBox.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -801,14 +840,6 @@
 			isa = PBXGroup;
 			children = (
 				E3F0018D20A093790041157A /* libRNCookieManagerIOS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		E3F9FC41205BDC65004F5082 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E3F9FC4A205BDC65004F5082 /* libSafariViewManager.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -991,6 +1022,14 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = E36FD8FA213F003E00EB0F9E /* Products */;
+					ProjectRef = ABFC70DE38C747D7AC60FD4B /* RNBEMCheckBox.xcodeproj */;
+				},
+				{
+					ProductGroup = E36FD7C9213EEA0B00EB0F9E /* Products */;
+					ProjectRef = F500043317B94B809757A7C3 /* RNCalendarEvents.xcodeproj */;
+				},
+				{
 					ProductGroup = E3F0018920A093790041157A /* Products */;
 					ProjectRef = C29D7BBE9C494A9F89B35101 /* RNCookieManagerIOS.xcodeproj */;
 				},
@@ -1001,10 +1040,6 @@
 				{
 					ProductGroup = E39F6265205BD21D00065109 /* Products */;
 					ProjectRef = 095A9DBE08D443F38DDCC46B /* RNVectorIcons.xcodeproj */;
-				},
-				{
-					ProductGroup = E3F9FC41205BDC65004F5082 /* Products */;
-					ProjectRef = EA023580F9C542D9B169740E /* SafariViewManager.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1235,6 +1270,20 @@
 			remoteRef = E34E8775207B66DB0087FD1F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		E36FD7CD213EEA0B00EB0F9E /* libRNCalendarEvents.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCalendarEvents.a;
+			remoteRef = E36FD7CC213EEA0B00EB0F9E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E36FD8FE213F003E00EB0F9E /* libRNBEMCheckBox.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNBEMCheckBox.a;
+			remoteRef = E36FD8FD213F003E00EB0F9E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		E39F6254205BD21A00065109 /* libjsinspector.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1324,13 +1373,6 @@
 			fileType = archive.ar;
 			path = libRNCookieManagerIOS.a;
 			remoteRef = E3F0018C20A093790041157A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		E3F9FC4A205BDC65004F5082 /* libSafariViewManager.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSafariViewManager.a;
-			remoteRef = E3F9FC49205BDC65004F5082 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1482,6 +1524,8 @@
 					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
+					"$(SRCROOT)/../node_modules/react-native-calendar-events",
+					"$(SRCROOT)/../node_modules/react-native-bem-check-box/**",
 				);
 				INFOPLIST_FILE = uestc_react_native_iosTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1516,6 +1560,8 @@
 					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
+					"$(SRCROOT)/../node_modules/react-native-calendar-events",
+					"$(SRCROOT)/../node_modules/react-native-bem-check-box/**",
 				);
 				INFOPLIST_FILE = uestc_react_native_iosTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1553,9 +1599,11 @@
 					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
+					"$(SRCROOT)/../node_modules/react-native-calendar-events",
+					"$(SRCROOT)/../node_modules/react-native-bem-check-box/**",
 				);
 				INFOPLIST_FILE = uestc_react_native_ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1588,9 +1636,11 @@
 					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
+					"$(SRCROOT)/../node_modules/react-native-calendar-events",
+					"$(SRCROOT)/../node_modules/react-native-bem-check-box/**",
 				);
 				INFOPLIST_FILE = uestc_react_native_ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1626,6 +1676,8 @@
 					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
+					"$(SRCROOT)/../node_modules/react-native-calendar-events",
+					"$(SRCROOT)/../node_modules/react-native-bem-check-box/**",
 				);
 				INFOPLIST_FILE = "uestc_react_native_ios-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1666,6 +1718,8 @@
 					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-cookies/ios/RNCookieManagerIOS",
+					"$(SRCROOT)/../node_modules/react-native-calendar-events",
+					"$(SRCROOT)/../node_modules/react-native-bem-check-box/**",
 				);
 				INFOPLIST_FILE = "uestc_react_native_ios-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1770,7 +1824,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
@@ -1806,7 +1860,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;

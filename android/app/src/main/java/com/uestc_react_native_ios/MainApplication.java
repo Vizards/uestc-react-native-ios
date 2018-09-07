@@ -3,6 +3,7 @@ package com.uestc_react_native_ios;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.calendarevents.CalendarEventsPackage;
 import com.psykar.cookiemanager.CookieManagerPackage;
 import com.bugsnag.BugsnagReactNative;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new CalendarEventsPackage(),
             new CookieManagerPackage(),
             BugsnagReactNative.getPackage(),
             new LinearGradientPackage(),

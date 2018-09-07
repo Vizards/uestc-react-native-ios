@@ -68,7 +68,19 @@ $ git clone && npm install
     source={Platform.OS === 'android' && !__DEV__ ? { uri:'https://o9wj5x8i4.qnssl.com/tpl.html' } : { uri: 'https://o9wj5x8i4.qnssl.com/tpl.html' }}
     ```
 
-3. 在模拟器运行
+
+3. 修改 `RNBEMCheckBox.xcodeproj`：
+
+    在 Xcode 中修改 `Libraries/RNBEMCheckBox.xcodeproj/RNBEMCheckBoxManager.m`：
+    
+    - `#import RCTBridge.h` 改为 `#import <React/RCTBridge.h>`
+    
+    - `#import RCTEventDispatcher.h` 改为 `#import <React/RCTEventDispatcher.h>`
+    
+    - `#import RCTConvert.h` 改为 `#import <React/RCTConvert.h>`
+
+    
+4. 在模拟器运行
 
     ```
     $ react-native run-ios
@@ -99,6 +111,7 @@ $ git clone && npm install
     处理：
     
     - 定位到该错误源文件，将 `'RCTBridgeModule.h'` 改为 `<React/RCTBridgeModule.h>`
+
     
 3. 其他错误请先尝试以下步骤： 
 
