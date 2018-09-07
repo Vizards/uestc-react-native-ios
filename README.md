@@ -37,13 +37,13 @@
 - [x] 查询当日全校课程、全校所有开设课程信息
 - [x] 查询教师信息
 - [x] 图书借阅信息
+- [x] 课程表导入系统日历
 
 #### 预期功能
 
 - [ ] 考试、成绩信息推送
 - [ ] 一卡通、电费余额告警
-- [ ] 课程表导入系统日历
-- [ ] iOS Today Widget
+- [x] <del>iOS Today Widget</del>（使用系统日历 Widget 代替）
 - [ ] 自主添加课程
 
 ## 开发
@@ -68,7 +68,19 @@ $ git clone && npm install
     source={Platform.OS === 'android' && !__DEV__ ? { uri:'https://o9wj5x8i4.qnssl.com/tpl.html' } : { uri: 'https://o9wj5x8i4.qnssl.com/tpl.html' }}
     ```
 
-3. 在模拟器运行
+
+3. 修改 `RNBEMCheckBox.xcodeproj`：
+
+    在 Xcode 中修改 `Libraries/RNBEMCheckBox.xcodeproj/RNBEMCheckBoxManager.m`：
+    
+    - `#import RCTBridge.h` 改为 `#import <React/RCTBridge.h>`
+    
+    - `#import RCTEventDispatcher.h` 改为 `#import <React/RCTEventDispatcher.h>`
+    
+    - `#import RCTConvert.h` 改为 `#import <React/RCTConvert.h>`
+
+    
+4. 在模拟器运行
 
     ```
     $ react-native run-ios
@@ -99,6 +111,7 @@ $ git clone && npm install
     处理：
     
     - 定位到该错误源文件，将 `'RCTBridgeModule.h'` 改为 `<React/RCTBridgeModule.h>`
+
     
 3. 其他错误请先尝试以下步骤： 
 

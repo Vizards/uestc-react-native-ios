@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Text, View, SectionList, RefreshControl, ScrollView, TouchableOpacity, StyleSheet, ActionSheetIOS, Dimensions } from 'react-native';
 import { inject, observer } from "mobx-react/native";
 
-const semester = require('../../../common/helpers/semester');
+import semester from '../../../common/helpers/semester';
 const current = require('../../../common/helpers/current');
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
@@ -100,7 +100,8 @@ export default class Grade extends React.Component {
   }
 
   async _showActionSheet() {
-    const BUTTONS = await semester.map(item => {
+    const lastLoginData = await this.props.rootStore.StorageStore.constructor.load('user');
+    const BUTTONS = await semester(lastLoginData.username).map(item => {
       return `${item.year} 学年第 ${item.semester} 学期`
     });
     await BUTTONS.push('取消');

@@ -20,7 +20,6 @@ const App = StackNavigator(
     Main: {
       screen: TabNavigator,
       navigationOptions: {
-        headerLeft: null,
         gesturesEnabled: false,
       },
     },

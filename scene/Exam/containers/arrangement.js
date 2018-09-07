@@ -15,7 +15,7 @@ import { inject, observer } from "mobx-react/native";
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 
-const semester = require('../../../common/helpers/semester');
+import semester from '../../../common/helpers/semester';
 const current = require('../../../common/helpers/current');
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
@@ -116,7 +116,8 @@ export default class Arrangement extends React.Component {
   }
 
   async _showActionSheet() {
-    const BUTTONS = await semester.map(item => {
+    const lastLoginData = await this.props.rootStore.StorageStore.constructor.load('user');
+    const BUTTONS = await semester(lastLoginData.username).map(item => {
       return `${item.year} 学年第 ${item.semester} 学期`
     });
     await BUTTONS.push('取消');
