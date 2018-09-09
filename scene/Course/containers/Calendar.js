@@ -35,7 +35,7 @@ class Calendar extends React.Component {
     return {
       headerTitle: '导入系统日历',
       headerRight: <Text style={styles.cancelButton} onPress={() => navigation.goBack()}>取消</Text>,
-      headerLeft: <TouchableOpacity><Text style={styles.selectButton} onPress={params.selectAll}>{params.select}</Text></TouchableOpacity>,
+      headerLeft: params.isNull ? null : <TouchableOpacity><Text style={styles.selectButton} onPress={params.selectAll}>{params.select}</Text></TouchableOpacity>,
       headerStyle: {
         paddingRight: 15,
         paddingLeft: 15,
@@ -274,7 +274,8 @@ class Calendar extends React.Component {
     courseData = await this.constructor.parseCourseData(courseData);
     await this.setState({
       courseData,
-      isNull: courseData.length === 0,
+      isNull: courseData[0].data.length === 0,
+      buttonDisabled: courseData[0].data.length === 0,
     })
   }
 
@@ -292,6 +293,8 @@ class Calendar extends React.Component {
           await this.sectionListRef.forceUpdate();
           if (!courseData[0].data.map(item => item.checked).reduce((before, after) => before || after)) {
             this.setState({ buttonDisabled: true });
+          } else {
+            this.setState({ buttonDisabled: false });
           }
         }}>
           <BEMCheckBox
@@ -312,7 +315,7 @@ class Calendar extends React.Component {
   };
 
   _sectionComp = (info) => {
-    if (info.section.data[0].name !== '') return <Text style={styles.title}>可导入课程</Text>;
+    if (info.section.data.length !== 0) return <Text style={styles.title}>可导入课程</Text>;
   };
 
   _extraUniqueKey = (item ,index) => {
@@ -321,7 +324,11 @@ class Calendar extends React.Component {
 
   async componentWillMount() {
     await this.readCourseStorage();
-    await this.props.navigation.setParams({ select: '全不选', selectAll: this._selectAll.bind(this) });
+    await this.props.navigation.setParams({
+      select: '全不选',
+      selectAll: this._selectAll.bind(this),
+      isNull: this.state.isNull,
+    });
   }
 
   async clearCalendar() {
@@ -332,7 +339,7 @@ class Calendar extends React.Component {
       [
         {text: '取消', style: 'cancel'},
         {text: '继续', style: 'warning', onPress: async () => {
-            // 时间跨度超过 10 年，就不能获取到了...
+            // 时间跨度超过 5 年，就不能获取到了...
             const startDate = moment().subtract(4, 'years').toISOString();
             const endDate = moment().add(1, 'years').toISOString();
             const allEvents = await RNCalendarEvents.fetchAllEvents(startDate, endDate);
@@ -454,7 +461,7 @@ const styles = StyleSheet.create({
   },
   noData: {
     width: '100%',
-    marginTop: (SCREEN_HEIGHT - 84.5 - 44 - 48.5) / 2 - 56,
+    marginTop: (SCREEN_HEIGHT - 100 - 26.5 - 44 - 30 - 38 - 44 - 27.5 - 20 - 43.5) / 2 - 56,
     flexDirection: 'column',
     alignItems: 'center'
   },
