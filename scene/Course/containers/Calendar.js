@@ -438,6 +438,7 @@ class Calendar extends React.Component {
           renderItem={this._renderItem}
           keyExtractor = {this._extraUniqueKey}
           sections={this.state.courseData}
+          style={styles.sectionList}
           ref={(ref) => { this.sectionListRef = ref; }}
         />}
       </ScrollView>
@@ -574,5 +575,8 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: {
     backgroundColor: $buttonDisabledBackgroundColor,
+  },
+  sectionList: {
+    paddingBottom: 50
   },
 });
