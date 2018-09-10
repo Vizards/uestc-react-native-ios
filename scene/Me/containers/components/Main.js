@@ -93,9 +93,10 @@ class Main extends React.Component {
   };
 
   _renderItem = (info) => {
+    console.log(info);
     if (info.section.key === 'tool') return (
       <TouchableOpacity
-        style={styles.card}
+        style={[styles.card, info.index === 0 && styles.firstCard, info.index === info.section.data.length - 1 && styles.lastCard]}
         onPress={async () => {if (info.item.page === 'announcement') {
           this.props.navigation.navigate('Office', {type: 'announcement'})
         } else if (info.item.page === 'query') {
@@ -108,7 +109,7 @@ class Main extends React.Component {
           sendCookies: false
         })}}
       >
-        <View style={styles.inner}>
+        <View style={[styles.inner, info.index === 0 && styles.firstInnerCard, info.index === info.section.data.length - 1 && styles.lastInnerCard]}>
           <View style={styles.left}>
             <Icon name={info.item.icon} size={24} color={info.item.color} style={styles.icon}/>
             <Text style={styles.text}>{info.item.name}</Text>
@@ -119,8 +120,8 @@ class Main extends React.Component {
     );
 
     if (info.section.key === 'account') return (
-      <TouchableOpacity 
-        style={styles.card}
+      <TouchableOpacity
+        style={[styles.card, info.index === 0 && styles.firstCard, info.index === info.section.data.length - 1 && styles.lastCard]}
         onPress={() => Alert.alert(
           info.item.data.title,
           info.item.data.detail,
@@ -146,7 +147,7 @@ class Main extends React.Component {
           ]
         )}
       >
-        <View style={styles.inner}>
+        <View style={[styles.inner, info.index === 0 && styles.firstInnerCard, info.index === info.section.data.length - 1 && styles.lastInnerCard]}>
           <View style={styles.left}>
             <Icon name={info.item.icon} size={24} color={info.item.color} style={styles.icon}/>
             <Text style={styles.text}>{info.item.name}</Text>
@@ -158,7 +159,7 @@ class Main extends React.Component {
 
     if (info.section.key === 'about') return (
       <TouchableOpacity
-        style={styles.card}
+        style={[styles.card, info.index === 0 && styles.firstCard, info.index === info.section.data.length - 1 && styles.lastCard]}
         onPress={() => {if (info.item.name === '关于') {
           this.props.navigation.navigate('About')
         } else if (info.item.name === '公告') {
@@ -169,7 +170,7 @@ class Main extends React.Component {
           })
         }}}
       >
-        <View style={styles.inner}>
+        <View style={[styles.inner, info.index === 0 && styles.firstInnerCard, info.index === info.section.data.length - 1 && styles.lastInnerCard]}>
           <View style={styles.left}>
             <Icon name={info.item.icon} size={24} color={info.item.color} style={styles.icon}/>
             <Text style={styles.text}>{info.item.name}</Text>
@@ -241,6 +242,14 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     height: 54,
   },
+  firstCard: {
+    borderTopWidth: 0.5,
+    borderTopColor: $borderColor,
+  },
+  lastCard: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: $borderColor,
+  },
   inner: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -248,6 +257,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderBottomColor: $borderColor,
     height: 54,
+  },
+  firstInnerCard: {
+    borderBottomWidth: 1,
+  },
+  lastInnerCard: {
+    borderBottomWidth: 0,
   },
   left: {
     flexDirection: 'row',

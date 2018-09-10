@@ -23,8 +23,8 @@ export default class Bill extends React.Component {
       befbala = info.item.befbala,
       aftbala = info.item.aftbala;
     return (
-      info.section.data.length !== 0 ? <View style={styles.card}>
-        <View style={styles.inner}>
+      info.section.data.length !== 0 ?  <View style={[styles.card, info.index === 0 && styles.firstCard, info.index === info.section.data.length - 1 && styles.lastCard]}>
+        <View style={[styles.inner, info.index === info.section.data.length - 1 && styles.lastInnerCard]}>
           <View style={styles.exam}>
             <Text style={styles.name}>{position}</Text>
             <View style={styles.info}>
@@ -202,6 +202,14 @@ const styles = StyleSheet.create({
     backgroundColor: $frontColor,
     paddingLeft: 15,
   },
+  firstCard: {
+    borderTopWidth: 0.5,
+    borderTopColor: $borderColor,
+  },
+  lastCard: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: $borderColor,
+  },
   inner: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -210,6 +218,9 @@ const styles = StyleSheet.create({
     borderBottomColor: $borderColor,
     paddingTop: 14,
     paddingBottom: 10,
+  },
+  lastInnerCard: {
+    borderBottomWidth: 0,
   },
   status: {
     paddingRight: 15,

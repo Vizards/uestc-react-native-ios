@@ -18,8 +18,8 @@ export default class AllGrade extends React.Component {
       name = info.item.name.length < 13 ? info.item.name : `${info.item.name.substr(0, 12)}...`,
       resit = info.item.resit === '' ? '--' : info.item.resit;
     return (
-      info.section.data[0].name !== '' ? <View style={styles.card}>
-        <View style={styles.inner}>
+      info.section.data[0].name !== '' ? <View style={[styles.card, info.index === 0 && styles.firstCard, info.index === info.section.data.length - 1 && styles.lastCard]}>
+        <View style={[styles.inner, info.index === info.section.data.length - 1 && styles.lastInnerCard]}>
           <View style={styles.exam}>
             <Text style={styles.name}>{name}</Text>
             <View style={styles.info}>
@@ -81,6 +81,7 @@ export default class AllGrade extends React.Component {
         renderSectionHeader={this._sectionComp}
         renderItem={this._renderItem}
         keyExtractor = {this._extraUniqueKey}
+        style={styles.sectionList}
         sections={this.state.allGradeData}
       />
     )
@@ -108,11 +109,22 @@ const styles = StyleSheet.create({
     backgroundColor: $frontColor,
     paddingLeft: 15,
   },
+  firstCard: {
+    borderTopWidth: 0.5,
+    borderTopColor: $borderColor,
+  },
+  lastCard: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: $borderColor,
+  },
   inner: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 0.5,
     borderBottomColor: $borderColor,
+  },
+  lastInnerCard: {
+    borderBottomWidth: 0,
   },
   status: {
     paddingRight: 15,
@@ -165,5 +177,8 @@ const styles = StyleSheet.create({
   },
   flunk: {
     color: $red,
-  }
+  },
+  sectionList: {
+    paddingBottom: 20
+  },
 });

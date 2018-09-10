@@ -9,8 +9,8 @@ export default class List extends React.Component {
 
   _renderItem = (info) => {
     return (
-      <View style={styles.wrapper}>
-        <View style={styles.inner}>
+      <View style={[styles.wrapper, info.index === 0 && styles.firstCard, info.index === info.section.data.length - 1 && styles.lastCard]}>
+        <View style={[styles.inner, info.index === info.section.data.length - 1 && styles.lastInnerCard]}>
           <View style={styles.top}>
             <Text style={styles.semester}>{info.item.year === 0 ? '总计' : `${info.item.year} 学年第 ${info.item.semester} 学期`}</Text>
             <View>
@@ -59,6 +59,14 @@ const styles = StyleSheet.create({
     backgroundColor: $listBackgroundColor,
     paddingLeft: 15,
   },
+  firstCard: {
+    borderTopWidth: 0.5,
+    borderTopColor: $borderColor,
+  },
+  lastCard: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: $borderColor,
+  },
   title: {
     paddingLeft: 15,
     paddingBottom: 7,
@@ -70,7 +78,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     borderBottomColor: $borderColor,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.5,
+  },
+  lastInnerCard: {
+    borderBottomWidth: 0,
   },
   top: {
     flexDirection: 'row',
