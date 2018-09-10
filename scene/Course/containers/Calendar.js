@@ -24,7 +24,7 @@ class Calendar extends React.Component {
       before: 0,
       minutes: '',
       noticeText: '开启推送通知',
-      startDate: '',
+      startDate: moment().format('YYYY-MM-DD'),
       buttonDisabled: false,
     };
   }
@@ -94,109 +94,126 @@ class Calendar extends React.Component {
     ];
     let idArray = [];
     await this.props.rootStore.LoadingStore.loading(true, '导入中');
-    await courseData.forEach(async item=> {
-      if (item.checked) {
-        const title = `【上课提醒】${item.courseName}`;
-        const location = `${item.room}(${item.teacher})`;
-        const before = this.state.before;
-        const startTime = item.time[0];
-        const endTime = item.time[item.time.length - 1];
-        // console.log('开始时间');
-        // console.log('比星期一多几天', Number(startTime[0]));
-        // console.log('时间：', timeArray[Number(startTime[1])][0]);
-        // console.log('结束时间');
-        // console.log('比星期一多几天：', Number(endTime[0]));
-        // console.log('时间：', timeArray[Number(endTime[1])][1]);
-        // console.log(this.state.startDate);
-        const oddWeek = item.date[0].includes('单'); // 是否单周
-        const evenWeek = item.date[0].includes('双'); // 是否双周
-        let occurrence, startDate, endDate, interval;
-        if (oddWeek) {
-          const startWeek = Number(item.date[0].match(/(\S*)-/)[1]); // 开始周数
-          const endWeek = Number(item.date[0].match(/-(\S*)单周/)[1]); // 结束周数
-          occurrence = endWeek - startWeek + 1;
-          interval = 2;
-          startDate = moment(`${this.state.startDate} ${timeArray[Number(startTime[1])][0]}`, 'YYYY-MM-DD HH-mm').add(Number(startTime[0]) + (startWeek - 1) * 7, 'days').toISOString();
-          endDate = moment(`${this.state.startDate} ${timeArray[Number(endTime[1])][1]}`, 'YYYY-MM-DD HH-mm').add(Number(endTime[0]) + (startWeek - 1) * 7, 'days').toISOString();
-        } else if (evenWeek) {
-          const startWeek = Number(item.date[0].match(/(\S*)-/)[1]); // 开始周数
-          const endWeek = Number(item.date[0].match(/-(\S*)双周/)[1]); // 结束周数
-          occurrence = endWeek - startWeek + 1;
-          interval = 2;
-          startDate = moment(`${this.state.startDate} ${timeArray[Number(startTime[1])][0]}`, 'YYYY-MM-DD HH-mm').add(Number(startTime[0]) + startWeek * 7, 'days').toISOString();
-          endDate = moment(`${this.state.startDate} ${timeArray[Number(endTime[1])][1]}`, 'YYYY-MM-DD HH-mm').add(Number(endTime[0]) + endWeek * 7, 'days').toISOString();
-        } else {
-          const startWeek = Number(item.date[0].match(/(\S*)-/)[1]); // 开始周数
-          const endWeek = Number(item.date[0].match(/-(\S*)周/)[1]); // 结束周数
-          occurrence = endWeek - startWeek + 1;
-          interval = 1;
-          startDate = moment(`${this.state.startDate} ${timeArray[Number(startTime[1])][0]}`, 'YYYY-MM-DD HH-mm').add(Number(startTime[0]) + + (startWeek - 1) * 7, 'days').toISOString();
-          endDate = moment(`${this.state.startDate} ${timeArray[Number(endTime[1])][1]}`, 'YYYY-MM-DD HH-mm').add(Number(endTime[0]) + + (startWeek - 1) * 7, 'days').toISOString();
-        }
+    // 这是一个 hack 方法，因为一次导入的数据量超过 4 就有可能导致闪退，所以数组分成 4 个一组，构建一个二维数组
+    const allData = [];
+    let currData = [];
+    for (let i = 0; i < courseData.length; i++) {
+      await currData.push(courseData[i]);
+      if ((i !== 0 && (i + 1) % 4 === 0) || i === courseData.length - 1) {
+        allData.push(currData);
+        currData = [];
+      }
+    }
+    // console.log(allData);
+    await allData.forEach(async currData => {
+      // 延迟写入，防止崩溃
+      setTimeout(() => {
+        currData.forEach(async item => {
+          if (item.checked) {
+            const title = `【上课提醒】${item.courseName}`;
+            const location = `${item.room}(${item.teacher})`;
+            const before = this.state.before;
+            const startTime = item.time[0];
+            const endTime = item.time[item.time.length - 1];
+            // console.log('开始时间');
+            // console.log('比星期一多几天', Number(startTime[0]));
+            // console.log('时间：', timeArray[Number(startTime[1])][0]);
+            // console.log('结束时间');
+            // console.log('比星期一多几天：', Number(endTime[0]));
+            // console.log('时间：', timeArray[Number(endTime[1])][1]);
+            // console.log(this.state.startDate);
+            const oddWeek = item.date[0].includes('单'); // 是否单周
+            const evenWeek = item.date[0].includes('双'); // 是否双周
+            let occurrence, startDate, endDate, interval;
+            if (oddWeek) {
+              const startWeek = Number(item.date[0].match(/(\S*)-/)[1]); // 开始周数
+              const endWeek = Number(item.date[0].match(/-(\S*)单周/)[1]); // 结束周数
+              occurrence = endWeek - startWeek + 1;
+              interval = 2;
+              startDate = moment(`${this.state.startDate} ${timeArray[Number(startTime[1])][0]}`, 'YYYY-MM-DD HH-mm').add(Number(startTime[0]) + (startWeek - 1) * 7, 'days').toISOString();
+              endDate = moment(`${this.state.startDate} ${timeArray[Number(endTime[1])][1]}`, 'YYYY-MM-DD HH-mm').add(Number(endTime[0]) + (startWeek - 1) * 7, 'days').toISOString();
+            } else if (evenWeek) {
+              const startWeek = Number(item.date[0].match(/(\S*)-/)[1]); // 开始周数
+              const endWeek = Number(item.date[0].match(/-(\S*)双周/)[1]); // 结束周数
+              occurrence = endWeek - startWeek + 1;
+              interval = 2;
+              startDate = moment(`${this.state.startDate} ${timeArray[Number(startTime[1])][0]}`, 'YYYY-MM-DD HH-mm').add(Number(startTime[0]) + startWeek * 7, 'days').toISOString();
+              endDate = moment(`${this.state.startDate} ${timeArray[Number(endTime[1])][1]}`, 'YYYY-MM-DD HH-mm').add(Number(endTime[0]) + endWeek * 7, 'days').toISOString();
+            } else {
+              const startWeek = Number(item.date[0].match(/(\S*)-/)[1]); // 开始周数
+              const endWeek = Number(item.date[0].match(/-(\S*)周/)[1]); // 结束周数
+              occurrence = endWeek - startWeek + 1;
+              interval = 1;
+              startDate = moment(`${this.state.startDate} ${timeArray[Number(startTime[1])][0]}`, 'YYYY-MM-DD HH-mm').add(Number(startTime[0]) + + (startWeek - 1) * 7, 'days').toISOString();
+              endDate = moment(`${this.state.startDate} ${timeArray[Number(endTime[1])][1]}`, 'YYYY-MM-DD HH-mm').add(Number(endTime[0]) + + (startWeek - 1) * 7, 'days').toISOString();
+            }
 
-        // console.log({
-        //   title,
-        //   location,
-        //   notes: '由应用UESTC创建',
-        //   needNotice: this.state.needNotice,
-        //   before,
-        //   occurrence,
-        //   interval,
-        //   startDate,
-        //   endDate,
-        // }); // 周数也即提醒次数
+            // console.log({
+            //   title,
+            //   location,
+            //   notes: '由应用UESTC创建',
+            //   needNotice: this.state.needNotice,
+            //   before,
+            //   occurrence,
+            //   interval,
+            //   startDate,
+            //   endDate,
+            // }); // 周数也即提醒次数
 
-        // RNCalendarEvents 的 bug，无法一次性写入所有配置
-        // 只能在回调里更新其他配置
-        // 还特么不能用 promise... 只能回调地狱
-        try {
-          RNCalendarEvents.saveEvent(title, {
-            startDate,
-            endDate,
-            notes: '由应用UESTC创建'
-          }, {
-            futureEvents: true,
-          }).then(id => {
-            RNCalendarEvents.saveEvent(title, {
-              id,
-              recurrenceRule: {
-                frequency: 'weekly',
-                occurrence,
-                interval,
-              },
-            }, {
-              futureEvents: true,
-            }).then(id => {
+            /** RNCalendarEvents 的 bug，无法一次性写入所有配置
+             * 只能在回调里更新其他配置
+             * 还特么不能用 promise... 只能回调地狱
+             */
+            try {
               RNCalendarEvents.saveEvent(title, {
-                id,
-                location,
+                startDate,
+                endDate,
+                notes: '由应用UESTC创建'
               }, {
                 futureEvents: true,
               }).then(id => {
                 RNCalendarEvents.saveEvent(title, {
                   id,
-                  alarms: this.state.needNotice ? [{
-                    date: before,
-                  }] : []
+                  recurrenceRule: {
+                    frequency: 'weekly',
+                    occurrence,
+                    interval,
+                  },
                 }, {
                   futureEvents: true,
-                }).then((id) => {
-                  idArray.push(id);
-                  console.log(idArray.length);
-                  console.log(courseData.filter(item => item.checked));
-                  if (idArray.length === courseData.filter(item => item.checked).length) {
-                    this.props.rootStore.LoadingStore.loading(false);
-                    this.props.rootStore.UserStore.toast('success', `🎉 成功导入${idArray.length}节课程！可在系统日历中查看`);
-                    this.props.rootStore.UserStore.clearToast();
-                  }
+                }).then(id => {
+                  RNCalendarEvents.saveEvent(title, {
+                    id,
+                    location,
+                  }, {
+                    futureEvents: true,
+                  }).then(id => {
+                    RNCalendarEvents.saveEvent(title, {
+                      id,
+                      alarms: this.state.needNotice ? [{
+                        date: before,
+                      }] : []
+                    }, {
+                      futureEvents: true,
+                    }).then((id) => {
+                      idArray.push(id);
+                      // console.log(idArray.length);
+                      // console.log(courseData.filter(item => item.checked));
+                      if (idArray.length === courseData.filter(item => item.checked).length) {
+                        this.props.rootStore.LoadingStore.loading(false);
+                        this.props.rootStore.UserStore.toast('success', `🎉 成功导入${idArray.length}节课程！可在系统日历中查看`);
+                        this.props.rootStore.UserStore.clearToast();
+                      }
+                    });
+                  })
                 });
-              })
-            });
-          });
-        } catch (err) {
-          await this.props.rootStore.UserStore.toast('error', '💊 导入过程出现错误，请稍后重试');
-        }
-      }
+              });
+            } catch (err) {
+              await this.props.rootStore.UserStore.toast('error', '💊 导入过程出现错误，请稍后重试');
+            }
+          }
+        });
+      }, 1000)
     });
   }
 
@@ -286,8 +303,8 @@ class Calendar extends React.Component {
 
   _renderItem = (info) => {
     return (
-      <View style={styles.options}>
-        <TouchableOpacity style={styles.option} onPress={async () => {
+      <View style={[styles.options, info.index === 0 && styles.firstCard, info.index === info.section.data.length - 1 && styles.lastCard]}>
+        <TouchableOpacity style={[styles.option, info.index === info.section.data.length - 1 && styles.lastInnerCard]} onPress={async () => {
           let courseData = this.state.courseData;
           courseData[0].data[info.index].checked = !courseData[0].data[info.index].checked;
           await this.sectionListRef.forceUpdate();
@@ -335,16 +352,15 @@ class Calendar extends React.Component {
     await this.checkPermission();
     await Alert.alert(
       '提醒',
-      '\n将会删除系统日历中的所有课程安排，是否继续？',
+      '\n将会删除系统日历中近2年的课程安排，是否继续？',
       [
         {text: '取消', style: 'cancel'},
         {text: '继续', style: 'warning', onPress: async () => {
-            // 时间跨度超过 5 年，就不能获取到了...
-            const startDate = moment().subtract(4, 'years').toISOString();
+            // 时间跨度超过 2 年，就不能获取到了...
+            const startDate = moment().subtract(1, 'years').toISOString();
             const endDate = moment().add(1, 'years').toISOString();
             const allEvents = await RNCalendarEvents.fetchAllEvents(startDate, endDate);
             await allEvents.forEach(async item => {
-              console.log(item);
               if (item.notes === '由应用UESTC创建') {
                 await RNCalendarEvents.removeEvent(item.id, {
                   futureEvents: true
@@ -399,6 +415,8 @@ class Calendar extends React.Component {
               alignItems: 'flex-start',
               marginLeft: 0,
               paddingLeft: 15,
+              borderTopWidth: 0.5,
+              borderTopColor: $borderColor,
               borderBottomWidth: 0.5,
               borderBottomColor: $borderColor,
               height: 44,
@@ -519,6 +537,8 @@ const styles = StyleSheet.create({
     color: $buttonBackgroundColor
   },
   switchOptions: {
+    borderTopWidth: 0.5,
+    borderTopColor: $borderColor,
     borderBottomWidth: 0.5,
     borderBottomColor: $borderColor,
     backgroundColor: $frontColor,
@@ -536,9 +556,16 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   options: {
+    paddingLeft: 15,
+    backgroundColor: $frontColor,
+  },
+  firstCard: {
+    borderTopWidth: 0.5,
+    borderTopColor: $borderColor,
+  },
+  lastCard: {
     borderBottomWidth: 0.5,
     borderBottomColor: $borderColor,
-    backgroundColor: $frontColor,
   },
   option: {
     display: 'flex',
@@ -546,7 +573,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     height: 44,
-    paddingLeft: 15,
+    borderBottomWidth: 0.5,
+    borderBottomColor: $borderColor,
+  },
+  lastInnerCard: {
+    borderBottomWidth: 0,
   },
   optionText: {
     fontSize: 17,

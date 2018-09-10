@@ -50,8 +50,8 @@ export default class Arrangement extends React.Component {
     const isStarted = examStartTime.isBefore(moment());
     const jetLag = examStartTime.fromNow();
     return (
-      <View style={styles.card}>
-        <View style={styles.inner}>
+      <View style={[styles.card, info.index === 0 && styles.firstCard, info.index === info.section.data.length - 1 && styles.lastCard]}>
+        <View style={[styles.inner, info.index === info.section.data.length - 1 && styles.lastInnerCard]}>
           <View style={styles.exam}>
             <Text style={[styles.name, isEnded && styles.outdated]}>{name}</Text>
             <View>
@@ -185,6 +185,7 @@ export default class Arrangement extends React.Component {
           renderSectionHeader={this._sectionComp}
           renderItem={this._renderItem}
           keyExtractor = {this._extraUniqueKey}
+          style={styles.sectionList}
           sections={this.state.examData}
         />}
       </ScrollView>
@@ -223,6 +224,8 @@ const styles = StyleSheet.create({
     backgroundColor: $frontColor,
     paddingLeft: 15,
     paddingRight: 15,
+    borderBottomWidth: 0.5,
+    borderBottomColor: $borderColor,
   },
   left: {
     fontSize: 17,
@@ -251,6 +254,14 @@ const styles = StyleSheet.create({
     backgroundColor: $frontColor,
     paddingLeft: 15,
   },
+  firstCard: {
+    borderTopWidth: 0.5,
+    borderTopColor: $borderColor,
+  },
+  lastCard: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: $borderColor,
+  },
   inner: {
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -258,6 +269,9 @@ const styles = StyleSheet.create({
     borderBottomColor: $borderColor,
     paddingTop: 13,
     paddingBottom: 14,
+  },
+  lastInnerCard: {
+    borderBottomWidth: 0,
   },
   exam: {
     flexDirection: 'row',
@@ -296,5 +310,8 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontSize: 13,
     color: $dateColor,
-  }
+  },
+  sectionList: {
+    paddingBottom: 20
+  },
 });
