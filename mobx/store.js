@@ -174,6 +174,31 @@ class UserStore {
     }
   }
 
+  // 学期平时成绩
+  @action
+  async usualGrade(year, semester, token) {
+    const Uri = `${config.domain}/api/user/usualGrade`;
+    const Header = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        year,
+        semester
+      })
+    };
+    try {
+      const response = await fetch(Uri, Header);
+      return await response.json();
+    } catch (err) {
+      await this.toast('error', '拉取平时成绩信息失败');
+      await this.clearToast();
+    }
+  }
+
   // 绩点统计
   @action
   async gpa(token) {

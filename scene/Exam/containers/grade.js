@@ -24,41 +24,74 @@ export default class Grade extends React.Component {
   }
 
   _renderItem = (info) => {
-    const type = info.item.type,
-      final = isNaN(Number(info.item.final)) ? info.item.final : Number(info.item.final),
-      credit = info.item.credit,
-      overall = info.item.overall,
-      name = info.item.name.length < 13 ? info.item.name : `${info.item.name.substr(0, 12)}...`,
-      resit = info.item.resit,
-      gpa = info.item.gpa;
-    return (
-      info.section.data[0].name !== '' ? <View style={[styles.card, info.index === 0 && styles.firstCard, info.index === info.section.data.length - 1 && styles.lastCard]}>
-        <View style={[styles.inner, info.index === info.section.data.length - 1 && styles.lastInnerCard]}>
-          <View style={styles.exam}>
-            <Text style={styles.name}>{name}</Text>
-            <View style={styles.info}>
-              <Text style={styles.infoTop}>{type}</Text>
-              <View style={styles.infoMiddle}>
-                <Text style={styles.infoText}>学分：{credit}</Text>
-                <Text style={styles.infoLast}>总评成绩：{overall}</Text>
-              </View>
-              <View style={styles.infoBottom}>
-                <Text style={styles.infoText}>补考总评：{resit}</Text>
-                <Text style={styles.infoText}>绩点：{gpa}</Text>
+    if (info.section.key === 0) {
+      const type = info.item.type,
+        final = isNaN(Number(info.item.final)) ? info.item.final : Number(info.item.final),
+        credit = info.item.credit,
+        overall = info.item.overall,
+        name = info.item.name.length < 13 ? info.item.name : `${info.item.name.substr(0, 12)}...`,
+        resit = info.item.resit,
+        gpa = info.item.gpa;
+      return (
+        info.section.data[0].name !== '' ? <View style={[styles.card, info.index === 0 && styles.firstCard, info.index === info.section.data.length - 1 && styles.lastCard]}>
+          <View style={[styles.inner, info.index === info.section.data.length - 1 && styles.lastInnerCard]}>
+            <View style={styles.exam}>
+              <Text style={styles.name}>{name}</Text>
+              <View style={styles.info}>
+                <Text style={styles.infoTop}>{type}</Text>
+                <View style={styles.infoMiddle}>
+                  <Text style={styles.infoText}>学分：{credit}</Text>
+                  <Text style={styles.infoLast}>总评成绩：{overall}</Text>
+                </View>
+                <View style={styles.infoBottom}>
+                  <Text style={styles.infoText}>补考总评：{resit}</Text>
+                  <Text style={styles.infoText}>绩点：{gpa}</Text>
+                </View>
               </View>
             </View>
+            <View style={styles.status}>
+              <Text style={[styles.date, (final < 60 || final === 'D') && styles.flunk]}>{final}</Text>
+              <Text style={styles.final}>最终</Text>
+            </View>
           </View>
-          <View style={styles.status}>
-            <Text style={[styles.date, (final < 60 || final === 'D') && styles.flunk]}>{final}</Text>
-            <Text style={styles.final}>最终</Text>
+        </View> : null
+      )
+    }
+
+    if (info.section.key === 1) {
+      const name = info.item.name.length < 13 ? info.item.name : `${info.item.name.substr(0, 12)}...`,
+        type = info.item.type,
+        credit = info.item.credit,
+        grade = info.item.grade;
+      return (
+        info.section.data.length !== 0 ? <View style={[styles.card, info.index === 0 && styles.firstCard, info.index === info.section.data.length - 1 && styles.lastCard]}>
+          <View style={[styles.inner, info.index === info.section.data.length - 1 && styles.lastInnerCard]}>
+            <View style={styles.exam}>
+              <Text style={styles.name}>{name}</Text>
+              <View style={styles.info}>
+                <Text style={styles.infoTop}>{type}</Text>
+                <View style={styles.infoBottom}>
+                  <Text style={styles.infoText}>学分：{credit}</Text>
+                </View>
+              </View>
+            </View>
+            <View style={styles.status}>
+              <Text style={[styles.date, (grade < 60 || grade === 'D') && styles.flunk]}>{grade}</Text>
+              <Text style={styles.final}>平时</Text>
+            </View>
           </View>
-        </View>
-      </View> : null
-    )
+        </View> : null
+      )
+    }
   };
 
   _sectionComp = (info) => {
-    if (info.section.data[0].name !== '') return <Text style={styles.title}>各学科成绩</Text>;
+    if (info.section.key === 0 && info.section.data[0].name !== '') {
+      return <Text style={styles.title}>最终成绩</Text>;
+    }
+    if (info.section.key === 1 && info.section.data.length !== 0) {
+      return <Text style={styles.title}>平时成绩</Text>;
+    }
   };
 
   _extraUniqueKey = (item ,index) => {
@@ -69,8 +102,8 @@ export default class Grade extends React.Component {
     return await this.props.rootStore.StorageStore.constructor.load('user');
   };
 
-  static async parseGradeData(gradeData) {
-    return [{ key: 0, data: gradeData }];
+  static async parseGradeData(gradeData, usualGradeData) {
+    return [{ key: 0, data: gradeData }, { key: 1, data: usualGradeData }];
   }
 
   async saveGradeData(data) {
@@ -79,14 +112,15 @@ export default class Grade extends React.Component {
 
   async updateGradeData(year, semester, token) {
     await this.props.rootStore.LoadingStore.loading(true, '同步中...');
-    const response = await this.props.rootStore.UserStore.grade(String(year), String(semester), token);
+    const gradeResponse = await this.props.rootStore.UserStore.grade(String(year), String(semester), token);
+    const usualGradeResponse = await this.props.rootStore.UserStore.usualGrade(String(year), String(semester), token);
     await this.props.rootStore.LoadingStore.loading(false);
-    if (response.code === 201) {
-      const parsedGradeData = await this.constructor.parseGradeData(response.data);
+    if (gradeResponse.code === 201 && usualGradeResponse.code === 201) {
+      const parsedGradeData = await this.constructor.parseGradeData(gradeResponse.data, usualGradeResponse.data);
       await this.saveGradeData({ parsedGradeData, year, semester });
       this.setState({
         gradeData: parsedGradeData,
-        isNull: parsedGradeData[0].data[0].name === '',
+        isNull: parsedGradeData[0].data[0].name === '' && parsedGradeData[1].data.length === 0,
         year,
         semester,
         selectedText: `${year} 学年第 ${semester} 学期`,
