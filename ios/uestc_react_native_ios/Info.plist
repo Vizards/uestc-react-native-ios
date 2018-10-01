@@ -81,6 +81,8 @@
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
 	<string>将课程表导入您的系统日历</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>读取照片来设置头像，设置完毕后您可以关闭授权</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>

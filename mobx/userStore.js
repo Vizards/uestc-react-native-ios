@@ -1,7 +1,7 @@
 const userStore =  {
   "responseJson": {},
   "toastMessage": null,
-  "xiFuBind": false,
+  "profile": {},
 };
 
 export default userStore;

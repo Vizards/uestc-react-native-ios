@@ -72,6 +72,7 @@ export default class Graph extends React.Component {
     });
     const response = await this.props.rootStore.UserStore.electricity(token);
     if (response.code === 201) {
+      await this.props.rootStore.StorageStore.save('roomId', response.data.room);
       await this.setState({
         electricity: response.data,
         electricityBalance: Number(response.data.amount),

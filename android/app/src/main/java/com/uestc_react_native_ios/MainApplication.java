@@ -3,6 +3,7 @@ package com.uestc_react_native_ios;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.calendarevents.CalendarEventsPackage;
 import com.psykar.cookiemanager.CookieManagerPackage;
 import com.bugsnag.BugsnagReactNative;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new PickerPackage(),
             new CalendarEventsPackage(),
             new CookieManagerPackage(),
             BugsnagReactNative.getPackage(),

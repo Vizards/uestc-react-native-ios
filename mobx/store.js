@@ -286,7 +286,7 @@ class UserStore {
   }
 
   // 电费
-  async electricity(token) {
+  async electricity(token, room) {
     const Uri = `${config.domain}/api/xifu/electricity`;
     const Header = {
       method: 'POST',
@@ -296,7 +296,7 @@ class UserStore {
         'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({
-        room: "",
+        room: room ? room : "",
       })
     };
     try {
@@ -348,6 +348,51 @@ class UserStore {
       return await response.json();
     } catch (err) {
       await this.toast('error', '删除失败');
+      await this.clearToast();
+    }
+  }
+
+  // 获取个人信息
+  @action
+  async profile(token) {
+    const Uri = `${config.domain}/api/user/profile`;
+    const Header = {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    };
+    try {
+      const response = await fetch(Uri, Header);
+      const json = await response.json();
+      this.allData.profile = json;
+      return json;
+    } catch (err) {
+      await this.toast('error', '获取个人信息失败');
+      await this.clearToast();
+    }
+  }
+
+  // 设置个人信息
+  @action
+  async setProfile(token, data) {
+    const Uri = `${config.domain}/api/user/profile`;
+    const Header = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(data)
+    };
+    try {
+      const response = await fetch(Uri, Header);
+      return await response.json();
+    } catch (err) {
+      await this.toast('error', '修改失败，请稍后重试');
       await this.clearToast();
     }
   }

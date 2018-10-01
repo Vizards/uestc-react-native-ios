@@ -93,7 +93,6 @@ class Main extends React.Component {
   };
 
   _renderItem = (info) => {
-    console.log(info);
     if (info.section.key === 'tool') return (
       <TouchableOpacity
         style={[styles.card, info.index === 0 && styles.firstCard, info.index === info.section.data.length - 1 && styles.lastCard]}
@@ -108,44 +107,6 @@ class Main extends React.Component {
           title: info.item.name,
           sendCookies: false
         })}}
-      >
-        <View style={[styles.inner, info.index === 0 && styles.firstInnerCard, info.index === info.section.data.length - 1 && styles.lastInnerCard]}>
-          <View style={styles.left}>
-            <Icon name={info.item.icon} size={24} color={info.item.color} style={styles.icon}/>
-            <Text style={styles.text}>{info.item.name}</Text>
-          </View>
-          <Icon style={styles.rightIcon} name="ios-arrow-forward" size={21}/>
-        </View>
-      </TouchableOpacity>
-    );
-
-    if (info.section.key === 'account') return (
-      <TouchableOpacity
-        style={[styles.card, info.index === 0 && styles.firstCard, info.index === info.section.data.length - 1 && styles.lastCard]}
-        onPress={() => Alert.alert(
-          info.item.data.title,
-          info.item.data.detail,
-          [
-            {text: '取消', style: 'cancel'},
-            {text: '确定', onPress: async () => {
-              if (info.item.data.type === 'delete') {
-                await this.props.navigation.navigate('Confirm');
-              } else {
-                await this.props.rootStore.StorageStore.constructor.remove('user');
-                await this.props.rootStore.StorageStore.constructor.remove('course');
-                await this.props.rootStore.StorageStore.constructor.remove('exam');
-                await this.props.rootStore.StorageStore.constructor.remove('grade');
-                await this.props.rootStore.StorageStore.constructor.remove('gpa');
-                await this.props.rootStore.StorageStore.constructor.remove('allGrade');
-                await this.props.rootStore.StorageStore.constructor.remove('xifu');
-                await this.props.rootStore.xiFuStore.setBind(false, '');
-                await this.props.rootStore.UserStore.toast('success', '🎉 已成功退出当前账号，请重新登录');
-                await this.props.rootStore.UserStore.clearToast();
-                await this.props.navigation.navigate('Login')
-              }
-            }},
-          ]
-        )}
       >
         <View style={[styles.inner, info.index === 0 && styles.firstInnerCard, info.index === info.section.data.length - 1 && styles.lastInnerCard]}>
           <View style={styles.left}>
@@ -206,12 +167,6 @@ class Main extends React.Component {
                 {name: '教务服务指南', url: `${config.domain}/api/extra/info`, icon: 'ios-compass', color: '#c5cfd4'},
                 {name: '快捷查询', page: 'query', icon: 'ios-information-circle', color: '#239ff4'},
                 {name: '图书馆', page: 'library', icon: 'ios-book', color: '#ff7a78'}
-              ]
-            }, {
-              key: 'account',
-              data: [
-                {name: '退出登录', data: { title: '确认退出吗？', detail: '\n退出后将清除您的缓存数据，并要求您重新登录', type: 'exit', }, icon: 'ios-exit', color: '#fdc600'},
-                {name: '删除账户', data: { title: '确认删除吗？', detail: '\n为保证为本人操作，此操作需要确认您的教务系统账户密码', type: 'delete' }, icon: 'ios-close-circle', color: 'rgb(217, 74, 74)'},
               ]
             }, {
               key: 'about',

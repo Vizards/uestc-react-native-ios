@@ -148,6 +148,7 @@ export default class Bill extends React.Component {
                 {text: '取消', style: 'cancel'},
                 {text: '确定', onPress: async () => {
                   await this.props.rootStore.StorageStore.constructor.remove('xifu');
+                  await this.props.rootStore.StorageStore.constructor.remove('roomId');
                   await this.props.rootStore.xiFuStore.setBind(false, '');
                   await this.props.navigation.push('XiFuLogin');
                 }},

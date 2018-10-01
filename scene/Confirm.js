@@ -50,6 +50,7 @@ class Confirm extends React.Component {
       await this.props.rootStore.StorageStore.constructor.remove('gpa');
       await this.props.rootStore.StorageStore.constructor.remove('allGrade');
       await this.props.rootStore.StorageStore.constructor.remove('xifu');
+      await this.props.rootStore.StorageStore.constructor.remove('roomId');
       await this.props.rootStore.xiFuStore.setBind(false, '');
       await this.props.rootStore.UserStore.toast('success', '🎉 注销成功！');
       await this.props.rootStore.UserStore.clearToast();

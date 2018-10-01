@@ -32,6 +32,7 @@
     "react-native-calendar-events": "^1.6.3",
     "react-native-cookies": "^3.3.0",
     "react-native-datepicker": "^1.7.2",
+    "react-native-image-crop-picker": "^0.21.2",
     "react-native-launch-image": "^1.0.3",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-shimmer-placeholder": "^1.0.25",

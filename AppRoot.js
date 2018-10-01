@@ -11,6 +11,8 @@ import About from './scene/About';
 import OpenSource from "./scene/OpenSource";
 import Office from "./scene/Office";
 import WebView from "./scene/WebView";
+import Profile from './scene/Profile';
+import ChangeRoom from './scene/ChangeRoom';
 import TabNavigator from "./Main";
 
 import { inject, observer } from 'mobx-react/native';
@@ -40,10 +42,16 @@ const App = StackNavigator(
       screen: OpenSource,
     },
     Office: {
-      screen: Office
+      screen: Office,
     },
     WebView: {
       screen: WebView,
+    },
+    Profile: {
+      screen: Profile,
+    },
+    ChangeRoom: {
+      screen: ChangeRoom,
     }
   },
   {
