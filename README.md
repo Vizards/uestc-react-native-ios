@@ -1,4 +1,4 @@
-<p align="center"><img src="https://o9sapbwjn.qnssl.com/2018-04-14-171713.png" alt="UESTC" width="125px"/></p>
+<p align="center"><img src="https://ipic.vizards.cc/2018-04-14-171713.png" alt="UESTC" width="125px"/></p>
 <h1 align="center">UESTC</h1>
 
 > App Store 搜索「UESTC」即刻安装
@@ -7,16 +7,16 @@
 
 
 
-[<img width="200" src="https://o9sapbwjn.qnssl.com/2018-04-10-app-store.png"/>](https://itunes.apple.com/cn/app/uestc/id1368462316)
+[<img width="200" src="https://ipic.vizards.cc/2018-04-10-app-store.png"/>](https://itunes.apple.com/cn/app/uestc/id1368462316)
 
-<img width="200" src="https://o9sapbwjn.qnssl.com/2018-04-11-2018_04_11_1711359759.png"/>
+<img width="200" src="https://ipic.vizards.cc/2018-04-11-2018_04_11_1711359759.png"/>
 
 - Android 客户端：[i成电 By Febers](http://app.febers.tech) 
 - Android 开源地址：[Febers/iUESTC - GitHub](https://github.com/Febers/iUESTC)
 
 ## 界面截图
 
-<img src="https://o9sapbwjn.qnssl.com/2018-04-11-IMG_2881.JPG" alt="启动页" width="30%">&nbsp;&nbsp;<img src="https://o9sapbwjn.qnssl.com/2018-04-11-IMG_2883.JPG" alt="登录" width="30%">&nbsp;&nbsp;<img src="https://o9sapbwjn.qnssl.com/2018-04-11-IMG_2882.JPG" alt="课程表" width="30%"><img src="https://o9sapbwjn.qnssl.com/2018-04-11-IMG_2885.JPG" alt="考试安排" width="30%">&nbsp;&nbsp;<img src="https://o9sapbwjn.qnssl.com/2018-04-11-IMG_2884.JPG" alt="学期成绩" width="30%">&nbsp;&nbsp;<img src="https://o9sapbwjn.qnssl.com/2018-04-11-IMG_2887.JPG" alt="成绩统计" width="30%"><img src="https://o9sapbwjn.qnssl.com/2018-04-11-IMG_2886.JPG" alt="一卡通电费" width="30%">&nbsp;&nbsp;<img src="https://o9sapbwjn.qnssl.com/2018-04-11-IMG_2888.JPG" alt="更多功能" width="30%">&nbsp;&nbsp;<img src="https://o9sapbwjn.qnssl.com/2018-04-11-IMG_2913.JPG" width="30%"><img src="https://o9sapbwjn.qnssl.com/2018-04-11-IMG_2914.JPG" alt="" width="30%">&nbsp;&nbsp;<img src="https://o9sapbwjn.qnssl.com/2018-04-11-IMG_2915.JPG" alt="" width="30%">&nbsp;&nbsp;<img src="https://o9sapbwjn.qnssl.com/2018-04-11-IMG_2916.JPG" alt="" width="30%">
+<img src="https://ipic.vizards.cc/2018-04-11-IMG_2881.JPG" alt="启动页" width="30%">&nbsp;&nbsp;<img src="https://ipic.vizards.cc/2018-04-11-IMG_2883.JPG" alt="登录" width="30%">&nbsp;&nbsp;<img src="https://ipic.vizards.cc/2018-04-11-IMG_2882.JPG" alt="课程表" width="30%"><img src="https://ipic.vizards.cc/2018-04-11-IMG_2885.JPG" alt="考试安排" width="30%">&nbsp;&nbsp;<img src="https://ipic.vizards.cc/2018-04-11-IMG_2884.JPG" alt="学期成绩" width="30%">&nbsp;&nbsp;<img src="https://ipic.vizards.cc/2018-04-11-IMG_2887.JPG" alt="成绩统计" width="30%"><img src="https://ipic.vizards.cc/2018-04-11-IMG_2886.JPG" alt="一卡通电费" width="30%">&nbsp;&nbsp;<img src="https://ipic.vizards.cc/2018-04-11-IMG_2888.JPG" alt="更多功能" width="30%">&nbsp;&nbsp;<img src="https://ipic.vizards.cc/2018-04-11-IMG_2913.JPG" width="30%"><img src="https://ipic.vizards.cc/2018-04-11-IMG_2914.JPG" alt="" width="30%">&nbsp;&nbsp;<img src="https://ipic.vizards.cc/2018-04-11-IMG_2915.JPG" alt="" width="30%">&nbsp;&nbsp;<img src="https://ipic.vizards.cc/2018-04-11-IMG_2916.JPG" alt="" width="30%">
 
 ## 功能列表
 
@@ -65,7 +65,7 @@ $ git clone && npm install
 2. 修改 `node_modules/react-native-web-echarts/index.js` 源码。第 30 行改为：
 
     ```
-    source={Platform.OS === 'android' && !__DEV__ ? { uri:'https://o9wj5x8i4.qnssl.com/tpl.html' } : { uri: 'https://o9wj5x8i4.qnssl.com/tpl.html' }}
+    source={Platform.OS === 'android' && !__DEV__ ? { uri:'https://qiniu.vizards.cc/tpl.html' } : { uri: 'https://qiniu.vizards.cc/tpl.html' }}
     ```
 
 
@@ -79,8 +79,20 @@ $ git clone && npm install
     
     - `#import RCTConvert.h` 改为 `#import <React/RCTConvert.h>`
 
+5. 配置依赖库 react-native-image-crop-picker
+
+    参考 [ivpusic/react-native-image-crop-picker - GitHub](https://github.com/ivpusic/react-native-image-crop-picker)
+
+    > 本项目没有采用推荐的 Cocoapods 方式安装此依赖库，请按照 `Manual` 指导的方式进行安装配置。
+
+6. 配置依赖库 jshare
+
+    参考 [jpush/jshare-react-native - GitHub](https://github.com/jpush/jshare-react-native)
+
+    > 请注意，此处需要您新建配置 `RCTJShareConfig.plist`，该文件应当位于 `/ios/RCTJShareConfig.plist` 同时需要拖入 XCode 以创建引用关系。
+
     
-4. 在模拟器运行
+7. 在模拟器运行
 
     ```
     $ react-native run-ios
@@ -125,7 +137,7 @@ $ git clone && npm install
      
      ```
      $ rm -rf node_modules && npm install
-     ```
+     ```  
 
 其他任何问题或开发交流，欢迎：
 
@@ -140,5 +152,8 @@ $ git clone && npm install
 - Apple Developer [蛋总](https://github.com/maxlxq) 帮助上架
 
 如您觉得此项目对您有帮助，或愿意协助改进，欢迎 Star 或 Fork
+
+
+
 
 
